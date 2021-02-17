@@ -1,0 +1,328 @@
+* {
+    box-sizing: border-box;
+}
+body, window {
+    margin: 0;
+    padding: 0;
+}
+body {
+    position: relative;
+    top: 0;
+    left: 0;
+    height: 100vh;
+    width: 100%;
+    overflow-y: scroll;
+}
+header {
+    padding: 1em;
+}
+.wrapper {
+    display: flex;
+    flex-direction: column;
+}
+h1, h2, h3, h4 {
+    margin: 0;
+}
+
+.main {
+    display: flex;
+    flex-wrap: wrap;
+    flex: 1;
+    justify-content: flex-start;
+    width: calc(20em + 700px);
+    margin: 0 auto;
+}
+
+.main header {
+    width: 100%;
+}
+
+.main div {
+    margin-bottom: 0.5em;
+}
+
+/** 設定 */
+.params {
+    width: 20em;
+    padding: 1em;
+}
+
+.birth-date-area {
+    display: flex;
+}
+
+.birth-date {
+    width: 6.5em;
+}
+
+
+.deg {
+    text-align: right;
+    width: 3.5em; 
+}
+.min {
+    text-align: right;
+    width: 3em;
+}
+
+.result {
+    padding: 1em;
+    max-width: calc(100% - 20em);
+}
+
+.result div {
+    margin-bottom: 0.5em;
+}
+
+.orb__input {
+    display: flex;
+    width: 100%;
+}
+
+.orb__input div {
+    margin-right: 1em;
+}
+
+.horoscope-area {
+    width: 700px;
+    text-align: center;
+}
+
+.horoscope {
+    width: 700px;
+    max-width: 100%;
+}
+
+#description {
+    position: absolute;
+    display: none;
+    border: 1px solid #000;
+    background-color: #fff;
+    padding: 0.2em;
+    white-space: nowrap;
+}
+
+.description__icon {
+    width: 1.5m;
+    height: 1.8em;
+    vertical-align: text-bottom;
+    margin-right: 0.2em;
+}
+
+.aspect-tables {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    width: fit-content;
+    margin: auto;
+}
+
+.aspect h3 {
+    text-align: center;
+}
+
+.aspect-table {
+    margin: 1em;
+    padding: 1em;
+}
+
+.aspect-table h4 {
+    text-align: center;
+}
+.aspect-table table {
+    border-collapse: collapse;
+}
+
+.aspect-table-body {
+    display: flex;
+    justify-content: center;
+}
+
+.table-caption-row {
+    writing-mode: vertical-rl;
+}
+
+.aspect-table td {
+    border: 1px solid #000;
+    width: 3em;
+    line-height: 1.2em;
+    min-width: 2em;
+    text-align: right;
+    cursor: default;
+}
+
+.aspect-table th {
+    text-align: right;
+    white-space: nowrap;
+    padding-right: 0.4em;
+}
+.outer-body-th {
+    min-height: 1em;
+    vertical-align: bottom;
+}
+.outer-body-th span {
+    writing-mode: vertical-rl;
+}
+#aspect-data {
+    position: absolute;
+    display: none;
+    border: 1px solid #000;
+    background-color: #fff;
+    white-space: nowrap;
+    padding: 0 0.3em;
+}
+
+.data-area {
+    display: flex;
+    justify-content: flex-start;
+}
+
+.body-table {
+    border-collapse: collapse;
+}
+.body-table td {
+    padding-right: 1em;
+    border-bottom: 1px solid #000;
+    text-align: left;
+    white-space: nowrap;
+}
+
+
+.body-table td:nth-child(2) {
+    text-align: right;
+}
+.body-table td:nth-child(4) {
+    text-align: right;
+}
+.body-table td:last-child {
+    padding-right: 0;
+}
+
+.body-table__icon {
+    height: 1em;
+    width: 1em;
+}
+
+.body-data {
+    display: flex;
+    flex-wrap: wrap;
+    width: 100%;
+    justify-content: center;
+    padding: 1em;
+    text-align: center;
+}
+
+.body-data div {
+    padding: 1em;
+}
+
+.house-data {
+    padding: 1em 0;
+}
+
+#house-list {
+    padding: 0;
+    width: fit-content;
+}
+#house-list li {
+    list-style-type: none;
+    border-bottom: 1px solid #000;
+}
+
+#house-list li span {
+    padding-right: 1em;
+}
+
+#house-list li span:nth-child(3) {
+    padding-right: 0;
+}
+
+.house_name {
+    display: inline-block;
+    width: 7em;
+}
+
+.house_sign  {
+    display: inline-block;
+    width: 4em;
+    text-align: right;
+}
+
+.house_time {
+    display: inline-block;
+    width: 4em;
+}
+
+footer {
+    text-align: center;
+    width: 80%;
+    margin: 0 auto;
+    margin-top: 4em;
+}
+
+.btn_magnify {
+    width: 4em;
+    background-color: #fff;
+    border: 2px solid gray;
+    border-radius: 1em;
+    color: gray;
+    font-weight: bold;
+}
+
+#magnify {
+    width: 700px;
+    text-align: center;
+}
+
+.btn_magnify:active {
+    outline: none;
+    background-color: #ddd;
+    color: white;
+}
+
+.btn_magnify:focus {
+    outline:none;
+}
+
+.btn_magnify:disabled {
+    opacity: 0.3;
+}
+
+/** オーブ */
+.major {
+    border: 2px solid blue;
+    padding: 0.5em;
+    border-radius: 0.5em;
+}
+
+.hard {
+    border: 2px solid red;
+    padding: 0.5em;
+    border-radius: 0.5em;
+}
+
+.soft {
+    border: 2px dashed red;
+    padding: 0.5em;
+    border-radius: 0.5em;
+}
+
+.bold {
+    font-weight: bold;
+}
+
+
+.draw-setting {
+    display:flex;
+    justify-content: flex-start;
+    flex-wrap: wrap;
+    width: 30em;
+}
+
+.draw-setting div {
+    margin: 0.5em 0.5em;
+}
+
+.draw-setting div:nth-child(1), .draw-setting div:nth-last-child() {
+    margin-left: 0;
+}

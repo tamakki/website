@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="ja">
+    <head>
+        <meta charset="utf-8">
+        <title>aspecttest</title>
+        <script src="./Aspect.js"></script>
+    </head>
+    <body>
+        <h1>Aspect test</h1>
+        <script>
+            let aspect_class = new Aspect();
+            aspect_class.targets = [
+                {"name": "水星", "angle": 60},
+                {"name": "金星", "angle": 0},
+                {"name": "火星", "angle": 150}
+            ];
+
+            let aspects = aspect_class.getAspects();
+            let json_string = "<pre>" + JSON.stringify(aspects, null, 4) + "</pre>";
+            document.write(json_string);
+        </script>
+    </body>
+</html>

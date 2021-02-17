@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="ja">
+    <head>
+        <meta charset="utf-8">
+        <title>SVGのテスト</title>
+        <style>
+            .natal_chart {
+                display:block;
+                width:80%;
+                max-width: 500px;
+                margin: auto;
+            }
+            .symbol{
+                font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif
+            }
+        </style>
+        <script src="./CalcAstroBase.js"></script>
+        <script src="./SvgBuilder.js"></script>
+    </head>
+    <body>
+        <h1>SVGのテスト</h1>
+        <svg class="natal_chart" id="natal_chart">
+            <image xlink:href="aries.svg" x="15" y="15"
+            height="30" width="30" transform="translate(-15 -15) rotate(30 30 30)"></image>
+        </svg>
+        <script>
+            // viewBOX設定
+            const VIEW_BOX_WIDTH = 510;
+            const VIEW_BOX_HEIGHT = 510;
+            const VIEW_BOX_LEFT = -1 * VIEW_BOX_WIDTH * 0.5;
+            const VIEW_BOX_TOP = -1 * VIEW_BOX_HEIGHT * 0.5;
+            // SVG本体
+            let svg = document.getElementById("natal_chart");
+            svg.setAttribute("viewBox", VIEW_BOX_LEFT + "," + VIEW_BOX_TOP + "," + VIEW_BOX_WIDTH + "," + VIEW_BOX_HEIGHT);
+
+            let sign = new GroupBuilder()
+            .setId('sign')
+            .rotate(10)
+            .build();
+            svg.append(sign);
+
+            const OUTER_CIRCLE_RADIUS = 250;
+            const INNER_CIRCLE_RADIUS = 220;
+            for(let i = 0; i < 12; i++){
+                let x = 0;
+                let y = 0;
+                let r = (OUTER_CIRCLE_RADIUS + INNER_CIRCLE_RADIUS) / 2;
+                let start = 360 / 12 * i;
+                let end = 360 / 12 * (i + 1);
+                let arc = new ArcBuilder(x,y,r,start,end).setStroke("#aaa").setStrokeWidth(OUTER_CIRCLE_RADIUS - INNER_CIRCLE_RADIUS).build();
+                sign.append(arc);
+            
+            }
+
+            // 外側の円
+            let outer_circle = new CircleBuilder()
+            .set('r', OUTER_CIRCLE_RADIUS)
+            .setFill("none")
+            .build();
+            sign.append(outer_circle);
+
+            // 内側の円
+            let inner_circle = new CircleBuilder()
+            .set('r', INNER_CIRCLE_RADIUS)
+            .build();
+            sign.append(inner_circle);
+
+            for(let i = 0; i < 12; i++){
+                let line = new RadialLineBuilder(360 / 12 * i, OUTER_CIRCLE_RADIUS, INNER_CIRCLE_RADIUS).build();
+                sign.append(line);
+            }
+
+            for(let i = 0; i < 12; i++){
+                let image = new RadialImageBuilder(CalcAstroBase.svg_sign_symbol[i], 180 - 360 / 12 * i - 15, (OUTER_CIRCLE_RADIUS + INNER_CIRCLE_RADIUS)/2, OUTER_CIRCLE_RADIUS - INNER_CIRCLE_RADIUS, (OUTER_CIRCLE_RADIUS - INNER_CIRCLE_RADIUS) * 0.8)
+                .build();
+                sign.append(image);
+            }
+
+            for(let i = 0; i < 12; i++){
+                let line = new RadialLineBuilder(360 / 12 * i, INNER_CIRCLE_RADIUS).build();
+                svg.append(line);
+            }
+
+            
+            let line = new RadialLineBuilder(0, INNER_CIRCLE_RADIUS, INNER_CIRCLE_RADIUS - 20, 10).build();
+                svg.append(line);
+
+            for(let i = 0; i < 12; i++){
+                let text = new RadialTextBuilder(180 - 360 / 12 * i - 15, INNER_CIRCLE_RADIUS/2, i + 1)
+                .set('class','symbol')
+                .build();
+                svg.append(text);
+            }
+
+            let aspect = new AspectLineBuilder(INNER_CIRCLE_RADIUS - 10, 15, 105).build();
+            svg.append(aspect);
+
+        </script>
+    </body>
+</html>

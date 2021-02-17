@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="ja">
+    <head>
+        <meta charset="utf-8">
+        <title>ホロスコープの書き方</title>
+        <style>
+            main {
+                counter-reset: counter-h2;
+            }
+            h2 {
+                counter-reset: counter-h3;
+            }
+            h2:before {
+                counter-increment: counter-h2;
+                content: counter(counter-h2) ".";
+            }
+            h3 {
+                counter-reset: counter-h4;
+            }
+            h3:before {
+                counter-increment: counter-h3;
+                content: counter(counter-h2) "." counter(counter-h3) " ";
+            }
+            h4 {
+                counter-reset: counter-h5;
+            }
+            h4:before {
+                counter-increment: counter-h4;
+                content: counter(counter-h2) "." counter(counter-h3) "." counter(counter-h4) " ";
+            }
+        </style>
+    </head>
+    <body>
+        <main>
+            <h1>ホロスコープの書き方</h1>
+            <section>
+                <h2>はじめに</h2>
+            </section>
+            <section>
+                <h2>ホロスコープとは</h2>
+                <section>
+                    <h3>ホロスコープで表すもの</h3>
+                </section>
+            </section>
+            <section>
+                <h2>宇宙で場所を表す</h2>
+                <section>
+                    <h3>赤道座標系</h3>
+                </section>
+                <section>
+                    <h3>黄道座標系</h3>
+                </section>
+                <section>
+                    <h3>恒星時（グリニッジ恒星時）</h3>
+                </section>
+                <section>
+                    <h3>地方恒星時</h3>
+                </section>
+            </section>
+            <section>
+                <h2>ハウスの分割</h2>
+                <section>
+                    <h3>プラシーダスハウス</h3>
+                </section>
+                <section>
+                    <h3>ソーラーハウス</h3>
+                    <section>
+                        <h4>ソーラーハウス</h4>
+                    </section>
+                    <section>
+                        <h4>ソーラーサインハウス</h4>
+                    </section>
+                </section>
+            </section>
+            <section>
+                <h2>星の位置を探す</h2>
+                <section>
+                    <h3>海上保安庁水路部の略算式</h3>
+                </section>
+                <section>
+                    <h3>軌道要素からのアプローチ</h3>
+                </section>
+                <section>
+                    <h3>NASAのデータを利用する</h3>
+                </section>
+            </section>
+        </main> 
+    </body>
+</html>

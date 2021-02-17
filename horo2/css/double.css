@@ -1,0 +1,243 @@
+* {
+    box-sizing: border-box;
+}
+body, window {
+    margin: 0;
+    padding: 0;
+}
+body {
+    position: relative;
+    top: 0;
+    left: 0;
+    height: 100vh;
+    width: 100%;
+    overflow-y: scroll;
+}
+header {
+    padding: 1em;
+}
+.wrapper {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+h1, h2, h3, h4 {
+    margin: 0;
+}
+
+.main {
+    display: flex;
+    flex-wrap: wrap;
+    flex: 1;
+    justify-content: flex-start;
+}
+
+.main div {
+    margin-bottom: 0.5em;
+}
+
+/** 設定 */
+.params {
+    width: 20em;
+    padding: 1em;
+}
+
+.birth-date-area {
+    display: flex;
+}
+
+.birth-date {
+    width: 6.5em;
+}
+
+
+.deg {
+    text-align: right;
+    width: 3.5em; 
+}
+.min {
+    text-align: right;
+    width: 3em;
+}
+
+.result {
+    padding: 1em;
+    max-width: calc(100% - 20em);
+}
+
+.result div {
+    margin-bottom: 0.5em;
+}
+
+.orb__input {
+    display: flex;
+    width: 100%;
+}
+
+.orb__input div {
+    margin-right: 1em;
+}
+
+.horoscope-area {
+    width: 700px;
+    text-align: center;
+}
+
+.horoscope {
+    width: 700px;
+    max-width: 100%;
+}
+
+#description {
+    position: absolute;
+    display: none;
+    border: 1px solid #000;
+    background-color: #fff;
+    padding: 0.2em;
+    white-space: nowrap;
+}
+
+.description__icon {
+    width: 1.5m;
+    height: 1.8em;
+    vertical-align: text-bottom;
+    margin-right: 0.2em;
+}
+
+.aspect-table {
+    max-width: 100%;
+    padding: 1em;
+}
+
+.aspect-table table {
+    font-size: 9pt;
+    border-collapse: collapse;
+}
+
+.aspect-table td {
+    border: 1px solid #000;
+    width: 2em;
+    min-width: 2em;
+    text-align: right;
+    cursor: default;
+}
+
+.aspect-table th {
+    text-align: left;
+    white-space: nowrap;
+}
+
+#aspect-data {
+    position: absolute;
+    display: none;
+    border: 1px solid #000;
+    background-color: #fff;
+    white-space: nowrap;
+    padding: 0 0.3em;
+}
+
+.data-area {
+    display: flex;
+    justify-content: flex-start;
+}
+
+#body-table {
+    border-collapse: collapse;
+}
+#body-table td {
+    padding-right: 1em;
+    border-bottom: 1px solid #000;
+}
+.body-table__icon {
+    height: 1em;
+    width: 1em;
+}
+
+.body-data {
+    padding: 1em;
+}
+
+.house-data {
+    padding: 1em;
+}
+
+#house-list {
+    padding: 0;
+    width: fit-content;
+}
+#house-list li {
+    list-style-type: none;
+    border-bottom: 1px solid #000;
+}
+
+#house-list li span {
+    padding-right: 1em;
+}
+
+.house_name {
+    display: inline-block;
+    width: 7em;
+}
+
+.house_sign  {
+    display: inline-block;
+    width: 4em;
+}
+
+.house_time {
+    display: inline-block;
+    width: 4em;
+}
+
+footer {
+    text-align: center;
+    width: 80%;
+    margin: 0 auto;
+}
+
+.btn_magnify {
+    width: 4em;
+    background-color: #fff;
+    border: 2px solid gray;
+    border-radius: 1em;
+    color: gray;
+    font-weight: bold;
+}
+
+#magnify {
+    width: 700px;
+    text-align: center;
+}
+
+.btn_magnify:active {
+    outline: none;
+    background-color: #ddd;
+    color: white;
+}
+
+.btn_magnify:focus {
+    outline:none;
+}
+
+.btn_magnify:disabled {
+    opacity: 0.3;
+}
+
+/** オーブ */
+.major {
+    border: 2px solid blue;
+    padding: 0.5em;
+    border-radius: 0.5em;
+}
+
+.hard {
+    border: 2px solid red;
+    padding: 0.5em;
+    border-radius: 0.5em;
+}
+
+.soft {
+    border: 2px dashed red;
+    padding: 0.5em;
+    border-radius: 0.5em;
+}
