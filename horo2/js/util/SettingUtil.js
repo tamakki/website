@@ -551,4 +551,9 @@ SettingUtil.body_list = {
         'tag': 'other',
         'svg': '../svg/icarus.svg'
     },
+    'icarus': {
+        'name': 'マーリン',
+        'tag': 'other',
+        'svg': '../svg/merlin.svg'
+    },
 }
