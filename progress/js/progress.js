@@ -825,7 +825,7 @@ function makeBodyList() {
             $('<td>').appendTo(tr);
         }
         if(setting['disp-sabian']) {
-            $('<td class="sabian">').text(SabianUtil.getSabianString (bodies[key].longitude)).appendTo(tr);
+            $('<td class="sabian">').text(SabianUtil.getSabianString (bodies2[key].longitude)).appendTo(tr);
         }
     }
     
