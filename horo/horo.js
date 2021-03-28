@@ -1,4 +1,5 @@
 let caluclator;
+let timer;
 function calcHoro() {
     let input_date = document.getElementById("birthday").value;
     let input_time = document.getElementById("birthtime").value;
@@ -62,16 +63,6 @@ function calcHoro() {
     document.getElementById("chart").append(natal_chart);
 
     calculator = null;
-
-    if(document.getElementById("flag").checked){
-        setTimeout(function(){
-            let now = new Date(document.getElementById("birthday").value);
-            let time = document.getElementById("birthtime").value.split(":");
-            now = new Date(now.getFullYear(), now.getMonth(), now.getDate() + 1);
-            document.getElementById("birthday").value = now.getFullYear() + "-" + ("0" + (now.getMonth() + 1)).slice(-2) + "-" + ("0" + now.getDate()).slice(-2) ;
-            calcHoro();
-        }, 1);
-    }
 }
 
 function getForecast() {
@@ -113,4 +104,69 @@ function getForecast() {
 
 function init(){
     calcHoro();
+}
+
+/**
+ * 逆再生
+ */
+function reverse() {
+    document.getElementById("btn_play").disabled = true;
+    document.getElementById("btn_advance").disabled = true;
+    document.getElementById("btn_back").disabled = true;
+    document.getElementById("btn_reverse").disabled = true;
+    var play_duration = parseInt(document.getElementById("play_duration").value);
+    timer = setInterval(back, play_duration);
+}
+
+/**
+ * 一コマ戻る
+ */
+ function back() {
+    let play_diff = parseInt(document.getElementById("play_diff").value);
+    let now = new Date(document.getElementById("birthday").value);
+    let time = document.getElementById("birthtime").value.split(":");
+    now.setHours(time[0]);
+    now.setMinutes(time[1]);
+    now = new Date(now.getTime() - play_diff);
+    document.getElementById("birthday").value = now.getFullYear() + "-" + ("0" + (now.getMonth() + 1)).slice(-2) + "-" + ("0" + now.getDate()).slice(-2) ;
+    document.getElementById("birthtime").value= ('0' + now.getHours()).slice(-2) + ':' + ("0" + now.getMinutes()).slice(-2);
+    calcHoro();
+}
+
+/**
+ * 停止
+ */
+function stop(){
+    document.getElementById("btn_play").disabled = false;
+    document.getElementById("btn_advance").disabled = false;
+    document.getElementById("btn_back").disabled = false;
+    document.getElementById("btn_reverse").disabled = false;
+    clearInterval(timer);
+}
+
+/**
+ * 一コマ進む
+ */
+function advance() {
+    let play_diff = parseInt(document.getElementById("play_diff").value);
+    let now = new Date(document.getElementById("birthday").value);
+    let time = document.getElementById("birthtime").value.split(":");
+    now.setHours(time[0]);
+    now.setMinutes(time[1]);
+    now = new Date(now.getTime() + play_diff);
+    document.getElementById("birthday").value = now.getFullYear() + "-" + ("0" + (now.getMonth() + 1)).slice(-2) + "-" + ("0" + now.getDate()).slice(-2) ;
+    document.getElementById("birthtime").value= ('0' + now.getHours()).slice(-2) + ':' + ("0" + now.getMinutes()).slice(-2);
+    calcHoro();
+}
+
+/**
+ * 再生
+ */
+function play() {
+    document.getElementById("btn_play").disabled = true;
+    document.getElementById("btn_advance").disabled = true;
+    document.getElementById("btn_back").disabled = true;
+    document.getElementById("btn_reverse").disabled = true;
+    var play_duration = parseInt(document.getElementById("play_duration").value);
+    timer = setInterval(advance, play_duration);
 }
