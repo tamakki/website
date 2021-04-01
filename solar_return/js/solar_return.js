@@ -220,8 +220,8 @@ function calc() {
                 draw();
             } catch(ex) {
                 alert('描画中にエラーが発生しました。\n');
-                console.log(ex.message);
                 $.LoadingOverlay('hide');
+                console.log(ex.stack);
             }
         }).fail(function(res) {
             alert('天体位置の計算でエラーが発生しました。');
