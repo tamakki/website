@@ -220,6 +220,7 @@ function calc() {
                 draw();
             } catch(ex) {
                 alert('描画中にエラーが発生しました。\n');
+                console.log(ex);
                 $.LoadingOverlay('hide');
             }
         }).fail(function(res) {
