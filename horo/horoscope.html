@@ -50,6 +50,9 @@
             display: flex;
             justify-content: flex-start;
         }
+        #latitude, #longitude{
+            width: 7.5em;
+        }
         .input_area__group {
             margin: 0 2em;
             width: fit-content;
@@ -213,7 +216,7 @@
                 <h2>誕生地</h2>
                 北緯: <input type="number" id="latitude" max="90" min="-90" step="0.001" value="35"><br>
                 東経: <input type="number" id="longitude" size="20" max="180" min="-180" step="0.001" value="135"><br>
-                都道府県から選ぶ:<span id="prefecture"></span>
+                都道府県: <span id="prefecture"></span>
             </div>
         </div>
         <div class="input_area">
