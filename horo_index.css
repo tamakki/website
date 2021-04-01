@@ -23,6 +23,16 @@ a {
     background-color: #fff;
 }
 
+@media (orientation: portrait) and (max-width: 760pt) {
+    h1 {
+        font-size: 5vw;
+    }
+    a {
+        font-size: 4vw;
+        border-width: 4px;
+    }
+}
+
 a:hover {
     color: #fff;
     background-color: #66f;
