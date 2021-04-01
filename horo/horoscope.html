@@ -28,6 +28,24 @@
             justify-content: center;
         }
 
+        @media (orientation: portrait) {
+            input, select, button {
+                font-size: 1em;
+            }
+        }
+        .calc_button_area {
+            text-align: center;
+        }
+            .btn_calc {
+                width: 10em;
+                margin: 1em;
+            }
+        @media (orientation: portrait){
+            .btn_calc {
+                width: 50vw;
+                margin: 1em;
+            }
+        }
         .input_area {
             display: flex;
             justify-content: flex-start;
@@ -182,8 +200,8 @@
 <body class="main" onload="init()">
     <main>
         <head>
-            <h1>ホロスコープ描くよ</h1>
-            <a href="../horo_index.html">戻る</a>
+            <h1>シンプルなホロスコープ</h1>
+            <a href="../horo_index.html" class="btn_return">戻る</a>
         </head>
         <div class="input_area">
             <div class="input_area__group">
@@ -228,7 +246,6 @@
                     <option value="-11">-11時間</option>
                     <option value="-12">-12時間</option>
                 </select>
-                <button onclick="calcHoro()">計算</button><br>
                 <!-- <label><input type="checkbox" id="flag"> ← チェックしないこと</label> -->
             </div>
             <div class="input_area__group">
@@ -244,6 +261,9 @@
                     </select>
                 </div>
             </div>
+        </div>
+        <div class="calc_button_area">
+            <button class="btn_calc" onclick="calcHoro()">計算</button><br>
         </div>
         <div class="control">
             <h3>コマ送り</h3>
