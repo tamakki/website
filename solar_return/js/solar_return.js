@@ -219,7 +219,7 @@ function calc() {
             try {
                 draw();
             } catch(ex) {
-                alert(ex.message + '\n');
+                alert('描画中にエラーが発生しました。\n');
                 console.log(ex);
                 $.LoadingOverlay('hide');
             }
