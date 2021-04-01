@@ -5,12 +5,18 @@
     <meta charset="UTF-8">
     <title>ホロスコープ</title>
     <style>
+        @media (orientation: portrait){
+            body {
+                font-size: 3.1vw;
+                margin: 1em;
+            }
+        }
         h2 {
-            font-size: 12pt;
+            font-size: 1.1em;
             margin-bottom: 0.5em;
         }
         h3 {
-            font-size: 12pt;
+            font-size: 1.1em;
             margin-bottom: 0.5em;
         }
         div {
@@ -61,6 +67,14 @@
             vertical-align: middle;
         }
 
+        @media (orientation: portrait) {
+            .chart {
+                width: 90vw;
+                height: 90vw;
+                max-width:100%;
+                max-height: unset;
+            }
+        }
         .chart svg{
             display:block;
             width:100%;
@@ -90,6 +104,11 @@
         .symbol {
             font-size: 0.8em;
         }
+        @media (orientation: portrait) {
+            .symbol {
+                font-size: 0.6em;
+            }
+        }
 
         .layout_table td{
             padding: 0 0.5em;
@@ -105,8 +124,14 @@
             width: 2em;
             min-width: 2em;
         }
+        
         .aspect_table {
-            font-size: 9pt;
+            font-size: 0.8em;
+        }
+        @media (orientation: portrait) {
+            .aspect_table {
+                font-size: 0.6em;
+            }
         }
         .aspect_table td, .aspect_table th{
             border: 1px solid #000;
@@ -142,7 +167,7 @@
             align-items: center;
         }
         .control__button {
-            font-size: 11pt;
+            font-size: 1em;
             margin: 0.2em 0.2em;
             height: 2em;
             width: 3em;
