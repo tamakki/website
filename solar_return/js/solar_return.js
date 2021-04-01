@@ -259,17 +259,20 @@ function validate(setting) {
 
 /** ホロスコープおよび各表を描画する */
 function draw() {
+    console.log("start draw");
     if(bodies) {
         const setting = SettingUtil.getSetting();
         // 描画を削除
         $('#horoscope').empty();
 
         // ソーラーリターン日時
+        console.log("getTargetDate");
         var target_date = new Date(setting['target-date']);
         var solar_return = GetFullDateString(target_date);
         $('#target-date').text(solar_return);
 
         // ハウスを取得
+        console.log("getHouse");
         const caspdata = getHouse(setting);
         casps = caspdata;
         localStorage.setItem('casps', JSON.stringify(casps));
@@ -282,6 +285,7 @@ function draw() {
         }
 
         // アスペクトを取得
+        console.log("getAspect");
         const aspect_calculator = new AspectCalculator();
         const elements = [];
         if(setting['house-system'] !== 'solar-sign' && setting['house-system'] !== 'solar'){
@@ -302,6 +306,7 @@ function draw() {
         
 
         // viewBOX設定
+        console.log("viewBox");
         const VIEW_BOX_WIDTH = 800;
         const VIEW_BOX_HEIGHT = 800;
         const OUTER_CIRCLE_RADIUS = 390;
@@ -310,6 +315,7 @@ function draw() {
         const VIEW_BOX_TOP = -1 * VIEW_BOX_HEIGHT * 0.5;
     
         // SVG本体
+        console.log("start draw SVG");
         let svg = document.createElementNS('http://www.w3.org/2000/svg','svg');
         svg.setAttribute("viewBox", VIEW_BOX_LEFT + "," + VIEW_BOX_TOP + "," + VIEW_BOX_WIDTH + "," + VIEW_BOX_HEIGHT);
         svg.setAttribute("xmlns:xlink", "http://www.w3.org/1999/xlink");
@@ -318,12 +324,14 @@ function draw() {
     
         // サイン
         // カスプ情報を取得
+        console.log("getCasps");
         let sign = new GroupBuilder()
         .setId('sign')
         .build();
         svg.append(sign);
     
         // サインの色
+        console.log("getSignColor");
         for(let i = 0; i < 12; i++){
             let x = 0;
             let y = 0;
@@ -335,6 +343,7 @@ function draw() {
         }
 
         // カスプ
+        console.log("draw casps");
         let house = setting['house-system'] ;
         caspdata.casps.forEach(function(casp){
             let width = 1.0
@@ -352,6 +361,7 @@ function draw() {
         });
 
         // ASCの矢印
+        console.log("draw asc");
         if(house === 'placidus' || house === 'regiomontanus' || house === 'koch') {
             const deg1 = base - caspdata.casps[9].angle;
             const deg2 = deg1 + 1;
@@ -368,6 +378,7 @@ function draw() {
         }
 
         // MCの矢印
+        console.log("draw mc");
         if(house === 'placidus' || house === 'regiomontanus' || house === 'koch') {
             const deg1 = 180;
             const deg2 = deg1 + 1;
@@ -384,6 +395,7 @@ function draw() {
         }
 
         // 外側の円
+        console.log("draw outer cycle");
         let outer_circle = new CircleBuilder()
         .set('r', OUTER_CIRCLE_RADIUS)
         .setFill("none")
@@ -391,6 +403,7 @@ function draw() {
         sign.append(outer_circle);
     
         // 内側の円
+        console.log("draw inner cycle");
         let inner_circle1 = new CircleBuilder()
         .set('r', INNER_CIRCLE_RADIUS)
         .setFill("none")
@@ -398,6 +411,7 @@ function draw() {
         sign.append(inner_circle1);
     
         // 星座の区切り
+        console.log("draw sign border");
         for(let i = 0; i < 12; i++) {
             let start = INNER_CIRCLE_RADIUS;
             let end = OUTER_CIRCLE_RADIUS;
@@ -406,6 +420,7 @@ function draw() {
         }
         
         // 星座アイコン
+        console.log("draw sign");
         for(let i = 0; i < 12; i++){
             let image = new RadialImageBuilder(
                 CalcAstroBase.svg_sign_symbol[i], 
@@ -417,6 +432,7 @@ function draw() {
             sign.append(image);
         }
         // 星座の守護星アイコン
+        console.log("draw gardian");
         for(let i = 0; i < 12; i++){
             let image = new RadialImageBuilder(
                 CalcAstroBase.svg_gardian_symbol[i], 
@@ -432,6 +448,7 @@ function draw() {
         }
     
         // カスプ
+        console.log("draw casps");
         if(setting['house-system']  === "campanus") {
             let color = "#aaa";
             let width = 0.5
@@ -450,6 +467,7 @@ function draw() {
         }
 
         // 天体
+        console.log("draw body");
         const wPlanets = 18 * magnify;
         const gapPlanets = wPlanets + 8;
         const inner_gap = wPlanets / 4;
@@ -558,6 +576,7 @@ function draw() {
         }
     
         // アスペクト
+        console.log("draw aspect");
         aspects.forEach(function(elm){
             elm.value.forEach(function(data){
                 if(data.aspect.display){
@@ -575,6 +594,7 @@ function draw() {
         });
 
         // アスペクトの円
+        console.log("draw aspect circle");
         let aspect_circle = new CircleBuilder()
         .set('r',
         Math.max(INNER_CIRCLE_RADIUS - (layouted.length + 1) * gapPlanets, 10))
@@ -584,6 +604,7 @@ function draw() {
         $('#horoscope').append(svg);
 
         // アスペクトテーブルを作る
+        console.log("draw aspect table");
         $('#aspect-table').empty();
         $('#aspect-table').append(getAspectTable(aspects));
 
