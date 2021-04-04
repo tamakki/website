@@ -7,6 +7,7 @@ $(function() {
     makeMinor7();
     makeUranian();
     makeMusa();
+    makeMoira();
     makeOther();
     initValue();
     $(document).on('change', '.body', changeValue);
@@ -39,6 +40,11 @@ function makeMinor7() {
 /** ウラニアンのチェックボックスを作る */
 function makeUranian() {
     makeInputArea('ウラニアン', 'uranian');
+}
+
+/** 運命の三女神モイライのチェックボックスを作る */
+function makeMoira() {
+    makeInputArea('運命の三女神', 'moira')
 }
 
 /** ムーサ9柱のチェックボックスを作る */

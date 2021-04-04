@@ -510,6 +510,28 @@ SettingUtil.body_list = {
         'tag': 'musa',
         'svg': '../svg/urania.svg'
     },
+    // モイラ
+    'moira': {
+        'name': 'モイラ',
+        'tag': 'moira',
+        'svg': '../svg/moira.svg'
+    },
+    'klotho': {
+        'name': 'クロト',
+        'tag': 'moira',
+        'svg': '../svg/klotho.svg'
+    },
+    'lachesis': {
+        'name': 'ラケシス',
+        'tag': 'moira',
+        'svg': '../svg/lachesis.svg'
+    },
+    'atropos': {
+        'name': 'アトロポス',
+        'tag': 'moira',
+        'svg': '../svg/atropos.svg'
+    },
+
     // その他
     'quaoar': {
         'name': 'クアオアー',
