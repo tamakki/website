@@ -332,5 +332,5 @@ CalcAstroBase.getAngleBetween = function(angle1, angle2){
     let cosTheta = (x1*x2 + y1*y2) / (Math.sqrt(x1*x1 + y1*y1) * Math.sqrt(x2*x2 + y2*y2));
     let dtheta = Math.acos(cosTheta) * 180 / Math.PI;
 
-    return dtheta % 180;
+    return dtheta == 180? 180 : dtheta % 180;
 }
