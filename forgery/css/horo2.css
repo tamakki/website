@@ -15,7 +15,22 @@ body {
 }
 header {
     padding: 1em;
+    margin: auto;
 }
+
+.setting {
+    display: flex;
+    flex-direction: row;
+}
+.setting > div {
+    margin: 1em 1em;
+}
+
+.btn_calc {
+    margin: auto;
+    width: 8em;
+}
+
 .wrapper {
     display: flex;
     flex-direction: column;

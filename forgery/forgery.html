@@ -24,160 +24,162 @@
 
 <body>
     <article class="wrapper">
+        <header>
+            <h1>ホロスコープ捏造機</h1>
+            <a href="../horo_index.html">戻る</a>
+            <section id="setting" class="setting">
+                <div>
+                    <h2>天体の設定</h2>
+                    <div id="body-setting">
+
+                    </div>
+                    <button onclick="addBodyItem()">追加</button>
+                </div>
+                <div>
+                    <h2>ハウスの設定</h2>
+                    <div class="house-setting">
+                        <div class="house-group-1">
+                            <table>
+                                <tr>
+                                    <td>
+                                        第1カスプ（ASC）
+                                    </td>
+                                    <td></td>
+                                    <td>
+                                        <select id="casp1-sign" onchange="changeCaspSetting()">
+                                            <option value="0">牡羊座</option>
+                                            <option value="30">牡牛座</option>
+                                            <option value="60">双子座</option>
+                                            <option value="90">蟹　座</option>
+                                            <option value="120">獅子座</option>
+                                            <option value="150">乙女座</option>
+                                            <option value="180">天秤座</option>
+                                            <option value="210">蠍　座</option>
+                                            <option value="240">射手座</option>
+                                            <option value="270">山羊座</option>
+                                            <option value="300">水瓶座</option>
+                                            <option value="330">魚　座</option>
+                                        </select> <input type="number" inputmode="numeric" min="0" max="30" value="0"
+                                            id="casp1-deg" onchange="changeCaspSetting()">°
+                                        <input type="number" inputmode="numeric" min="0" max="59" value="0"
+                                            id="casp1-min" onchange="changeCaspSetting()">’
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        第2カプス
+                                    </td>
+                                    <td>
+                                        第1＋<input type="number" inputmode="numeric" min="0" max="180" value="30"
+                                            id="casp2-deg" onchange="changeCaspSetting()">°
+                                        <input type="number" inputmode="numeric" min="0" max="59" value="0"
+                                            id="casp2-min" onchange="changeCaspSetting()">’
+                                    </td>
+                                    <td><input type="text" id="casp2-value" disabled></td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        第3カスプ
+                                    </td>
+                                    <td>
+                                        第1＋<input type="number" inputmode="numeric" min="0" max="180" value="60"
+                                            id="casp3-deg" onchange="changeCaspSetting()">°
+                                        <input type="number" inputmode="numeric" min="0" max="59" value="0"
+                                            id="casp3-min" onchange="changeCaspSetting()">’
+                                    </td>
+                                    <td><input type="text" id="casp3-value" disabled></td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        第4カスプ
+                                    </td>
+                                    <td></td>
+                                    <td><input type="text" id="casp4-value" disabled></td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        第5カスプ
+                                    </td>
+                                    <td></td>
+                                    <td><input type="text" id="casp5-value" disabled></td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        第6カスプ
+                                    </td>
+                                    <td></td>
+                                    <td><input type="text" id="casp6-value" disabled></td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        第7カスプ
+                                    </td>
+                                    <td></td>
+                                    <td><input type="text" id="casp7-value" disabled></td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        第8カスプ
+                                    </td>
+                                    <td></td>
+                                    <td><input type="text" id="casp8-value" disabled></td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        第9カスプ
+                                    </td>
+                                    <td></td>
+                                    <td><input type="text" id="casp9-value" disabled></td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        第10カスプ（MC)
+                                    </td>
+                                    <td>
+                                        第1-<input type="number" inputmode="numeric" min="0" max="180" value="90"
+                                            id="casp10-deg" onchange="changeCaspSetting()">°
+                                        <input type="number" inputmode="numeric" min="0" max="59" value="0"
+                                            id="casp10-min" onchange="changeCaspSetting()">’
+                                    </td>
+                                    <td><input type="text" id="casp10-value" disabled></td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        第11カスプ
+                                    </td>
+                                    <td>
+                                        第1-<input type="number" inputmode="numeric" min="0" max="180" value="60"
+                                            id="casp11-deg" onchange="changeCaspSetting()">°
+                                        <input type="number" inputmode="numeric" min="0" max="59" value="0"
+                                            id="casp11-min" onchange="changeCaspSetting()">’
+                                    </td>
+                                    <td><input type="text" id="casp11-value" disabled></td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        第12カスプ
+                                    </td>
+                                    <td>
+                                        第1-<input type="number" inputmode="numeric" min="0" max="180" value="30"
+                                            id="casp12-deg" onchange="changeCaspSetting()">°
+                                        <input type="number" inputmode="numeric" min="0" max="59" value="0"
+                                            id="casp12-min" onchange="changeCaspSetting()">’
+                                    </td>
+                                    <td><input type="text" id="casp12-value" disabled></td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <div style="text-align: center;">
+                <button onclick="calc()" class="btn_calc">計算</button>
+            </div>
+            <br>
+            <br>
+            <h2>計算結果</h2>
+        </header>
         <main class="main">
-            <header>
-                <h1>ホロスコープ捏造機</h1>
-                <a href="../horo_index.html">戻る</a>
-                <section id="setting" class="setting">
-                    <div>
-                        <h2>天体の設定</h2>
-                        <div id="body-setting">
-                            
-                        </div>
-                        <button onclick="addBodyItem()">追加</button>
-                    </div>
-                    <div>
-                        <h2>ハウスの設定</h2>
-                        <div class="house-setting">
-                            <div class="house-group-1">
-                                <table>
-                                    <tr>
-                                        <td>
-                                            第1カスプ（ASC）
-                                        </td>
-                                        <td></td>
-                                        <td>
-                                            <select id="casp1-sign" onchange="changeCaspSetting()">
-                                                <option value="0">牡羊座</option>
-                                                <option value="30">牡牛座</option>
-                                                <option value="60">双子座</option>
-                                                <option value="90">蟹　座</option>
-                                                <option value="120">獅子座</option>
-                                                <option value="150">乙女座</option>
-                                                <option value="180">天秤座</option>
-                                                <option value="210">蠍　座</option>
-                                                <option value="240">射手座</option>
-                                                <option value="270">山羊座</option>
-                                                <option value="300">水瓶座</option>
-                                                <option value="330">魚　座</option>
-                                            </select> <input type="number" inputmode="numeric" min="0" max="30" value="0"
-                                                id="casp1-deg" onchange="changeCaspSetting()">°
-                                            <input type="number" inputmode="numeric" min="0" max="59" value="0"
-                                                id="casp1-min" onchange="changeCaspSetting()">’
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            第2カプス
-                                        </td>
-                                        <td>
-                                            第1＋<input type="number" inputmode="numeric" min="0" max="180" value="30"
-                                                id="casp2-deg" onchange="changeCaspSetting()">°
-                                            <input type="number" inputmode="numeric" min="0" max="59" value="0"
-                                                id="casp2-min" onchange="changeCaspSetting()">’
-                                        </td>
-                                        <td><input type="text" id="casp2-value" disabled></td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            第3カスプ
-                                        </td>
-                                        <td>
-                                            第1＋<input type="number" inputmode="numeric" min="0" max="180" value="60"
-                                                id="casp3-deg" onchange="changeCaspSetting()">°
-                                            <input type="number" inputmode="numeric" min="0" max="59" value="0"
-                                                id="casp3-min" onchange="changeCaspSetting()">’
-                                        </td>
-                                        <td><input type="text" id="casp3-value" disabled></td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            第4カスプ
-                                        </td>
-                                        <td></td>
-                                        <td><input type="text" id="casp4-value" disabled></td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            第5カスプ
-                                        </td>
-                                        <td></td>
-                                        <td><input type="text" id="casp5-value" disabled></td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            第6カスプ
-                                        </td>
-                                        <td></td>
-                                        <td><input type="text" id="casp6-value" disabled></td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            第7カスプ
-                                        </td>
-                                        <td></td>
-                                        <td><input type="text" id="casp7-value" disabled></td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            第8カスプ
-                                        </td>
-                                        <td></td>
-                                        <td><input type="text" id="casp8-value" disabled></td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            第9カスプ
-                                        </td>
-                                        <td></td>
-                                        <td><input type="text" id="casp9-value" disabled></td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            第10カスプ（MC)
-                                        </td>
-                                        <td>
-                                            第1-<input type="number" inputmode="numeric" min="0" max="180" value="90"
-                                                id="casp10-deg" onchange="changeCaspSetting()">°
-                                            <input type="number" inputmode="numeric" min="0" max="59" value="0"
-                                                id="casp10-min" onchange="changeCaspSetting()">’
-                                        </td>
-                                        <td><input type="text" id="casp10-value" disabled></td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            第11カスプ
-                                        </td>
-                                        <td>
-                                            第1-<input type="number" inputmode="numeric" min="0" max="180" value="60"
-                                                id="casp11-deg" onchange="changeCaspSetting()">°
-                                            <input type="number" inputmode="numeric" min="0" max="59" value="0"
-                                                id="casp11-min" onchange="changeCaspSetting()">’
-                                        </td>
-                                        <td><input type="text" id="casp11-value" disabled></td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            第12カスプ
-                                        </td>
-                                        <td>
-                                            第1-<input type="number" inputmode="numeric" min="0" max="180" value="30"
-                                                id="casp12-deg" onchange="changeCaspSetting()">°
-                                            <input type="number" inputmode="numeric" min="0" max="59" value="0"
-                                                id="casp12-min" onchange="changeCaspSetting()">’
-                                        </td>
-                                        <td><input type="text" id="casp12-value" disabled></td>
-                                    </tr>
-                                </table>
-                            </div>
-                        </div>
-                    </div>
-                    <button onclick="calc()">計算</button>
-                </section>
-                <br>
-                <br>
-                <h2>計算結果</h2>
-            </header>
             <section id="params" class="params">
                 <div id="house-data" class="house-data">
                     <h3>ハウス</h3>
