@@ -1093,6 +1093,7 @@ function getBodyData(div) {
 
 function deleteBodyItem() {
     $(event.target).parent().remove();
+    calc();
 }
 
 function addBodyItem() {
