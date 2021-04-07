@@ -26,6 +26,13 @@ header {
     margin: 1em 1em;
 }
 
+.body-setting__body {
+    width: 8em;
+}
+.body-setting__item {
+    white-space: normal;
+}
+
 .btn_calc {
     margin: auto;
     width: 8em;

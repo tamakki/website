@@ -1028,7 +1028,7 @@ function initBodySetting() {
 
 function getBodySettingItem(body, sign) {
     var div = $('<div class="body-setting__item">');
-    $('<button onclick="deleteBodyItem()">').text('削除').appendTo(div);
+    $('<button onclick="deleteBodyItem()">').text(' - ').appendTo(div);
     div.append(getBodySelect(body));
     div.append(getSignSelect(sign));
     $('<input type="number" inputmode="numeric" min="0" max="29" class="body-setting__deg" value="0" onchange="calc()">').appendTo(div);
