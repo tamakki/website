@@ -303,3 +303,7 @@ footer {
 .draw-setting div:nth-child(1), .draw-setting div:nth-last-child() {
     margin-left: 0;
 }
+
+.outer-circle {
+    margin-left: 1em;
+}

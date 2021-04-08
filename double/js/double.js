@@ -1110,3 +1110,165 @@ const prefecture_list = [
     {"name":"鹿児島県","latitude":31.56028,"longitude":130.55806},
     {"name":"沖縄県","latitude":26.2125,"longitude":127.68111},
 ];
+
+/**
+ * 外側の円の年を1足して再計算
+ */
+function addYear() {
+    var birthDate2 = $('#birth-date2').val();
+    var data = birthDate2.split('/');
+    var year = parseInt(data[0]) + 1;
+    var month = parseInt(data[1]) - 1;
+    var date = parseInt(data[2]);
+    var newDate = new Date(year, month, date);
+    var newDateString = SettingUtil.formatDate(newDate);
+    $('#birth-date2').datepicker('setDate', newDateString);
+    changeSetting();
+    calc();
+}
+
+/**
+ * 外側の円の年を1引いて再計算
+ */
+function redYear() {
+    var birthDate2 = $('#birth-date2').val();
+    var data = birthDate2.split('/');
+    var year = parseInt(data[0]) - 1;
+    var month = parseInt(data[1]) - 1;
+    var date = parseInt(data[2]);
+    var newDate = new Date(year, month, date);
+    var newDateString = SettingUtil.formatDate(newDate);
+    $('#birth-date2').datepicker('setDate', newDateString);
+    changeSetting();
+    calc();
+}
+
+/**
+ * 外側の円の月を1足して再計算
+ */
+function addMonth() {
+    var birthDate2 = $('#birth-date2').val();
+    var data = birthDate2.split('/');
+    var year = parseInt(data[0]);
+    var month = parseInt(data[1]);
+    var date = parseInt(data[2]);
+    var newDate = new Date(year, month, date);
+    var newDateString = SettingUtil.formatDate(newDate);
+    $('#birth-date2').datepicker('setDate', newDateString);
+    changeSetting();
+    calc();
+}
+
+/**
+ * 外側の円の月を1引いて再計算
+ */
+function redMonth() {
+    var birthDate2 = $('#birth-date2').val();
+    var data = birthDate2.split('/');
+    var year = parseInt(data[0]);
+    var month = parseInt(data[1]) - 2;
+    var date = parseInt(data[2]);
+    var newDate = new Date(year, month, date);
+    var newDateString = SettingUtil.formatDate(newDate);
+    $('#birth-date2').datepicker('setDate', newDateString);
+    changeSetting();
+    calc();
+}
+
+/**
+ * 外側の円の日を1足して再計算
+ */
+function addDate() {
+    var birthDate2 = $('#birth-date2').val();
+    var data = birthDate2.split('/');
+    var year = parseInt(data[0]);
+    var month = parseInt(data[1]) - 1;
+    var date = parseInt(data[2]) + 1;
+    var newDate = new Date(year, month, date);
+    var newDateString = SettingUtil.formatDate(newDate);
+    $('#birth-date2').datepicker('setDate', newDateString);
+    changeSetting();
+    calc();
+}
+
+/**
+ * 外側の円の日を1引いて再計算
+ */
+function redDate() {
+    var birthDate2 = $('#birth-date2').val();
+    var data = birthDate2.split('/');
+    var year = parseInt(data[0]);
+    var month = parseInt(data[1]) - 1;
+    var date = parseInt(data[2]) - 1;
+    var newDate = new Date(year, month, date);
+    var newDateString = SettingUtil.formatDate(newDate);
+    $('#birth-date2').datepicker('setDate', newDateString);
+    changeSetting();
+    calc();
+}
+
+/**
+ * 外側の円の週を1足して再計算
+ */
+function addWeek() {
+    var birthDate2 = $('#birth-date2').val();
+    var data = birthDate2.split('/');
+    var year = parseInt(data[0]);
+    var month = parseInt(data[1]) - 1;
+    var date = parseInt(data[2]) + 7;
+    var newDate = new Date(year, month, date);
+    var newDateString = SettingUtil.formatDate(newDate);
+    $('#birth-date2').datepicker('setDate', newDateString);
+    changeSetting();
+    calc();
+}
+
+/**
+ * 外側の円の週を1引いて再計算
+ */
+function redWeek() {
+    var birthDate2 = $('#birth-date2').val();
+    var data = birthDate2.split('/');
+    var year = parseInt(data[0]);
+    var month = parseInt(data[1]) - 1;
+    var date = parseInt(data[2]) - 7;
+    var newDate = new Date(year, month, date);
+    var newDateString = SettingUtil.formatDate(newDate);
+    $('#birth-date2').datepicker('setDate', newDateString);
+    changeSetting();
+    calc();
+}
+/**
+ * 外側の円の時を1足して再計算
+ */
+function addHour() {
+    var birthDate2 = $('#birth-date2').val();
+    var data = birthDate2.split('/');
+    var year = parseInt(data[0]);
+    var month = parseInt(data[1]) - 1;
+    var date = parseInt(data[2]);
+    var hour = parseInt($('#birth-hour2').val()) + 1;
+    var newDate = new Date(year, month, date, hour);
+    var newDateString = SettingUtil.formatDate(newDate);
+    $('#birth-date2').datepicker('setDate', newDateString);
+    $('#birth-hour2').val(newDate.getHours());
+    changeSetting();
+    calc();
+}
+/**
+ * 外側の円の時を1引いて再計算
+ */
+function redHour() {
+    var birthDate2 = $('#birth-date2').val();
+    var data = birthDate2.split('/');
+    var year = parseInt(data[0]);
+    var month = parseInt(data[1]) - 1;
+    var date = parseInt(data[2]);
+    var hour = parseInt($('#birth-hour2').val()) - 1;
+    var newDate = new Date(year, month, date, hour);
+    var newDateString = SettingUtil.formatDate(newDate);
+    $('#birth-date2').datepicker('setDate', newDateString);
+    $('#birth-hour2').val(newDate.getHours());
+    changeSetting();
+    calc();
+}
