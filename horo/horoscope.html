@@ -202,7 +202,7 @@
             vertical-align: middle;
         }
     </style>
-    <script src="horo.js?ver=20210328"></script>
+    <script src="horo.js?ver=2021519"></script>
     <script src="HoroscopeCalculator.js?ver=20201213_5"></script>
 </head>
 
@@ -216,7 +216,8 @@
             <div class="input_area__group">
                 <h2>誕生日時</h2>
                 <input type="date" id="birthday"><br>
-                <input type="time" id="birthtime">
+                <input type="time" id="birthtime"><br>
+                <button onclick="setNow()">現在日時</button>
                 <h2>時差</h2>
                 <select id="time_diff">
                     <option value="12">+12時間</option>

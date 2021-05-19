@@ -979,6 +979,17 @@ function hideGardian() {
     $('.body').css('opacity', 1);
 }
 
+/**
+ * 内側の円の設定を現在日時に変更する
+ */
+ function setNow() {
+    var now = new Date();
+    var date = now.getFullYear() + "/" + ("0" + (now.getMonth() + 1)).slice(-2) + "/" + ("0" + now.getDate()).slice(-2);
+    $('#birth-date').datepicker('setDate', date);
+    $('#birth-hour').val(now.getHours());
+    $('#birth-min').val(now.getMinutes());
+}
+
 /** 県リスト */
 const prefecture_list = [
     {"name":"北海道","latitude":43.06417,"longitude":141.34694},

@@ -36,7 +36,8 @@
                             <h3>誕生日時</h3>
                             <input id="birth-date" class="birth-date" placeholder="誕生日" readonly><br>
                             <select id="birth-hour" class="birth-hour"></select>:
-                            <select id="birth-min" class="birth-min"></select>
+                            <select id="birth-min" class="birth-min"></select><br>
+                            <button onclick="setNow1()">現在日時</button>
                         </div>
                         <div class="birth-place">
                             <h3>誕生地</h3>
@@ -59,7 +60,8 @@
                             <h3>対象日時</h3>
                             <input id="target-date" class="birth-date" placeholder="誕生日" readonly><br>
                             <select id="target-hour" class="birth-hour"></select>:
-                            <select id="target-min" class="birth-min"></select>
+                            <select id="target-min" class="birth-min"></select><br>
+                            <button onclick="setNow2()">現在日時</button>
                         </div>
                         <div class="time-diff">
                             <h4>時差</h4>
@@ -162,7 +164,7 @@
         <div id="description"></div>
         <div id="aspect-data"></div>
     </article>
-    <script src="./js/npt.js?ver=1.1.4"></script>
+    <script src="./js/npt.js?ver=1.1.5"></script>
 </body>
 
 </html>

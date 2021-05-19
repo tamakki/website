@@ -1272,3 +1272,25 @@ function redHour() {
     changeSetting();
     calc();
 }
+
+/**
+ * 内側の円の設定を現在日時に変更する
+ */
+function setNow1() {
+    var now = new Date();
+    var date = now.getFullYear() + "/" + ("0" + (now.getMonth() + 1)).slice(-2) + "/" + ("0" + now.getDate()).slice(-2);
+    $('#birth-date').datepicker('setDate', date);
+    $('#birth-hour').val(now.getHours());
+    $('#birth-min').val(now.getMinutes());
+}
+
+/**
+ * 外側の円の設定を現在日時に変更する
+ */
+function setNow2() {
+    var now = new Date();
+    var date = now.getFullYear() + "/" + ("0" + (now.getMonth() + 1)).slice(-2) + "/" + ("0" + now.getDate()).slice(-2);
+    $('#birth-date2').datepicker('setDate', date);
+    $('#birth-hour2').val(now.getHours());
+    $('#birth-min2').val(now.getMinutes());
+}
