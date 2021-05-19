@@ -1287,6 +1287,7 @@ function setNow1() {
     $('#birth-date').datepicker('setDate', date);
     $('#birth-hour').val(now.getHours());
     $('#birth-min').val(now.getMinutes());
+    changeSetting();
 }
 
 /**
@@ -1298,6 +1299,7 @@ function setNow2() {
     $('#target-date').datepicker('setDate', date);
     $('#target-hour').val(now.getHours());
     $('#target-min').val(now.getMinutes());
+    changeSetting();
 }
 
 /** 県リスト */

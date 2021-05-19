@@ -988,6 +988,7 @@ function hideGardian() {
     $('#birth-date').datepicker('setDate', date);
     $('#birth-hour').val(now.getHours());
     $('#birth-min').val(now.getMinutes());
+    changeSetting();
 }
 
 /** 県リスト */
