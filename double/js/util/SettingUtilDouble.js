@@ -423,6 +423,11 @@ SettingUtil.body_list = {
         'tag': 'centaur',
         'svg': '../svg/tantalus.svg'
     },
+    'nessus': {
+        'name': 'ネッスス',
+        'tag': 'centaur',
+        'svg': '../svg/nessus.svg'
+    },
     // マイナー小惑星7天体
     'varuna': {
         'name': 'ヴァルナ',
