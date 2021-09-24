@@ -182,15 +182,17 @@ function calc() {
     const setting = SettingUtil.getSetting();
     const targets = setting.targets;
     targets.push('sun');
+    targets.push('moon')
     if(validate(setting)) {
         $.LoadingOverlay('show');
         $.ajax({
             url: 'https://acidic-chill-bat.glitch.me/api/horo',
-            //url: 'http://localhost:3000/api/horo',
+            // url: 'http://localhost:52094/api/horo',
             type: 'post',
             data: {
                 date: setting.getBirthDate(),
-                bodies: targets
+                bodies: targets,
+                geo: {longitude: setting.getLongitude(), latitude: setting.getLatitude()}
             }
         }).done(function(res) {
             bodies = res;
@@ -240,7 +242,48 @@ function draw() {
     if(bodies) {
         const setting = SettingUtil.getSetting();
         // 描画を削除
-        $('#horoscope').empty();
+        $('#horoscope').empty();   
+
+        // ハウスを取得
+        const caspdata = getHouse(setting);
+        casps = caspdata;
+        localStorage.setItem('casps', JSON.stringify(casps));
+        // カスプ情報を取得
+        let base = (caspdata.casps[0].angle + 180) % 360;
+        let ASC;
+        let MC;
+        if(setting['house-system'] === "campanus") {
+            base = (caspdata.ASC.angle + 180) % 360;
+            ASC = caspdata.ASC.angle;
+            MC = caspdata.MC.angle;
+        }
+
+        // パートオブフォーチュンはここで計算
+        if(Object.keys(bodies).indexOf('part of fortune') != -1) {
+          bodies['part of fortune'] = {}
+            var sun = bodies['sun'].longitude;
+            var asc = casps.ASC.angle;
+            if(sun < asc) {
+              sun += 360;
+            }
+            // 昼生まれ
+            if ((sun - asc) > 180) {
+                var longitude =
+                casps.ASC.angle + bodies['moon'].longitude - bodies['sun'].longitude;
+                if(longitude < 0) longitude += 360;
+                longitude %= 360;
+                bodies['part of fortune'].longitude = longitude;
+            }
+            // 夜生まれ
+            else {
+                var longitude =
+                casps.ASC.angle + bodies['sun'].longitude - bodies['moon'].longitude;
+                if(longitude < 0) longitude += 360;
+                longitude %= 360;
+                bodies['part of fortune'].longitude = longitude;
+            }
+        }
+        console.log(bodies);
 
         // アスペクトを取得
         const aspect_calculator = new AspectCalculator();
@@ -253,10 +296,6 @@ function draw() {
         aspect_calculator.setTargets(elements);
         aspects = aspect_calculator.getAspects();
         
-        // ハウスを取得
-        const caspdata = getHouse(setting);
-        casps = caspdata;
-        localStorage.setItem('casps', JSON.stringify(casps));
 
         // viewBOX設定
         const VIEW_BOX_WIDTH = 800;
@@ -272,17 +311,7 @@ function draw() {
         svg.setAttribute("xmlns:xlink", "http://www.w3.org/1999/xlink");
         svg.setAttribute("xmlns", "http://www.w3.org/2000/svg");
         svg.setAttribute('class', 'horoscope');
-    
-        // サイン
-        // カスプ情報を取得
-        let base = (caspdata.casps[0].angle + 180) % 360;
-        let ASC;
-        let MC;
-        if(setting['house-system'] === "campanus") {
-            base = (caspdata.ASC.angle + 180) % 360;
-            ASC = caspdata.ASC.angle;
-            MC = caspdata.MC.angle;
-        }
+
         let sign = new GroupBuilder()
         .setId('sign')
         .build();

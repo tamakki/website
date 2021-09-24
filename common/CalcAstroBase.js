@@ -334,3 +334,79 @@ CalcAstroBase.getAngleBetween = function(angle1, angle2){
 
     return dtheta == 180? 180 : dtheta % 180;
 }
+
+/**
+ * バーテックスを求める
+ * @param {Number} longitude 東経[deg]
+ * @param {Number} latitude 北緯[deg]
+ * @param {Date} local_date 時間
+ * @param {Number} time_diff 時差[h]
+ * @returns {Number} degree 
+ */
+CalcAstroBase.getVertex = function(longitude, latitude, local_date, time_diff) {
+    // 検索初期経度 = 出生地の経度 - 90°
+    let lonNow = longitude - 90;
+    // 接線の計算用
+    let dl = 1 / 1000;
+
+    // 1000回回してみる
+    for(var i = 0; i < 1000; i++) {
+        // 赤道座標系を求める
+        let latNow = latitude * Math.cos((lonNow - longitude) * Math.PI / 180);
+        let dLatNow = latitude * Math.cos((lonNow + dl - longitude) * Math.PI / 180);
+        let Eq = this.ConvertHorizontalToEquatorial(lonNow, latNow, local_date, time_diff);
+        let dEq = this.ConvertHorizontalToEquatorial(lonNow + dl, dLatNow, local_date, time_diff);
+
+        let Ec = this.ConvertEquatorialToEcliptic(Eq.longitude, Eq.latitude, local_date, time_diff);
+        let dEc = this.ConvertEquatorialToEcliptic(dEq.longitude, dEq.latitude, local_date, time_diff);
+
+        if(Math.abs(Ec.latitude) < 0.01) {
+            return Ec.longitude;
+        } else {
+            lonNow -= Ec.latitude / (dEc.latitude - Ec.latitude) * dl;
+        }
+    }
+
+    alert("no result");
+}
+
+/**
+ * 地平座標系から赤道座標系を求める
+ * @param {Number} longitude 東経[deg]
+ * @param {Number} latitude 北緯[deg]
+ * @param {Date} local_date 出生時間
+ * @param {Number} time_diff 時差
+ * @returns {longitude: Number, latitude: Number} 赤道座標
+ */
+CalcAstroBase.ConvertHorizontalToEquatorial = function(longitude, latitude, local_date, time_diff) {
+    // グリニッジ恒星時[deg]を求める
+    let UT = this.getGlobalTime(local_date, time_diff);
+    let JD = this.getJulianDay(UT);
+    let TJD = this.getTJD(JD);
+    let GST = this.getGreenwichSiderealTime(TJD);
+
+    // 地方恒星時[deg]
+    let LST = GST + longitude;
+    return {longitude: LST, latitude: latitude};
+}
+
+/**
+ * 赤道座標系を黄道座標系に変換する
+ * @param {Number} longitude 赤経[deg]
+ * @param {Number} latitude 赤緯[deg]
+ * @returns {longitude: Number, latitude: Munber} 黄道座標[deg, deg]
+ */
+CalcAstroBase.ConvertEquatorialToEcliptic = function(longitude, latitude, local_date, time_diff) {
+    let UT = this.getGlobalTime(local_date, time_diff);
+    // 赤緯[rad] δ
+    let d = latitude * Math.PI / 180;
+    // 赤経[rad] α
+    let a = longitude * Math.PI / 180;
+    // 黄道傾斜角[rad]
+    let e = this.geteclipticInclinationAngle(UT) * Math.PI / 180;
+    // 黄経λ
+    let l = Math.atan2(Math.sin(d) * Math.sin(e) + Math.cos(d) * Math.sin(a) * Math.cos(e) , Math.cos(d) * Math.cos(a));
+    // 黄緯β
+    let b = Math.asin(Math.sin(d) * Math.cos(e) - Math.cos(d) * Math.sin(a) * Math.sin(e));
+    return {longitude: l * 180 / Math.PI, latitude: b * 180 / Math.PI};
+}
