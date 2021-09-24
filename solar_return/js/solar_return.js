@@ -211,7 +211,8 @@ function calc() {
             type: 'post',
             data: {
                 date: setting['target-date'],
-                bodies: targets
+                bodies: targets,
+                geo: {longitude: setting.getLongitude(), latitude: setting.getLatitude()}
             }
         }).done(function(res) {
             bodies = res;

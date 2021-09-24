@@ -232,7 +232,8 @@ function calc() {
             type: 'post',
             data: {
                 date: setting.getBirthDate(),
-                bodies: targets
+                bodies: targets,
+                geo: {longitude: setting.getLongitude(), latitude: setting.getLatitude()}
             }
         }).done(function(res) {
             natal = res;
@@ -243,7 +244,8 @@ function calc() {
                 type: 'post',
                 data: {
                     date: setting.getProgressDate(),
-                    bodies: targets
+                    bodies: targets,
+                    geo: {longitude: setting.getLongitude(), latitude: setting.getLatitude()}
                 }
             }).done(function(res2) {
                 progress = res2;
@@ -254,7 +256,8 @@ function calc() {
                     type: 'post',
                     data: {
                         date: setting.getTargetDate(),
-                        bodies: targets
+                        bodies: targets,
+                        geo: {longitude: setting.getLongitude(), latitude: setting.getLatitude()}
                     }
                 }).done(function(res3) {
                     transit = res3;

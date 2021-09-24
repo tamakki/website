@@ -623,5 +623,16 @@ SettingUtil.body_list = {
         'tag': 'other',
         'svg': '../svg/merlin.svg'
     },
+    // 架空天体
+    'part of fortune': {
+      'name': 'ﾊﾟｰﾄｵﾌﾞﾌｫｰﾁｭﾝ',
+      'tag': 'virtual',
+      'svg': '../svg/part_of_fortune.svg'
+    },
+    'vertex': {
+      'name': 'ﾊﾞｰﾃｯｸｽ',
+      'tag': 'virtual',
+      'svg': '../svg/vertex.svg'
+    }
 }
 const SEC_PER_YEAR = 31557600;

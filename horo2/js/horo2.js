@@ -187,7 +187,7 @@ function calc() {
         $.LoadingOverlay('show');
         $.ajax({
             url: 'https://acidic-chill-bat.glitch.me/api/horo',
-            // url: 'http://localhost:52094/api/horo',
+            //url: 'http://localhost:57513/api/horo',
             type: 'post',
             data: {
                 date: setting.getBirthDate(),
@@ -257,33 +257,6 @@ function draw() {
             ASC = caspdata.ASC.angle;
             MC = caspdata.MC.angle;
         }
-
-        // パートオブフォーチュンはここで計算
-        if(Object.keys(bodies).indexOf('part of fortune') != -1) {
-          bodies['part of fortune'] = {}
-            var sun = bodies['sun'].longitude;
-            var asc = casps.ASC.angle;
-            if(sun < asc) {
-              sun += 360;
-            }
-            // 昼生まれ
-            if ((sun - asc) > 180) {
-                var longitude =
-                casps.ASC.angle + bodies['moon'].longitude - bodies['sun'].longitude;
-                if(longitude < 0) longitude += 360;
-                longitude %= 360;
-                bodies['part of fortune'].longitude = longitude;
-            }
-            // 夜生まれ
-            else {
-                var longitude =
-                casps.ASC.angle + bodies['sun'].longitude - bodies['moon'].longitude;
-                if(longitude < 0) longitude += 360;
-                longitude %= 360;
-                bodies['part of fortune'].longitude = longitude;
-            }
-        }
-        console.log(bodies);
 
         // アスペクトを取得
         const aspect_calculator = new AspectCalculator();

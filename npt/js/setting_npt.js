@@ -9,6 +9,7 @@ $(function() {
     makeMusa();
     makeMoira();
     makeOther();
+    makeVirtual();
     initValue();
     $(document).on('change', '.body', changeValue);
     $(document).on('change', '.all', changeAll);
@@ -57,6 +58,11 @@ function makeOther() {
     makeInputArea('その他', 'other');
 }
 
+/** 架空天体のチェックボックスを作る */
+function makeVirtual() {
+    makeInputArea('架空天体', 'virtual');
+}
+
 function makeInputArea(title, tag) {
     const main = $('<section>').addClass('category').appendTo('#inputs');
     const h2 = $('<h2>').appendTo(main);
@@ -97,10 +103,10 @@ function makeInput(key,value,tag) {
 function initValue() {
     const setting = SettingUtil.getSetting();
     $.each(setting.targets, function(key, value) {
-        $('input[value=' + value + ']').prop('checked', true);
+        $('input[value="' + value + '"]').prop('checked', true);
     });
     $.each(setting['targets-all'], function(key, value) {
-        $('input[value=' + value + ']').prop('checked', true);
+        $('input[value="' + value + '"]').prop('checked', true);
     });
 }
 

@@ -97,10 +97,10 @@ function makeInput(key,value,tag) {
 function initValue() {
     const setting = SettingUtil.getSetting();
     $.each(setting.targets, function(key, value) {
-        $('input[value=' + value + ']').prop('checked', true);
+        $('input[value="' + value + '"]').prop('checked', true);
     });
     $.each(setting['targets-all'], function(key, value) {
-        $('input[value=' + value + ']').prop('checked', true);
+        $('input[value="' + value + '"]').prop('checked', true);
     });
 }
 

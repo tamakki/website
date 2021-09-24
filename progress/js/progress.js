@@ -226,7 +226,8 @@ function calc() {
             type: 'post',
             data: {
                 date: setting.getBirthDate(),
-                bodies: targets
+                bodies: targets,
+                geo: {longitude: setting.getLongitude(), latitude: setting.getLatitude()}
             }
         }).done(function(res) {
             bodies = res;
@@ -237,7 +238,8 @@ function calc() {
                 type: 'post',
                 data: {
                     date: setting.getProgressDate(),
-                    bodies: targets
+                    bodies: targets,
+                    geo: {longitude: setting.getLongitude(), latitude: setting.getLatitude()}
                 }
             }).done(function(res2) {
                 bodies2 = res2;
