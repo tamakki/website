@@ -27,10 +27,6 @@ let placidus = document.createElement('script');
 placidus.src = "PlacidusHouse.js";
 document.head.appendChild(placidus);
 // アスペクト計算クラス
- let aspect_css = document.createElement('link');
- aspect_css.href = "aspect.css";
- aspect_css.rel = "stylesheet";
- document.head.appendChild(aspect_css);
  let aspect_js = document.createElement('script');
  aspect_js.src = "AspectCalculator.js?ver=20201128";
  document.head.appendChild(aspect_js);
