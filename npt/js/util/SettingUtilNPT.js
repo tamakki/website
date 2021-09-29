@@ -623,6 +623,16 @@ SettingUtil.body_list = {
         'tag': 'other',
         'svg': '../svg/merlin.svg'
     },
+    'astraea': {
+        'name': 'アストラエア',
+        'tag': 'other',
+        'svg': '../svg/astraea.svg'
+    },
+    'hygiea': {
+        'name': 'ヒギエア',
+        'tag': 'other',
+        'svg': '../svg/hygiea.svg'
+    },
     // 架空天体
     'part of fortune': {
       'name': 'ﾊﾟｰﾄｵﾌﾞﾌｫｰﾁｭﾝ',
