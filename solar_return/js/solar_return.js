@@ -1193,6 +1193,7 @@ function GetDateSunHasSpecificAngle(target_angle, date_from) {
     var now_angle = start.longitude;
 
     // ニュートン法で近似する
+    var i = 0;
     while(Math.abs(target_angle - now_angle) > 0.001) {
         var now_data = GetSunData(now);
         now_angle = now_data.longitude;
@@ -1204,6 +1205,8 @@ function GetDateSunHasSpecificAngle(target_angle, date_from) {
         var diff_min = diff_angle / now_data.longitude_speed;
 
         var now = getNext(now, diff_min);
+        i++;
+        if(i > 1000) break;
     }
     
     return now;
