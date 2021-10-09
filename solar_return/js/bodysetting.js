@@ -8,6 +8,7 @@ $(function() {
     makeUranian();
     makeMusa();
     makeMoira();
+    makeGreek();
     makeOther();
     makeVirtual();
     initValue();
@@ -51,6 +52,11 @@ function makeMoira() {
 /** ムーサ9柱のチェックボックスを作る */
 function makeMusa() {
     makeInputArea('ムーサ9柱', 'musa');
+}
+
+/** ギリシャ神話のチェックボックスを作る */
+function makeGreek() {
+    makeInputArea('ギリシャ神話', 'greek');
 }
 
 /** その他のチェックボックスを作る */
