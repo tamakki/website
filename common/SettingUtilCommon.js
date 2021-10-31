@@ -1,4 +1,154 @@
+function makeSetting() {
+    makeMainPlanets();
+    makeLunar();
+    makeBig4Planets();
+    makeCentaur();
+    makeMinor7();
+    makeMusa();
+    makeMoira();
+    makeGreek();
+    makeRoman();
+    makeOther();
+    makeVirtual();
+}
 
+/**
+ * チェックボックスを作る
+ * @param {string} key 
+ * @param {any} value 
+ */
+function makeInput(key,value,tag) {
+    const div = $('<div>');
+    const label = $('<label>').appendTo(div);
+    const check = $('<input type="checkbox">').val(key).addClass('body').addClass(tag).appendTo(label);
+    label.append(check);
+    const text = $('<span>').text(value.name).appendTo(label);
+    const svg = $('<img>');
+    svg.prop('src', value.svg);
+    svg.addClass('icon');
+    text.append(svg);
+    label.append(text);
+    div.append(label);
+    return div;
+}
+
+function makeInputArea(title, tag) {
+    const main = $('<section>').addClass('category').appendTo('#inputs');
+    const h2 = $('<h2>').appendTo(main);
+    const label = $('<label>').appendTo(h2);
+    $('<input type="checkbox">').addClass('all').val(tag).appendTo(label);
+    $('<span>').text(title).appendTo(label);
+    const main__div = $('<div>').appendTo(main);
+    $.each(SettingUtil.body_list, function(key, value) {
+        if(value.tag === tag) {
+            main__div.append(makeInput(key,value,tag));
+        }
+    });
+}
+
+/**
+ * 設定を読み込んで反映する
+ */
+function initValue() {
+    const setting = SettingUtil.getSetting();
+    $.each(setting.targets, function(key, value) {
+        $('input[value="' + value + '"]').prop('checked', true);
+    });
+    $.each(setting['targets-all'], function(key, value) {
+        $('input[value="' + value + '"]').prop('checked', true);
+    });
+}
+
+
+/**
+ * 設定の変更を反映する
+ */
+ function changeValue(event) {
+    if(event) {
+        // チェックの整理
+        const section = $(event.target).closest('section');
+        $(section).find('.all').prop('checked',$(section).find('.body').length === $(section).find('.body:checked').length);
+    }
+
+    let targets = [];
+    $('.body:checked').each(function(key, elm){
+        targets.push($(elm).val());
+    });
+    let targets_all = [];
+    $('.all:checked').each(function(key, elm) {
+        targets_all.push($(elm).val());
+    });
+    const setting = SettingUtil.getSetting();
+    setting.targets = targets;
+    setting['targets-all'] = targets_all;
+    SettingUtil.saveSetting(setting);
+}
+
+
+/**
+ * 同じ種類の全チェックを変更
+ * @param {any} elm 
+ */
+ function changeAll(event) {
+    let checked = $(event.target).prop('checked');
+    $(event.target).closest('section').find('.body').each(function(key, elm){
+        $(elm).prop('checked', checked);
+    });
+    changeValue();
+}
+
+/** 主要天体のチェックボックスを作る */
+function makeMainPlanets() {
+    makeInputArea('主要天体', 'main');
+}
+/** 月関係のチェックボックスを作る */
+function makeLunar() {
+    makeInputArea('月関係', 'lunar');
+}
+
+/** 四大小惑星のチェックボックスを作る　*/
+function makeBig4Planets() {
+    makeInputArea('四大小惑星', 'big4');
+}
+
+/** ケンタウルス族のチェックボックスを作る */
+function makeCentaur() {
+    makeInputArea('ケンタウルス族', 'centaur');
+}
+/** マイナー小惑星7天体のチェックボックスをt作る */
+function makeMinor7() {
+    makeInputArea('マイナー小惑星7天体', 'minor7');
+}
+
+/** ローマ神話のチェックボックスを作る */
+function makeRoman() {
+    makeInputArea('ローマ神話', 'roman');
+}
+
+/** ムーサ9柱のチェックボックスを作る */
+function makeMusa() {
+    makeInputArea('ムーサ9柱', 'musa');
+}
+
+/** 運命の三女神モイライのチェックボックスを作る */
+function makeMoira() {
+    makeInputArea('運命の三女神', 'moira');
+}
+
+/** ギリシャ神話のチェックボックスを作る */
+function makeGreek() {
+    makeInputArea('ギリシャ神話', 'greek');
+}
+
+/** その他のチェックボックスを作る */
+function makeOther() {
+    makeInputArea('その他', 'other');
+}
+
+/** 架空天体のチェックボックスを作る */
+function makeVirtual() {
+  makeInputArea('架空天体', 'virtual');
+}
 SettingUtil.body_list = {
     // 主要天体
     'sun': {
@@ -74,16 +224,6 @@ SettingUtil.body_list = {
     },
     // 小惑星
     // 4大小惑星
-    'ceres': {
-        'name': 'セレス',
-        'tag': 'big4',
-        'svg': '../svg/ceres.svg'
-    },
-    'pallas': {
-        'name': 'パラス',
-        'tag': 'big4',
-        'svg': '../svg/pallas.svg'
-    },
     'vesta': {
         'name': 'ヴェスタ',
         'tag': 'big4',
@@ -94,16 +234,26 @@ SettingUtil.body_list = {
         'tag': 'big4',
         'svg': '../svg/juno.svg'
     },
-    // ケンタウルス族
-    'chiron': {
-        'name': 'キロン',
-        'tag': 'centaur',
-        'svg': '../svg/chiron.svg'
+    'ceres': {
+        'name': 'セレス',
+        'tag': 'big4',
+        'svg': '../svg/ceres.svg'
     },
-    'chariklo': {
-        'name': 'カリクロー',
+    'pallas': {
+        'name': 'パラス',
+        'tag': 'big4',
+        'svg': '../svg/pallas.svg'
+    },
+    // ケンタウルス族
+    'asbolus': {
+        'name': 'アスボルス',
         'tag': 'centaur',
-        'svg': '../svg/chariklo.svg'
+        'svg': '../svg/asbolus.svg'
+    },
+    'ixion': {
+        'name': 'イクシオン',
+        'tag': 'centaur',
+        'svg': '../svg/ixion.svg'
     },
     'elatus': {
         'name': 'エラタス',
@@ -115,10 +265,35 @@ SettingUtil.body_list = {
         'tag': 'centaur',
         'svg': '../svg/okyrhoe.svg'
     },
+    'chariklo': {
+        'name': 'カリクロー',
+        'tag': 'centaur',
+        'svg': '../svg/chariklo.svg'
+    },
     'cyllarus': {
         'name': 'キルラルス',
         'tag': 'centaur',
         'svg': '../svg/cyllarus.svg'
+    },
+    'chiron': {
+        'name': 'キロン',
+        'tag': 'centaur',
+        'svg': '../svg/chiron.svg'
+    },
+    'damocles': {
+        'name': 'ダモクレス',
+        'tag': 'centaur',
+        'svg': '../svg/damocles.svg'
+    },
+    'tantalus': {
+        'name': 'タンタロス',
+        'tag': 'centaur',
+        'svg': '../svg/tantalus.svg'
+    },
+    'bienor': {
+        'name': 'ビエノール',
+        'tag': 'centaur',
+        'svg': '../svg/bienor.svg'
     },
     'hylonome': {
         'name': 'ヒュロノメ',
@@ -130,102 +305,36 @@ SettingUtil.body_list = {
         'tag': 'centaur',
         'svg': '../svg/pholus.svg'
     },
-    'asbolus': {
-        'name': 'アスボルス',
-        'tag': 'centaur',
-        'svg': '../svg/asbolus.svg'
-    },
-    'bienor': {
-        'name': 'ビエノール',
-        'tag': 'centaur',
-        'svg': '../svg/bienor.svg'
-    },
-    'damocles': {
-        'name': 'ダモクレス',
-        'tag': 'centaur',
-        'svg': '../svg/damocles.svg'
-    },
-    'ixion': {
-        'name': 'イクシオン',
-        'tag': 'centaur',
-        'svg': '../svg/ixion.svg'
-    },
-    'tantalus': {
-        'name': 'タンタロス',
-        'tag': 'centaur',
-        'svg': '../svg/tantalus.svg'
-    },
     'nessus': {
         'name': 'ネッスス',
         'tag': 'centaur',
         'svg': '../svg/nessus.svg'
     },
     // マイナー小惑星7天体
+    'isis': {
+        'name': 'イシス',
+        'tag': 'minor7',
+        'svg': '../svg/isis.svg'
+    },
     'varuna': {
         'name': 'ヴァルナ',
         'tag': 'minor7',
         'svg': '../svg/varuna.svg'
-    },
-    'mithra': {
-        'name': 'ミスラ',
-        'tag': 'minor7',
-        'svg': '../svg/mithra.svg'
     },
     'osiris': {
         'name': 'オシリス',
         'tag': 'minor7',
         'svg': '../svg/osiris.svg'
     },
-    'isis': {
-        'name': 'イシス',
+    'mithra': {
+        'name': 'ミスラ',
         'tag': 'minor7',
-        'svg': '../svg/isis.svg'
+        'svg': '../svg/mithra.svg'
     },
     'lilith': {
         'name': 'リリス（小惑星）',
         'tag': 'minor7',
         'svg': '../svg/lilith.svg'
-    },
-    // ウラニアン
-    'cupido': {
-        'name': 'クピド',
-        'tag': 'uranian',
-        'svg': '../svg/cupido.svg'
-    },
-    'hades': {
-        'name': 'ハデス',
-        'tag': 'uranian',
-        'svg': '../svg/hades.svg'
-    },
-    'zeus': {
-        'name': 'ゼウス',
-        'tag': 'uranian',
-        'svg': '../svg/zeus.svg'
-    },
-    'kronos': {
-        'name': 'クロノス',
-        'tag': 'uranian',
-        'svg': '../svg/kronos.svg'
-    },
-    'apollon': {
-        'name': 'アポロン',
-        'tag': 'uranian',
-        'svg': '../svg/apollon.svg'
-    },
-    'admetos': {
-        'name': 'アドメトス',
-        'tag': 'uranian',
-        'svg': '../svg/admetos.svg'
-    },
-    'valkanus': {
-        'name': 'ヴァルカヌス',
-        'tag': 'uranian',
-        'svg': '../svg/valkanus.svg'
-    },
-    'poseidon': {
-        'name': 'ポセイドン',
-        'tag': 'uranian',
-        'svg': '../svg/poseidon.svg'
     },
     // ムーサ9柱
     'kalliope': {
@@ -295,45 +404,101 @@ SettingUtil.body_list = {
         'svg': '../svg/atropos.svg'
     },
     // ギリシャ神話
-    'eros': {
-        'name': 'エロス',
+    'astraea': {
+        'name': 'アストラエア',
         'tag': 'greek',
-        'svg': '../svg/eros.svg'
+        'svg': '../svg/astraea.svg'
     },
-    'hekate': {
-        'name': 'ヘカテ',
+    'admetos': {
+        'name': 'アドメトス',
         'tag': 'greek',
-        'svg': '../svg/hekate.svg'
+        'svg': '../svg/admetos.svg'
     },
-    'eris': {
-        'name': 'エリス',
+    'apollon': {
+        'name': 'アポロン',
         'tag': 'greek',
-        'svg': '../svg/eris.svg'
-    },
-    'pandora': {
-        'name': 'パンドラ',
-        'tag': 'greek',
-        'svg': '../svg/pandra.svg'
+        'svg': '../svg/apollon.svg'
     },
     'icarus': {
         'name': 'イカルス',
         'tag': 'greek',
         'svg': '../svg/icarus.svg'
     },
-    'astraea': {
-        'name': 'アストラエア',
+    'eris': {
+        'name': 'エリス',
         'tag': 'greek',
-        'svg': '../svg/astraea.svg'
+        'svg': '../svg/eris.svg'
+    },
+    'eros': {
+        'name': 'エロス',
+        'tag': 'greek',
+        'svg': '../svg/eros.svg'
+    },
+    'kronos': {
+        'name': 'クロノス',
+        'tag': 'greek',
+        'svg': '../svg/kronos.svg'
+    },
+    'zeus': {
+        'name': 'ゼウス',
+        'tag': 'greek',
+        'svg': '../svg/zeus.svg'
+    },
+    'daphne' : {
+        'name': 'ダフネ',
+        'tag': 'greek',
+        'svg': '../svg/daphne.svg'
+    },
+    'hades': {
+        'name': 'ハデス',
+        'tag': 'greek',
+        'svg': '../svg/hades.svg'
+    },
+    'pandora': {
+        'name': 'パンドラ',
+        'tag': 'greek',
+        'svg': '../svg/pandra.svg'
     },
     'hygiea': {
         'name': 'ヒギエア',
         'tag': 'greek',
         'svg': '../svg/hygiea.svg'
     },
-    'daphne' : {
-        'name': 'ダフネ',
+    'hekate': {
+        'name': 'ヘカテ',
         'tag': 'greek',
-        'svg': '../svg/daphne.svg'
+        'svg': '../svg/hekate.svg'
+    },
+    'poseidon': {
+        'name': 'ポセイドン',
+        'tag': 'greek',
+        'svg': '../svg/poseidon.svg'
+    },
+    // ローマ神話
+    'valkanus': {
+        'name': 'ヴァルカヌス',
+        'tag': 'roman',
+        'svg': '../svg/valkanus.svg'
+    },
+    'orcus': {
+        'name': 'オルカス',
+        'tag': 'roman',
+        'svg': '../svg/orcus.svg'
+    },
+    'cupido': {
+        'name': 'クピド',
+        'tag': 'roman',
+        'svg': '../svg/cupido.svg'
+    },
+    'sedna': {
+        'name': 'セドナ',
+        'tag': 'roman',
+        'svg': '../svg/sedna.svg'
+    },
+    'bacchus': {
+        'name' : 'バッカス',
+        'tag': 'roman',
+        'svg': '../svg/bacchus.svg'
     },
     // その他
     'quaoar': {
@@ -341,25 +506,10 @@ SettingUtil.body_list = {
         'tag': 'other',
         'svg': '../svg/quaoar.svg'
     },
-    'sedna': {
-        'name': 'セドナ',
-        'tag': 'other',
-        'svg': '../svg/sedna.svg'
-    },
-    'orcus': {
-        'name': 'オルカス',
-        'tag': 'other',
-        'svg': '../svg/orcus.svg'
-    },
     'merlin': {
         'name': 'マーリン',
         'tag': 'other',
         'svg': '../svg/merlin.svg'
-    },
-    'bacchus': {
-        'name' : 'バッカス',
-        'tag': 'other',
-        'svg': '../svg/bacchus.svg'
     },
     'karma': {
         'name': 'カルマ',
