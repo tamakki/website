@@ -330,6 +330,11 @@ SettingUtil.body_list = {
         'tag': 'greek',
         'svg': '../svg/hygiea.svg'
     },
+    'daphne' : {
+        'name': 'ダフネ',
+        'tag': 'greek',
+        'svg': '../svg/daphne.svg'
+    },
     // その他
     'quaoar': {
         'name': 'クアオアー',
