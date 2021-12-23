@@ -439,11 +439,6 @@ SettingUtil.body_list = {
         'tag': 'greek',
         'svg': '../svg/kronos.svg'
     },
-    'sappho': {
-        'name': 'サッフォー',
-        'tag': 'greek',
-        'svg': '../svg/sappho.svg'
-    },
     'zeus': {
         'name': 'ゼウス',
         'tag': 'greek',
@@ -520,6 +515,11 @@ SettingUtil.body_list = {
         'name': 'カルマ',
         'tag': 'other',
         'svg': '../svg/karma.svg'
+    },
+    'sappho': {
+        'name': 'サッフォー',
+        'tag': 'other',
+        'svg': '../svg/sappho.svg'
     },
     // 架空天体
     'part of fortune': {
