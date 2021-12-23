@@ -439,6 +439,11 @@ SettingUtil.body_list = {
         'tag': 'greek',
         'svg': '../svg/kronos.svg'
     },
+    'sappho': {
+        'name': 'サッフォー',
+        'tag': 'greek',
+        'svg': '../svg/sappho.svg'
+    },
     'zeus': {
         'name': 'ゼウス',
         'tag': 'greek',
