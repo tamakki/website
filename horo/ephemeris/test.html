@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="ja">
+    <head>
+        <meta charset="utf-8">
+        <title>test</title>
+        <script src="ephemeris-0.1.0.js"></script>
+    </head>
+    <body>
+        <script>
+
+            var date = {year: 2018, month: 12, day: 04, hours: 0, minutes: 0, seconds: 0};
+            
+            $const.tlong = -135; // longitude
+            $const.glat = 35; // latitude
+            
+            $processor.init ();
+            
+            // sun, mercury, venus, moon, mars, jupiter, saturn, uranus, neptune, pluto, chiron, sirius
+            var body = $moshier.body.terpsichore;
+            
+            $processor.calc (date, body);
+            
+            console.log(body.position);
+            </script>
+    </body>
+</html>
