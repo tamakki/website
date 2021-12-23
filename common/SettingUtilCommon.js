@@ -501,6 +501,11 @@ SettingUtil.body_list = {
         'svg': '../svg/bacchus.svg'
     },
     // その他
+    'alexandra': {
+        'name': 'アレクサンドラ',
+        'tag': 'other',
+        'svg': '../svg/alexandra.svg'
+    },
     'quaoar': {
         'name': 'クアオアー',
         'tag': 'other',
