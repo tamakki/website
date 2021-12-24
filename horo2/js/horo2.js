@@ -159,6 +159,8 @@ function changeSetting() {
     setting['house-system'] = $('#house-system').val();
     setting['disp-hard'] = $('#disp-hard').prop('checked');
     setting['disp-soft'] = $('#disp-soft').prop('checked');
+    setting['disp-tight'] = $('#disp-tight').prop('checked');
+    setting['disp-loose'] = $('#disp-loose').prop('checked');
     setting['orb-tight'] = parseFloat($('#orb-tight').val());
     setting['orb-loose'] = parseFloat($('#orb-loose').val());
     SettingUtil.saveSetting(setting);
@@ -239,6 +241,7 @@ function validate(setting) {
 
 /** ホロスコープおよび各表を描画する */
 function draw() {
+    changeSetting();
     if(bodies) {
         const setting = SettingUtil.getSetting();
         // 描画を削除
@@ -555,7 +558,6 @@ function draw() {
 }
 
 function redraw() {
-    changeSetting();
     draw();
 }
 

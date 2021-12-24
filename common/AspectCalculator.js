@@ -153,17 +153,22 @@ AspectCalculator.prototype.getAspect = function(target1, target2){
                 continue;
             }
             if(Math.abs(aspect.angle - angle) < aspectSetting.orb[type].tight){
+                if(!setting['disp-tight']) continue;
                 result = {};
                 result.name = aspect.name;
                 result.angle = aspect.angle;
                 result["stroke-dasharray"] = AspectCalculator.TIGHT_ASPECT_DASH_ARRY;
-                result.display = true;
+                if(setting['disp-tight']){
+                    result.display = true;
+                } else {
+                    result.display = false;
+                }
                 result.stroke = aspect.stroke;
                 result.tight = true;
                 result.diff = Math.abs(aspect.angle - angle).toFixed(1);
                 return result;
-            }
-            if(Math.abs(aspect.angle - angle) < aspectSetting.orb[type].loose){
+            } else if(Math.abs(aspect.angle - angle) < aspectSetting.orb[type].loose){
+                if(!setting['disp-loose']) continue;
                 result = {};
                 result.name = aspect.name;
                 result.angle = aspect.angle;
@@ -185,6 +190,7 @@ AspectCalculator.prototype.getAspect = function(target1, target2){
                 continue;
             }
             if(Math.abs(aspect.angle - angle) < aspectSetting.orb[type].tight){
+                if(!setting['disp-tight']) continue;
                 result = {};
                 result.name = aspect.name;
                 result.angle = aspect.angle;
@@ -194,8 +200,8 @@ AspectCalculator.prototype.getAspect = function(target1, target2){
                 result.tight = true;
                 result.diff = Math.abs(aspect.angle - angle).toFixed(1);
                 return result;
-            }
-            if(Math.abs(aspect.angle - angle) < aspectSetting.orb[type].loose){
+            } else if(Math.abs(aspect.angle - angle) < aspectSetting.orb[type].loose){
+                if(!setting['disp-loose']) continue
                 result = {};
                 result.name = aspect.name;
                 result.angle = aspect.angle;

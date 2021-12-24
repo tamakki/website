@@ -319,10 +319,11 @@ footer {
     width: 30em;
 }
 
-.draw-setting div {
-    margin: 0.5em 0.5em;
+.aspect-setting {
+    margin: 0 1em;
 }
 
-.draw-setting div:nth-child(1), .draw-setting div:nth-last-child() {
-    margin-left: 0;
+.aspect-display {
+    display: flex;
+    flex-direction: row;
 }

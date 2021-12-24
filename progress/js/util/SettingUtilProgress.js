@@ -124,6 +124,8 @@ SettingUtil.default_setting = {
     'house-system': 'placidus',
     'disp-hard': true,
     'disp-soft': true,
+    'disp-tight': true,
+    'disp-loose': true,
     'targets': [
         'sun',
         'moon',

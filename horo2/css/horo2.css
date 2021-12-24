@@ -303,8 +303,14 @@ footer {
 .draw-setting {
     display: flex;
     justify-content: center;
+    margin: 0 1em;
 }
 
-.draw-setting div {
+.aspect-setting {
     margin: 0 1em;
+}
+
+.aspect-display {
+    display: flex;
+    flex-direction: row;
 }

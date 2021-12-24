@@ -138,6 +138,8 @@ function changeSetting() {
     setting['house-system'] = $('#house-system').val();
     setting['disp-hard'] = $('#disp-hard').prop('checked');
     setting['disp-soft'] = $('#disp-soft').prop('checked');
+    setting['disp-tight'] = $('#disp-tight').prop('checked');
+    setting['disp-loose'] = $('#disp-loose').prop('checked');
     setting['orb-tight'] = parseFloat($('#orb-tight').val());
     setting['orb-loose'] = parseFloat($('#orb-loose').val());
     SettingUtil.saveSetting(setting);
@@ -202,7 +204,7 @@ function draw() {
         const elements = [];
         $.each(bodies, function(key, value) {
             if(value){
-                elements.push({name: key, angle: value.longitude});
+                elements.push({'name': key, 'angle': value.longitude});
             }
         });
         aspect_calculator.setTargets(elements);
@@ -508,8 +510,7 @@ function draw() {
 }
 
 function redraw() {
-    changeSetting();
-    draw();
+    calc();
 }
 
 /** ハウス情報を取得 */

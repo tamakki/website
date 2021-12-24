@@ -296,8 +296,13 @@ footer {
     justify-content: flex-start;
 }
 
-.draw-setting div {
-    margin: 0 0.5em;
+.aspect-setting {
+    margin: 0 1em;
+}
+
+.aspect-display {
+    display: flex;
+    flex-direction: row;
 }
 
 .draw-setting div:nth-child(1), .draw-setting div:nth-last-child() {
