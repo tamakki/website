@@ -122,6 +122,11 @@
             margin-right: 1em;
         }
 
+        .display_setting {
+            display: flex;
+            flex-direction: row;
+        }
+
         .orb__input div {
             text-align: left;
             margin: 0 1em;
@@ -206,7 +211,7 @@
         }
     </style>
     <script src="horo.js?ver=2021519"></script>
-    <script src="HoroscopeCalculator.js?ver=20210924"></script>
+    <script src="HoroscopeCalculator.js?ver=20211224"></script>
 </head>
 
 <body class="main" onload="init()">
@@ -305,8 +310,16 @@
                 <div class="aspect_setting">
                     <div class="aspect_display">
                         <h3>アスペクト表示</h3>
-                        <label><input id="DispHard" type="checkbox" checked onchange="calcHoro()">ハード</label><br>
-                        <label><input id="DispSoft" type="checkbox" checked onchange="calcHoro()">ソフト</label><br>
+                        <div class="display_setting">
+                            <div>
+                                <label><input id="DispHard" type="checkbox" checked onchange="calcHoro()">ハード</label><br>
+                                <label><input id="DispSoft" type="checkbox" checked onchange="calcHoro()">ソフト</label>
+                            </div>
+                            <div>
+                                <label><input id="DispTight" type="checkbox" checked onchange="calcHoro()">タイト</label><br>
+                                <label><input id="DispLoose" type="checkbox" checked onchange="calcHoro()">ルーズ</label>
+                            </div>
+                        </div>
                     </div>
                     <div class="orb">
                         <h3>オーブ</h3>

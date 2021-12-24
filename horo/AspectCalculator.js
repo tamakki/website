@@ -147,6 +147,7 @@ AspectCalculator.prototype.getAspect = function(target1, target2){
         for(let i = 0; i < AspectCalculator.HARD_ASPECT.length; i++){
             let aspect = AspectCalculator.HARD_ASPECT[i];
             if(Math.abs(aspect.angle - angle) < document.getElementById('orb_tight').value) {
+                if(!document.getElementById('DispTight').checked) continue;
                 result = {};
                 result.name = aspect.name;
                 result.angle = aspect.angle;
@@ -156,8 +157,8 @@ AspectCalculator.prototype.getAspect = function(target1, target2){
                 result.tight = true;
                 result.diff = Math.abs(aspect.angle - angle).toFixed(1);
                 return result;
-            }
-            if(Math.abs(aspect.angle - angle) < document.getElementById('orb_loose').value){
+            } else if(Math.abs(aspect.angle - angle) < document.getElementById('orb_loose').value){
+                if(!document.getElementById('DispLoose').checked) continue;
                 result = {};
                 result.name = aspect.name;
                 result.angle = aspect.angle;
@@ -176,6 +177,7 @@ AspectCalculator.prototype.getAspect = function(target1, target2){
             let aspect = AspectCalculator.SOFT_ASPECT[i];
             if(Math.abs(aspect.angle - angle) < document.getElementById('orb_tight').value) {
                 result = {};
+                if(!document.getElementById('DispTight').checked) continue;
                 result.name = aspect.name;
                 result.angle = aspect.angle;
                 result["stroke-dasharray"] = AspectCalculator.TIGHT_ASPECT_DASH_ARRY;
@@ -184,8 +186,8 @@ AspectCalculator.prototype.getAspect = function(target1, target2){
                 result.tight = true;
                 result.diff = Math.abs(aspect.angle - angle).toFixed(1);
                 return result;
-            }
-            if(Math.abs(aspect.angle - angle) < document.getElementById('orb_loose').value){
+            } else if(Math.abs(aspect.angle - angle) < document.getElementById('orb_loose').value){
+                if(!document.getElementById('DispLoose').checked) continue;
                 result = {};
                 result.name = aspect.name;
                 result.angle = aspect.angle;

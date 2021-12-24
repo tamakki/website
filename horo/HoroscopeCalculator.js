@@ -6,7 +6,7 @@
 
  // 依存関係のあるファイルを読み込む
  // 天体計算ベースクラス
- let ver = "20201213_2";
+ let ver = "20211224";
  let base = document.createElement('script');
  base.src = "CalcAstroBase.js?ver=" + ver;
  document.head.appendChild(base);
@@ -66,6 +66,8 @@ let HoroscopeCalculator = function(target_date, time_diff, longitude, latitude){
     this.DispMajor = true;
     this.DispHard = true;
     this.DispSoft = true;
+    this.DispTight = true;
+    this.DispLoose = true;
 }
 
 /**
@@ -419,7 +421,7 @@ HoroscopeCalculator.prototype.getAspectTable = function(){
     // 配置情報を取得
     let elements = this.getElementList();
     // アスペクトを計算
-    let aspect_calculator = new AspectCalculator(this.OrbMajor,this.OrbHard,this.OrbSoft,this.DispMajor,this.DispHard,this.DispSoft);
+    let aspect_calculator = new AspectCalculator(this.OrbMajor,this.OrbHard,this.OrbSoft,this.DispMajor,this.DispHard,this.DispSoft,this.DispTight,this.DispLoose);
     aspect_calculator.setTargets(elements);
     let aspects = aspect_calculator.getAspects();
 
