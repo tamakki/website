@@ -513,6 +513,11 @@ SettingUtil.body_list = {
         'tag': 'other',
         'svg': '../svg/alexandra.svg'
     },
+    'anpanman': {
+      'name': 'アンパンマン',
+      'tag': 'other',
+      'svg': '../svg/anpanman.svg'
+    },
     'quaoar': {
         'name': 'クアオアー',
         'tag': 'other',
@@ -550,16 +555,6 @@ SettingUtil.body_list = {
       'tag': 'person',
       'svg': '../svg/hideakianno.svg'
     },
-    'miyazakihayao': {
-      'name': '宮崎駿',
-      'tag': 'person',
-      'svg': '../svg/miyazakihayao.svg'
-    },
-    'yanase': {
-      'name': 'やなせたかし',
-      'tag': 'person',
-      'svg': '../svg/yanase.svg'
-    },
     'tezuka': {
       'name': '手塚治虫',
       'tag': 'person',
@@ -569,5 +564,15 @@ SettingUtil.body_list = {
       'name': '奈須きのこ',
       'tag': 'person',
       'svg': '../svg/kinokonasu.svg'
+    },
+    'miyazakihayao': {
+      'name': '宮崎駿',
+      'tag': 'person',
+      'svg': '../svg/miyazakihayao.svg'
+    },
+    'yanase': {
+      'name': 'やなせたかし',
+      'tag': 'person',
+      'svg': '../svg/yanase.svg'
     },
 }
