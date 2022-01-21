@@ -189,7 +189,7 @@ function calc() {
         $.LoadingOverlay('show');
         $.ajax({
             url: 'https://acidic-chill-bat.glitch.me/api/horo',
-            //url: 'http://localhost:54266/api/horo',
+            //url: 'http://localhost:53907/api/horo',
             type: 'post',
             data: {
                 date: setting.getBirthDate(),

@@ -10,6 +10,7 @@ function makeSetting() {
     makeRoman();
     makeOther();
     makeVirtual();
+    makePerson();
 }
 
 /**
@@ -149,6 +150,12 @@ function makeOther() {
 function makeVirtual() {
   makeInputArea('架空天体', 'virtual');
 }
+
+/** 現代の人物のチェックボックスを作る */
+function makePerson() {
+  makeInputArea('現代の人物', 'person');
+}
+
 SettingUtil.body_list = {
     // 主要天体
     'sun': {
@@ -536,5 +543,31 @@ SettingUtil.body_list = {
       'name': 'ﾊﾞｰﾃｯｸｽ',
       'tag': 'virtual',
       'svg': '../svg/vertex.svg'
-    }
+    },
+    // 現代の人物
+    'hideakianno': {
+      'name': '庵野秀明',
+      'tag': 'person',
+      'svg': '../svg/hideakianno.svg'
+    },
+    'miyazakihayao': {
+      'name': '宮崎駿',
+      'tag': 'person',
+      'svg': '../svg/miyazakihayao.svg'
+    },
+    'yanase': {
+      'name': 'やなせたかし',
+      'tag': 'person',
+      'svg': '../svg/yanase.svg'
+    },
+    'tezuka': {
+      'name': '手塚治虫',
+      'tag': 'person',
+      'svg': '../svg/tezuka.svg'
+    },
+    'kinokonasu': {
+      'name': '奈須きのこ',
+      'tag': 'person',
+      'svg': '../svg/kinokonasu.svg'
+    },
 }
