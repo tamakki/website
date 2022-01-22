@@ -538,6 +538,11 @@ SettingUtil.body_list = {
         'tag': 'other',
         'svg': '../svg/sappho.svg'
     },
+    'takoyaki': {
+        'name': 'たこやき',
+        'tag': 'other',
+        'svg': '../svg/takoyaki.svg'
+    },
     // 架空天体
     'part of fortune': {
       'name': 'ﾊﾟｰﾄｵﾌﾞﾌｫｰﾁｭﾝ',
