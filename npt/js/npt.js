@@ -6,6 +6,7 @@ var aspects_transit;
 var aspects_progress;
 var magnify = 1;
 const settingVersion = 2;
+var setting_open = true;
 
 // 初期設定
 $(function () {
@@ -1305,6 +1306,18 @@ function setNow2() {
     $('#target-hour').val(now.getHours());
     $('#target-min').val(now.getMinutes());
     changeSetting();
+}
+
+function switchSettingOpen() {
+    if(setting_open) {
+        $('#setting').addClass('setting__hide')
+        $('#btn_hide').text('表示');
+    } else {
+        
+        $('#setting').removeClass('setting__hide')
+        $('#btn_hide').text('隠す');
+    }
+    setting_open = !setting_open;
 }
 
 /** 県リスト */

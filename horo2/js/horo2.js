@@ -3,6 +3,7 @@ var casps;
 var aspects;
 var magnify = 1.6;
 const settingVersion = 2;
+var setting_open = true;
 
 // 初期設定
 $(function () {
@@ -993,6 +994,18 @@ function hideGardian() {
     $('#birth-hour').val(now.getHours());
     $('#birth-min').val(now.getMinutes());
     changeSetting();
+}
+
+function switchSettingOpen() {
+    if(setting_open) {
+        $('#setting').addClass('setting__hide')
+        $('#btn_hide').text('表示');
+    } else {
+        
+        $('#setting').removeClass('setting__hide')
+        $('#btn_hide').text('隠す');
+    }
+    setting_open = !setting_open;
 }
 
 /** 県リスト */

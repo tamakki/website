@@ -327,3 +327,17 @@ footer {
     display: flex;
     flex-direction: row;
 }
+
+#btn_hide {
+    position: relative;
+    bottom: 0.3em;
+}
+
+#setting {
+    overflow: hidden;
+}
+
+.setting__hide {
+    height: 0;
+    margin-bottom: 14em !important;
+}

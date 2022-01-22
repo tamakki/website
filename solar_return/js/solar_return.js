@@ -3,6 +3,7 @@ var casps;
 var aspects;
 var magnify = 1.6;
 const settingVersion = 2;
+var setting_open = true;
 
 // 初期設定
 $(function () {
@@ -1232,4 +1233,17 @@ function GetFullDateString(date) {
     ('0' + date.getDate()).slice(-2) + ' ' +
     ('0' + date.getHours()).slice(-2) + ':' +
     ('0' + date.getMinutes()).slice(-2);
+}
+
+function switchSettingOpen() {
+    if(setting_open) {
+        $('#params').addClass('params__hide');
+        $('#setting').addClass('setting__hide');
+        $('#btn_hide').text('表示');
+    } else {
+        $('#params').removeClass('params__hide');
+        $('#setting').removeClass('setting__hide');
+        $('#btn_hide').text('隠す');
+    }
+    setting_open = !setting_open;
 }
