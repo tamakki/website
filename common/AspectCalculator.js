@@ -119,11 +119,14 @@ AspectCalculator.prototype.calcAngle = function(angle1, angle2){
  */
 AspectCalculator.prototype.getAspects = function() {
     let aspects = [];
+    let targets = SettingUtil.getSetting().targets;
     for(let i = 0; i < this.targets.length; i++){
         let target1 = this.targets[i];
+        if(targets.indexOf(target1.name) === -1) continue;
         let list = [];
         for(let j = 0; j < i; j++){
             let target2 = this.targets[j];
+            if(targets.indexOf(target2.name) === -1) continue;
             let aspect = this.getAspect(target1, target2);
             let item = {"node1":target2, "node2": target1, "aspect": aspect}
             list.push(item);
