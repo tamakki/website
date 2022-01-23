@@ -31,7 +31,10 @@
             </header>
             <!-- パラメータ設定-->
             <section id="params" class="params">
-                <h2>設定 <button id="btn_hide" onclick="switchSettingOpen()">隠す</button></h2>
+                <h2>設定
+                    <button class="btn_setting" id="btn_hide" onclick="switchSettingOpen()">隠す</button> 
+                    <button class="btn_setting" id="btn_remove_setting">設定を初期化</button>
+                </h2>
                 <div>
                     <h3>お名前</h3>
                     <input id="name" autocomplete="off">
@@ -82,7 +85,6 @@
                     </div>
                     <div class="buttons">
                         <button id="btn_calc">計算</button>
-                        <button id="btn_remove_setting">設定を初期化</button>
                     </div>
                 </div>
                 <div id="house-data" class="house-data">

@@ -315,7 +315,7 @@ footer {
     margin-left: 1em;
 }
 
-#btn_hide {
+.btn_setting {
     position: relative;
     bottom: 0.3em;
 }

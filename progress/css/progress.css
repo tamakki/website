@@ -328,7 +328,7 @@ footer {
     flex-direction: row;
 }
 
-#btn_hide {
+.btn_setting {
     position: relative;
     bottom: 0.3em;
 }

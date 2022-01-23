@@ -1099,9 +1099,12 @@ function switchSettingOpen() {
         $('#setting').addClass('setting__hide')
         $('#btn_hide').text('表示');
     } else {
-        
-        $('#setting').removeClass('setting__hide')
-        $('#btn_hide').text('隠す');
+        if(confirm('設定内容を表示しますか？')) {
+            $('#setting').removeClass('setting__hide')
+            $('#btn_hide').text('隠す');
+        } else {
+            return;
+        }
     }
     setting_open = !setting_open;
 }
