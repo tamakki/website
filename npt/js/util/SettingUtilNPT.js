@@ -106,7 +106,7 @@ Setting.prototype.getLatitude = function() {
 
 SettingUtil.setting_key = "horoscope_setting_npt";
 SettingUtil.default_setting = {
-    version: 2,
+    version: 3,
     'birth-date': SettingUtil.formatDate(new Date()),
     'birth-hour': (new Date()).getHours(),
     'birth-min' : (new Date()).getMinutes(),
