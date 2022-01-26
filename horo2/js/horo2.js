@@ -2,7 +2,7 @@ var bodies;
 var casps;
 var aspects;
 var magnify = 1.6;
-const settingVersion = 2;
+const settingVersion = 3;
 var setting_open = true;
 
 // 初期設定

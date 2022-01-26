@@ -53,7 +53,7 @@ AspectCalculator.SOFT_ASPECT_COLOR = "#00f";
  */
 AspectCalculator.HARD_ASPECT = [
     {"symbol": "☌", name: "Conjunction", angle: 0, display: true, "stroke": AspectCalculator.HARD_ASPECT_COLOR},
-    {"symbol": "∠", name: "Octile", angle: 45, display: true, "stroke": AspectCalculator.HARD_ASPECT_COLOR},
+    {"symbol": "∠", name: "Semi-Square", angle: 45, display: true, "stroke": AspectCalculator.HARD_ASPECT_COLOR},
     {"symbol": "Se", name: "Septile", angle: 360 / 7, display: true, "stroke": AspectCalculator.HARD_ASPECT_COLOR},
     {"symbol": "□", name: "Square", angle: 90, display: true, "stroke": AspectCalculator.HARD_ASPECT_COLOR},
     {"symbol": "⚼", name: "Sesqui-square", angle: 135, display: true, "stroke": AspectCalculator.HARD_ASPECT_COLOR},
@@ -65,7 +65,7 @@ AspectCalculator.HARD_ASPECT = [
  * ソフトアスペクト
  */
 AspectCalculator.SOFT_ASPECT = [
-    {"symbol": "⚺", name: "Semisextile", angle: 30, display: true, "stroke": AspectCalculator.SOFT_ASPECT_COLOR},
+    {"symbol": "⚺", name: "Semi-Sextile", angle: 30, display: true, "stroke": AspectCalculator.SOFT_ASPECT_COLOR},
     {"symbol": "⊥", name: "Decile", angle: 36, display: true, "stroke": AspectCalculator.SOFT_ASPECT_COLOR},
     {"symbol": "No", name: "Novaile", angle: 40, display: true, "stroke": AspectCalculator.SOFT_ASPECT_COLOR},
     {"symbol": "⚹", name: "Sextile", angle: 60, display: true, "stroke": AspectCalculator.SOFT_ASPECT_COLOR},

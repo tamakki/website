@@ -6,7 +6,7 @@
 
  // 依存関係のあるファイルを読み込む
  // 天体計算ベースクラス
- let ver = "20211224";
+ let ver = "20220126";
  let base = document.createElement('script');
  base.src = "CalcAstroBase.js?ver=" + ver;
  document.head.appendChild(base);

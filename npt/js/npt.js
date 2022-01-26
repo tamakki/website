@@ -5,7 +5,7 @@ var casps;
 var aspects_transit;
 var aspects_progress;
 var magnify = 1;
-const settingVersion = 2;
+const settingVersion = 3;
 var setting_open = true;
 
 // 初期設定

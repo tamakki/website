@@ -153,7 +153,7 @@ SettingUtil.default_setting = {
                 minor: { tight: 3, loose: 5 }
             }
         },
-        Octile: {
+        "Semi-Square": {
             display: true,
             isMajor: true,
             angle: 45,
@@ -163,7 +163,7 @@ SettingUtil.default_setting = {
                 minor: { tight: 3, loose: 5 }
             }
         },
-        Semisextile: {
+        "Semi-Sextile": {
             display: true,
             isMajor: false,
             angle: 30,
