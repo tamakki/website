@@ -82,17 +82,19 @@ $(function () {
         calc();
     });
     $('#btn_remove_setting').click(function() {
-        SettingUtil.removeSetting();
-        initSetting();
-        $('#horoscope').empty();
-        $('#house-list').empty();
-        $('#body-table').empty();
-        $('#aspect-table').empty();
-        localStorage.removeItem('bodies');
-        localStorage.removeItem('casps');
-        localStorage.removeItem('magnify');
-        localStorage.removeItem('display-bodydata');
-        localStorage.removeItem('display-aspect');
+        if(confirm("設定を初期化します。よろしいですか？")){
+            SettingUtil.removeSetting();
+            initSetting();
+            $('#horoscope').empty();
+            $('#house-list').empty();
+            $('#body-table').empty();
+            $('#aspect-table').empty();
+            localStorage.removeItem('bodies');
+            localStorage.removeItem('casps');
+            localStorage.removeItem('magnify');
+            localStorage.removeItem('display-bodydata');
+            localStorage.removeItem('display-aspect');
+        }
     });
     $('#display-bodydata').change(function() {
         localStorage.setItem('display-bodydata', $('#display-bodydata').prop('checked'));

@@ -105,19 +105,21 @@ $(function () {
         calc();
     });
     $('#btn_remove_setting').click(function() {
-        SettingUtil.removeSetting();
-        initSetting();
-        $('#horoscope').empty();
-        $('#house-list').empty();
-        $('#body-table').empty();
-        $('#aspect-table').empty();
-        localStorage.removeItem('bodies_progress');
-        localStorage.removeItem('bodies2_progress');
-        localStorage.removeItem('casps_progress');
-        localStorage.removeItem('magnify_progress');
-        localStorage.removeItem('display-bodydata_progress');
-        localStorage.removeItem('display-aspect_progress');
-        localStorage.removeItem('display-opponent_progress');
+        if(confirm("設定を初期化します。よろしいですか？")){
+            SettingUtil.removeSetting();
+            initSetting();
+            $('#horoscope').empty();
+            $('#house-list').empty();
+            $('#body-table').empty();
+            $('#aspect-table').empty();
+            localStorage.removeItem('bodies_progress');
+            localStorage.removeItem('bodies2_progress');
+            localStorage.removeItem('casps_progress');
+            localStorage.removeItem('magnify_progress');
+            localStorage.removeItem('display-bodydata_progress');
+            localStorage.removeItem('display-aspect_progress');
+            localStorage.removeItem('display-opponent_progress');
+        }
     });
     $('#display-bodydata').change(function() {
         localStorage.setItem('display-bodydata_progress', $('#display-bodydata').prop('checked'));

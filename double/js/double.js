@@ -105,19 +105,21 @@ $(function () {
         calc();
     });
     $('#btn_remove_setting').click(function() {
-        SettingUtil.removeSetting();
-        initSetting();
-        $('#horoscope').empty();
-        $('#house-list').empty();
-        $('#body-table').empty();
-        $('#aspect-table').empty();
-        localStorage.removeItem('bodies_double');
-        localStorage.removeItem('bodies2_double');
-        localStorage.removeItem('casps_double');
-        localStorage.removeItem('magnify_double');
-        localStorage.removeItem('display-bodydata_double');
-        localStorage.removeItem('display-aspect_double');
-        localStorage.removeItem('display-opponent_double');
+        if(confirm('設定を初期化します。よろしいですか？')){
+            SettingUtil.removeSetting();
+            initSetting();
+            $('#horoscope').empty();
+            $('#house-list').empty();
+            $('#body-table').empty();
+            $('#aspect-table').empty();
+            localStorage.removeItem('bodies_double');
+            localStorage.removeItem('bodies2_double');
+            localStorage.removeItem('casps_double');
+            localStorage.removeItem('magnify_double');
+            localStorage.removeItem('display-bodydata_double');
+            localStorage.removeItem('display-aspect_double');
+            localStorage.removeItem('display-opponent_double');
+        }
     });
     $('#display-bodydata').change(function() {
         localStorage.setItem('display-bodydata_double', $('#display-bodydata').prop('checked'));
