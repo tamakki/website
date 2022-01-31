@@ -1155,14 +1155,8 @@ function GetTargetDate(targetYear) {
  */
 function GetSunData(target) {
     var date1 = {year: target.getUTCFullYear(), month: target.getUTCMonth() + 1, day: target.getUTCDate(), hours: target.getUTCHours(), minutes: target.getUTCMinutes(), seconds: target.getUTCSeconds()};
-    var date2 = new Date();
-    date2.setUTCFullYear(target.getUTCFullYear());
-    date2.setUTCMonth(target.getUTCMonth());
-    date2.setUTCDate(target.getUTCDate());
-    date2.setUTCHours(target.getUTCHours());
-    date2.setUTCMinutes(target.getUTCMinutes() + 1);
-    date2.setUTCSeconds(target.getUTCSeconds());
-    date2 = {year: date2.getUTCFullYear(), month: date2.getUTCMonth() + 1, day: date2.getUTCDate(), hours: date2.getUTCHours(), minutes: date2.getUTCMinutes(), seconds: date2.getUTCSeconds()};
+    var nex_minute = new Date(target.getTime() + 60 * 1000);
+    var date2 = {year: nex_minute.getUTCFullYear(), month: nex_minute.getUTCMonth() + 1, day: nex_minute.getUTCDate(), hours: nex_minute.getUTCHours(), minutes: nex_minute.getUTCMinutes(), seconds: nex_minute.getUTCSeconds()};
             
     $const.tlong = -1 * this.longitude; // longitude
     $const.glat = this.longitude; // latitude
@@ -1188,18 +1182,20 @@ function GetSunData(target) {
  */
 function GetDateSunHasSpecificAngle(target_angle, date_from) {
     // 初期角度
+    var setting = SettingUtil.getSetting();
+    var targetYear = targetYear? targetYear:setting['target-year'];
+    date_from = new Date(targetYear,0,1,0,0);
     var start = GetSunData(date_from);
     // 指定角度の補正
     if(target_angle < start.longitude) {
         target_angle += 360;
     }
-
     var now = date_from;
     var now_angle = start.longitude;
 
     // ニュートン法で近似する
     var i = 0;
-    while(Math.abs(target_angle - now_angle) > 0.001) {
+    while(Math.abs(target_angle - now_angle) > 0.01) {
         var now_data = GetSunData(now);
         now_angle = now_data.longitude;
         if(now_angle < start.longitude) {
@@ -1209,22 +1205,18 @@ function GetDateSunHasSpecificAngle(target_angle, date_from) {
         var diff_angle = target_angle - now_angle;
         var diff_min = diff_angle / now_data.longitude_speed;
 
-        var now = getNext(now, diff_min);
+        var now = getNext(now, diff_min);        
         i++;
         if(i > 1000) break;
     }
-    
+    // console.log(i);
+    // console.log(Math.abs(target_angle - now_angle));
     return now;
-    
 
     function getNext(date, diff_min) {
-        var next = new Date();
-        next.setUTCFullYear(date.getUTCFullYear());
-        next.setUTCMonth(date.getUTCMonth());
-        next.setUTCDate(date.getUTCDate());
-        next.setUTCHours(date.getUTCHours());
-        next.setUTCSeconds(date.getUTCSeconds());
-        next.setUTCMinutes(date.getUTCMinutes() + diff_min);
+        if(Math.abs(diff_min * 60) < 1) diff_min = diff_min / Math.abs(diff_min) / 60;
+        else if(Math.abs(diff_min) < 1) diff_min = diff_min / Math.abs(diff_min);
+        var next = new Date(date.getTime() + diff_min * 60 * 1000);
         return next;
     }
 }
