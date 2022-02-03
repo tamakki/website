@@ -338,3 +338,22 @@ footer {
     height: 0;
     margin-bottom: 10em !important;
 }
+
+@media(orientation: portrait) {
+    body {
+        font-size: 4vw;
+    }
+    .category {
+        margin: 0 1em;
+    }
+    span {
+        margin-bottom: 0.5em;
+    }
+    input[type="checkbox"] {
+        width: 25pt;
+        height: 25pt;
+    }
+    .category{
+        width: 100%;
+    }
+}
