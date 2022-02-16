@@ -465,7 +465,7 @@ function draw() {
                 }
                 layouted[dup].push(elm.longitude);
                 
-                let src = SettingUtil.body_list[target].svg;
+                let src = window.location.origin + "/" + SettingUtil.body_list[target].svg;
                 let image = new RadialImageBuilder(
                     src, 
                     base - elm.longitude , 

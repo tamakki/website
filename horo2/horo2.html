@@ -20,6 +20,8 @@
     <script script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1/i18n/jquery.ui.datepicker-ja.min.js"></script>
     <script src="https://cdn.jsdelivr.net/jquery.loadingoverlay/latest/loadingoverlay.min.js"></script>
+    <script type="module" src="../common/CommonUtil.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.0.0-rc.5/dist/html2canvas.min.js"></script>
 </head>
 
 <body>
@@ -136,6 +138,17 @@
                 <h4>二区分</h4>
                 <div id="div2"></div>
             </div>
+            
+            <button onclick="test()">てすと</button>
+            <div id="test"></div>
+            <script>
+                function test() {
+                    let svg = document.getElementById("horoscope").children[0];
+                    if(svg) {
+                        CommonUtil.Share(svg);
+                    }
+                }
+            </script>
         </div>
         <footer>
             <!-- admax -->
