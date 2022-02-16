@@ -1,4 +1,4 @@
-import Canvg from "https://cdn.skypack.dev/canvg";
+import {Canvg} from "https://cdn.skypack.dev/canvg";
 
 function CommonUtil(){}
 
