@@ -139,20 +139,20 @@
                 <div id="div2"></div>
             </div>
             
-            <button onclick="test()">てすと</button>
+            <button onclick="test()">Share</button>
             <div id="test"></div>
             <script>
-                function test() {
+                async function test() {
                     let svg = document.getElementById("horoscope").children[0];
-                    let casps = document.getElementById("house-data");
-                    let bodies = document.getElementById("body-data");
-                    let aspects = document.getElementsByClassName("aspect-table")[0];
-                    if(svg) {
+                    let casps = document.getElementById("house-list");
+                    let bodies = document.getElementById("body-table");
+                    let aspects = document.querySelector(".aspect-table table");
+                    if(svg && casps && bodies && aspects) {
                         let files = [];
-                        files.push(new File(CommonUtil.Svg2Blob(svg)));
-                        files.push(new File(CommonUtil.Element2Blob(casps)));
-                        files.push(new File(CommonUtil.Element2Blob(bodies)));
-                        files.push(new File(CommonUtil.Element2Blob(aspects)));
+                        files.push(new File([await CommonUtil.Svg2Blob(svg)], "image.png", {type: "image/png"}));
+                        files.push(new File([await CommonUtil.Element2Blob(casps)], "image.png", {type: "image/png"}));
+                        files.push(new File([await CommonUtil.Element2Blob(bodies)], "image.png", {type: "image/png"}));
+                        files.push(new File([await CommonUtil.Element2Blob(aspects)], "image.png", {type: "image/png"}));
                         CommonUtil.Share("たまスコープ", window.location.origin, files);
                     }
                 }
