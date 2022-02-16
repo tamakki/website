@@ -20,8 +20,8 @@
     <script script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1/i18n/jquery.ui.datepicker-ja.min.js"></script>
     <script src="https://cdn.jsdelivr.net/jquery.loadingoverlay/latest/loadingoverlay.min.js"></script>
+    <script src="../common/html2canvas.min.js"></script>
     <script type="module" src="../common/CommonUtil.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.0.0-rc.5/dist/html2canvas.min.js"></script>
 </head>
 
 <body>
@@ -144,8 +144,16 @@
             <script>
                 function test() {
                     let svg = document.getElementById("horoscope").children[0];
+                    let casps = document.getElementById("house-data");
+                    let bodies = document.getElementById("body-data");
+                    let aspects = document.getElementsByClassName("aspect-table")[0];
                     if(svg) {
-                        CommonUtil.Share(svg);
+                        let files = [];
+                        files.push(new File(CommonUtil.Svg2Blob(svg)));
+                        files.push(new File(CommonUtil.Element2Blob(casps)));
+                        files.push(new File(CommonUtil.Element2Blob(bodies)));
+                        files.push(new File(CommonUtil.Element2Blob(aspects)));
+                        CommonUtil.Share("たまスコープ", window.location.origin, files);
                     }
                 }
             </script>

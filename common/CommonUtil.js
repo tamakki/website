@@ -3,11 +3,11 @@ import {Canvg} from "https://cdn.skypack.dev/canvg";
 function CommonUtil(){}
 
 /**
- * svgを画像に変換する
- * @params svg {node} 変換元のDOM要素
- * @returns {blob} 変換後の画像
+ * svgをblobに変換する
+ * @param {*} svg svgElement
+ * @returns blob 画像のバイナリ
  */
-CommonUtil.Share = async (svg) => {
+CommonUtil.Svg2Blob = async (svg) => {
     let svgData = new XMLSerializer().serializeToString(svg);
     let canvas = document.createElement("canvas");
     canvas.width = svg.width.baseVal.value;
@@ -16,16 +16,35 @@ CommonUtil.Share = async (svg) => {
     let ctx = canvas.getContext("2d");
     let v = await Canvg.fromString(ctx, svgData);
     await v.render();
-    canvas.toBlob(function(blob) {
-        const imageFile = new File([blob], "image.png", {type: "image/png"});
-        navigator.share({
-            text: "ホロスコープ",
-            url: "https://tamakki.github.io/website/horo_index.html",
-            files: [imageFile]
-        }).then(() => {
-            console.log("せいこう");
-        });
-    }, "image/png");
+
+    return await new Promise(resolve => canvas.toBlob(resolve));
+}
+
+/**
+ * DOMを画像にへんかんする
+ * @param {*} element DOM要素
+ * @returns blob 画像のバイナリ
+ */
+CommonUtil.Element2Blob = async (element) => {
+    return await new Promise(resolve => {
+        html2canvas(element).then((canvas) => {
+            canvas.toBlob(resolve);
+        })
+    });
+}
+
+/**
+ * ホロスコープを共有する
+ * @param {*} message
+ * @param {*} url 
+ * @param {*} files 
+ */
+CommonUtil.Share = (message, url, files) => {
+    navigator.share({
+        text: message,
+        url: url,
+        files: files
+    });
 }
 
 window.CommonUtil = CommonUtil;
