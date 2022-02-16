@@ -15,7 +15,7 @@ CommonUtil.Share = async (svg) => {
 
     let ctx = canvas.getContext("2d");
     let v = await Canvg.fromString(ctx, svgData);
-    v.start();
+    await v.render();
     canvas.toBlob(function(blob) {
         const imageFile = new File([blob], "image.png", {type: "image/png"});
         navigator.share({
