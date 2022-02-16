@@ -21,6 +21,7 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1/i18n/jquery.ui.datepicker-ja.min.js"></script>
     <script src="https://cdn.jsdelivr.net/jquery.loadingoverlay/latest/loadingoverlay.min.js"></script>
     <script src="../common/html2canvas.min.js"></script>
+    <script src="../common/html2canvas.svg.js"></script>
     <script type="module" src="../common/CommonUtil.js"></script>
 </head>
 
@@ -153,7 +154,7 @@
                         files.push(new File([await CommonUtil.Element2Blob(casps)], "image.png", {type: "image/png"}));
                         files.push(new File([await CommonUtil.Element2Blob(bodies)], "image.png", {type: "image/png"}));
                         files.push(new File([await CommonUtil.Element2Blob(aspects)], "image.png", {type: "image/png"}));
-                        CommonUtil.Share("たまスコープ", window.location.origin, files);
+                        CommonUtil.Share("小惑星沢山ホロスコープ\n\n#たまスコープ\n#ホロスコープ\n" + window.location.origin, window.location.origin, files);
                     }
                 }
             </script>

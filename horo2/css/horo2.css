@@ -121,6 +121,7 @@ h1, h2, h3, h4 {
 
 .aspect-table table {
     border-collapse: collapse;
+    border: 1px solid #000;;
     margin: 0 auto;
 }
 
@@ -135,10 +136,15 @@ h1, h2, h3, h4 {
     cursor: default;
 }
 
+.aspect-table tr {
+    border: 1px solid #000;
+}
+
 .aspect-table th {
     text-align: left;
     white-space: nowrap;
     max-width: 2em;
+    border: 1px solid #000;
 }
 
 #aspect-data {
