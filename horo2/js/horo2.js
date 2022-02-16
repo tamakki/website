@@ -384,7 +384,7 @@ function draw() {
                 CalcAstroBase.svg_sign_symbol[i], 
                 -360 / 12 * i + base - 17.5, 
                 (OUTER_CIRCLE_RADIUS + INNER_CIRCLE_RADIUS)/2, 
-                OUTER_CIRCLE_RADIUS - INNER_CIRCLE_RADIUS, 
+                (OUTER_CIRCLE_RADIUS - INNER_CIRCLE_RADIUS) * 0.7, 
                 (OUTER_CIRCLE_RADIUS - INNER_CIRCLE_RADIUS) * 0.7)
             .build();
             sign.append(image);
@@ -395,7 +395,7 @@ function draw() {
                 CalcAstroBase.svg_gardian_symbol[i], 
                 -360 / 12 * i + base - 10, 
                 (OUTER_CIRCLE_RADIUS + INNER_CIRCLE_RADIUS)/2, 
-                OUTER_CIRCLE_RADIUS - INNER_CIRCLE_RADIUS, 
+                (OUTER_CIRCLE_RADIUS - INNER_CIRCLE_RADIUS) * 0.45,
                 (OUTER_CIRCLE_RADIUS - INNER_CIRCLE_RADIUS) * 0.45)
             .set('gardian', CalcAstroBase.gardian[i])
             .set('onmouseover', 'dispGardian()')
