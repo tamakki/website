@@ -349,7 +349,7 @@ footer {
     flex-direction: row;
 }
 
-btn_share {
+.btn_share {
     height: 2em;
     width: 5em;
     color: #fff;
