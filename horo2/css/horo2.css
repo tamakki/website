@@ -116,12 +116,18 @@ h1, h2, h3, h4 {
     padding: 1em;
     text-align: center;
     page-break-inside: avoid;
-    display: table;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#aspect-table {
+    width: fit-content;
+    padding: 2em;
 }
 
 .aspect-table table {
     border-collapse: collapse;
-    margin: 0 auto;
 }
 
 .aspect-table td {
@@ -155,9 +161,14 @@ h1, h2, h3, h4 {
     justify-content: flex-start;
 }
 
+#body-data-wrapper {
+    width: 100%;
+}
+
 #body-table {
     border-collapse: collapse;
     margin: 0 auto;
+    width: 100%;
 }
 #body-table td {
     padding-right: 1em;
@@ -182,6 +193,11 @@ h1, h2, h3, h4 {
 
 #body-data {
     padding: 1em;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: calc(18em + 600px);
+    margin: auto;
 }
 
 #body-data h3 {
@@ -331,4 +347,14 @@ footer {
 .aspect-display {
     display: flex;
     flex-direction: row;
+}
+
+btn_share {
+    height: 2em;
+    width: 5em;
+    color: #fff;
+    background: #00ff49;
+    border-radius: 0.4em;
+    font-weight: 600;
+    border: none;
 }

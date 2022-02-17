@@ -21,16 +21,30 @@ CommonUtil.Svg2Blob = async (svg) => {
 }
 
 /**
- * DOMを画像にへんかんする
+ * DOMを画像に変換する
  * @param {*} element DOM要素
  * @returns blob 画像のバイナリ
  */
 CommonUtil.Element2Blob = async (element) => {
-    return await new Promise(resolve => {
-        html2canvas(element).then((canvas) => {
-            canvas.toBlob(resolve);
-        })
+    const padding = 10;
+    let src = await new Promise( resolve => {
+        domtoimage.toPng(element).then(url => resolve(url));
+    })
+    let canvas = await new Promise(resolve => {
+
+        let image = new  Image();
+        image.onload = function() {
+            let canvas = document.createElement("canvas");
+            canvas.width = element.clientWidth + padding * 2;
+            canvas.height = element.clientHeight + padding * 2;
+            let ctx = canvas.getContext("2d");
+            ctx.drawImage(image, padding, padding);
+            resolve(canvas);
+        }
+        image.src = src;
     });
+
+    return await new Promise(resolve => canvas.toBlob(resolve));
 }
 
 /**
