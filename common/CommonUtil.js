@@ -12,6 +12,7 @@ CommonUtil.Svg2Blob = async (svg) => {
     let canvas = document.createElement("canvas");
     canvas.width = svg.width.baseVal.value;
     canvas.height = svg.height.baseVal.value;
+    let ctx = canvas.getContext("2d");
     let v = await Canvg.fromString(ctx, svgData);
     await v.render();
 
