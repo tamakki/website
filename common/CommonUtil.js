@@ -12,13 +12,6 @@ CommonUtil.Svg2Blob = async (svg) => {
     let canvas = document.createElement("canvas");
     canvas.width = svg.width.baseVal.value;
     canvas.height = svg.height.baseVal.value;
-
-    let ctx = canvas.getContext("2d");
-    ctx.beginPath();
-    ctx.fillStyle = 'rgb(255,255,255)';
-    ctx.fillRect(0,0,canvas.width,canvas.height);
-
-    ctx.beginPath();
     let v = await Canvg.fromString(ctx, svgData);
     await v.render();
 
@@ -44,7 +37,6 @@ CommonUtil.Element2Blob = async (element) => {
             canvas.height = element.clientHeight + padding * 2;
             let ctx = canvas.getContext("2d");
 
-            let ctx = canvas.getContext("2d");
             ctx.beginPath();
             ctx.fillStyle = 'rgb(255,255,255)';
             ctx.fillRect(0,0,canvas.width,canvas.height);

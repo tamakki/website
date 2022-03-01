@@ -291,6 +291,19 @@ function draw() {
         svg.setAttribute("xmlns", "http://www.w3.org/2000/svg");
         svg.setAttribute('class', 'horoscope');
 
+        let background = new PolygonBuilder(
+            [
+                {x:-VIEW_BOX_WIDTH/2, y:-VIEW_BOX_HEIGHT/2},
+                {x: VIEW_BOX_WIDTH/2, y:-VIEW_BOX_HEIGHT/2},
+                {x: VIEW_BOX_WIDTH/2, y: VIEW_BOX_HEIGHT/2},
+                {x:-VIEW_BOX_WIDTH/2, y: VIEW_BOX_HEIGHT/2}
+            ]
+        )
+        .setFill('#fff')
+        .setStroke('none')
+        .build();
+        svg.append(background);
+
         let sign = new GroupBuilder()
         .setId('sign')
         .build();
