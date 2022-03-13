@@ -262,6 +262,21 @@ function draw() {
             base = (caspdata.ASC.angle + 180) % 360;
             ASC = caspdata.ASC.angle;
             MC = caspdata.MC.angle;
+        } else {
+            ASC = caspdata.casps[0];
+            MC = caspdata.casps[9];
+        }
+
+        if(setting.targets.indexOf('ASC') !== -1) {
+            bodies['ASC'] ={
+                longitude: ASC.angle
+            };
+        }
+
+        if(setting.targets.indexOf('MC') !== -1) {
+            bodies['MC'] = {
+                longitude: MC.angle
+            };
         }
 
         // アスペクトを取得
@@ -659,8 +674,9 @@ function makeBodyList() {
     table.empty();
     const setting = SettingUtil.getSetting();
     for(let i = 0; i < setting.targets.length; i++) {
-        const tr = $('<tr>').appendTo(table);
         const key = setting.targets[i];
+        if(key === 'ASC' || key === 'MC') continue;
+        const tr = $('<tr>').appendTo(table);
         const name = SettingUtil.body_list[key].name;
         const data = bodies[key];
         if(data === null || data === undefined){

@@ -322,29 +322,6 @@ function draw() {
         const setting = SettingUtil.getSetting();
         // 描画を削除
         $('#horoscope').empty();
-
-        // アスペクトを取得
-        const aspect_calculator = new AspectCalculator(setting['major-orb'], setting['hard-orb'],setting['soft-orb'],setting['major-disp'],setting['hard-disp'],setting['soft-disp']);
-        const elements = [];
-        $.each(natal, function(key, value) {
-            if(value){
-                elements.push({name: key, angle: value.longitude});
-            }
-        });
-        const elements2 = [];
-        $.each(progress, function(key, value){
-            if(value){
-                elements2.push({name: key, angle: value.longitude});
-            }
-        });
-        const elements3 = [];
-        $.each(transit, function(key, value){
-            if(value){
-                elements3.push({name: key, angle: value.longitude});
-            }
-        });
-        aspects_progress = aspect_calculator.getAspectBetween(elements, elements2);
-        aspects_transit = aspect_calculator.getAspectBetween(elements, elements3);
         
         // ハウスを取得
         const caspdata = getHouse(setting);
@@ -375,7 +352,50 @@ function draw() {
             base = (caspdata.ASC.angle + 180) % 360;
             ASC = caspdata.ASC.angle;
             MC = caspdata.MC.angle;
+        } else {
+            ASC = caspdata.casps[0];
+            MC = caspdata.casps[9];
         }
+
+        if(setting.targets.indexOf('ASC') !== -1) {
+            natal['ASC'] ={
+                longitude: ASC.angle
+            };
+            delete progress['ASC'];
+            delete transit['ASC'];
+        }
+
+        if(setting.targets.indexOf('MC') !== -1) {
+            natal['MC'] = {
+                longitude: MC.angle
+            };
+            delete progress['MC'];
+            delete transit['MC'];
+        }
+
+        // アスペクトを取得
+        const aspect_calculator = new AspectCalculator(setting['major-orb'], setting['hard-orb'],setting['soft-orb'],setting['major-disp'],setting['hard-disp'],setting['soft-disp']);
+        const elements = [];
+        $.each(natal, function(key, value) {
+            if(value){
+                elements.push({name: key, angle: value.longitude});
+            }
+        });
+        const elements2 = [];
+        $.each(progress, function(key, value){
+            if(value){
+                elements2.push({name: key, angle: value.longitude});
+            }
+        });
+        const elements3 = [];
+        $.each(transit, function(key, value){
+            if(value){
+                elements3.push({name: key, angle: value.longitude});
+            }
+        });
+        aspects_progress = aspect_calculator.getAspectBetween(elements, elements2);
+        aspects_transit = aspect_calculator.getAspectBetween(elements, elements3);
+
         let sign = new GroupBuilder()
         .setId('sign')
         .build();
@@ -888,12 +908,14 @@ function getAspectTable (aspects){
     let start_th = document.createElement("th");
     tr.append(start_th);
     aspects.forEach(function(elm) {
-        let th = document.createElement('th');
-        let span = document.createElement('span');
-        span.innerText = SettingUtil.body_list[elm.key].name;
-        th.classList.add('outer-body-th');
-        th.append(span);
-        tr.append(th);
+        if(elm.key !== 'ASC' && elm.key !== 'MC') {
+            let th = document.createElement('th');
+            let span = document.createElement('span');
+            span.innerText = SettingUtil.body_list[elm.key].name;
+            th.classList.add('outer-body-th');
+            th.append(span);
+            tr.append(th);
+        }
     });
     aspect_table.append(tr);
 
@@ -924,8 +946,9 @@ function makeBodyList() {
     table.empty();
     const setting = SettingUtil.getSetting();
     for(let i = 0; i < setting.targets.length; i++) {
-        const tr = $('<tr>').appendTo(table);
         const key = setting.targets[i];
+        if(key === 'ASC' || key === 'MC') continue;
+        const tr = $('<tr>').appendTo(table);
         const name = SettingUtil.body_list[key].name;
         const data = natal[key];
         if(!data) {

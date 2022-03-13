@@ -302,22 +302,6 @@ function draw() {
         // 描画を削除
         $('#horoscope').empty();
 
-        // アスペクトを取得
-        const aspect_calculator = new AspectCalculator(setting['major-orb'], setting['hard-orb'],setting['soft-orb'],setting['major-disp'],setting['hard-disp'],setting['soft-disp']);
-        const elements = [];
-        $.each(bodies, function(key, value) {
-            if(value){
-                elements.push({name: key, angle: value.longitude});
-            }
-        });
-        const elements2 = [];
-        $.each(bodies2, function(key, value){
-            if(value){
-                elements2.push({name: key, angle: value.longitude});
-            }
-        });
-        aspects = aspect_calculator.getAspectBetween(elements, elements2);
-        
         // ハウスを取得
         const caspdata = getHouse(setting);
         casps = caspdata;
@@ -347,12 +331,46 @@ function draw() {
             base = (caspdata.ASC.angle + 180) % 360;
             ASC = caspdata.ASC.angle;
             MC = caspdata.MC.angle;
+        } else {
+            ASC = caspdata.casps[0];
+            MC = caspdata.casps[9];
         }
+
+        if(setting.targets.indexOf('ASC') !== -1) {
+            bodies['ASC'] ={
+                longitude: ASC.angle
+            };
+            delete bodies2['ASC'];
+        }
+
+        if(setting.targets.indexOf('MC') !== -1) {
+            bodies['MC'] = {
+                longitude: MC.angle
+            };
+            delete bodies2['MC'];
+        }
+
+        // アスペクトを取得
+        const aspect_calculator = new AspectCalculator(setting['major-orb'], setting['hard-orb'],setting['soft-orb'],setting['major-disp'],setting['hard-disp'],setting['soft-disp']);
+        const elements = [];
+        $.each(bodies, function(key, value) {
+            if(value){
+                elements.push({name: key, angle: value.longitude});
+            }
+        });
+        const elements2 = [];
+        $.each(bodies2, function(key, value){
+            if(value){
+                elements2.push({name: key, angle: value.longitude});
+            }
+        });
+        aspects = aspect_calculator.getAspectBetween(elements, elements2);
+    
         let sign = new GroupBuilder()
         .setId('sign')
         .build();
         svg.append(sign);
-    
+
         for(let i = 0; i < 12; i++){
             let x = 0;
             let y = 0;
@@ -749,14 +767,14 @@ function getAspectTable (aspects){
     let start_th = document.createElement("th");
     start_th.style.verticalAlign = 'bottom';
     tr.append(start_th);
-    aspects.forEach(function(elm) {
+    for(key in bodies2) {
         let th = document.createElement('th');
         let span = document.createElement('span');
-        span.innerText = SettingUtil.body_list[elm.key].name;
+        span.innerText = SettingUtil.body_list[key].name;
         th.classList.add('outer-body-th');
         th.append(span);
         tr.append(th);
-    });
+    };
     aspect_table.append(tr);
 
     aspects.forEach(function(elm){
@@ -786,8 +804,9 @@ function makeBodyList() {
     table.empty();
     const setting = SettingUtil.getSetting();
     for(let i = 0; i < setting.targets.length; i++) {
-        const tr = $('<tr>').appendTo(table);
         const key = setting.targets[i];
+        if(key === 'ASC' || key === 'MC') continue;
+        const tr = $('<tr>').appendTo(table);
         const name = SettingUtil.body_list[key].name;
         const data = bodies[key];
         const sign = CalcAstroBase.getSign(data.longitude);
@@ -812,8 +831,9 @@ function makeBodyList() {
     const table_outer = $('#body-table-outer');
     table_outer.empty();
     for(let i = 0; i < setting.targets.length; i++) {
-        const tr = $('<tr>').appendTo(table_outer);
         const key = setting.targets[i];
+        if(key === 'ASC' || key === 'MC') continue;
+        const tr = $('<tr>').appendTo(table_outer);
         const name = SettingUtil.body_list[key].name;
         const data = bodies2[key];
         const sign = CalcAstroBase.getSign(data.longitude);
