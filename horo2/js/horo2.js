@@ -263,20 +263,24 @@ function draw() {
             ASC = caspdata.ASC.angle;
             MC = caspdata.MC.angle;
         } else {
-            ASC = caspdata.casps[0];
-            MC = caspdata.casps[9];
+            ASC = caspdata.casps[0].angle;
+            MC = caspdata.casps[9].angle;
         }
+        if(setting['house-system'] !== 'solar-sign' && setting['house-system'] !== 'solar'){
+            if(setting.targets.indexOf('ASC') !== -1) {
+                bodies['ASC'] ={
+                    longitude: ASC
+                };
+            }
 
-        if(setting.targets.indexOf('ASC') !== -1) {
-            bodies['ASC'] ={
-                longitude: ASC.angle
-            };
-        }
-
-        if(setting.targets.indexOf('MC') !== -1) {
-            bodies['MC'] = {
-                longitude: MC.angle
-            };
+            if(setting.targets.indexOf('MC') !== -1) {
+                bodies['MC'] = {
+                    longitude: MC
+                };
+            }
+        } else {
+            delete bodies['ASC'];
+            delete bodies['MC'];
         }
 
         // アスペクトを取得

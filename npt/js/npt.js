@@ -357,21 +357,31 @@ function draw() {
             MC = caspdata.casps[9];
         }
 
-        if(setting.targets.indexOf('ASC') !== -1) {
-            natal['ASC'] ={
-                longitude: ASC.angle
-            };
-            delete progress['ASC'];
-            delete transit['ASC'];
-        }
+        if(setting['house-system'] !== 'solar-sign' && setting['house-system'] !== 'solar'){
+            if(setting.targets.indexOf('ASC') !== -1) {
+                natal['ASC'] ={
+                    longitude: ASC.angle
+                };
+                delete progress['ASC'].angle;
+                delete transit['ASC'].angle;
+            }
 
-        if(setting.targets.indexOf('MC') !== -1) {
-            natal['MC'] = {
-                longitude: MC.angle
-            };
+            if(setting.targets.indexOf('MC') !== -1) {
+                natal['MC'] = {
+                    longitude: MC.angle
+                };
+                delete progress['MC'];
+                delete transit['MC'];
+            }
+        } else {
+            delete natal['ASC'];
+            delete natal['MC'];
+            delete progress['ASC'];
             delete progress['MC'];
+            delete transit['ASC'];
             delete transit['MC'];
         }
+
 
         // アスペクトを取得
         const aspect_calculator = new AspectCalculator(setting['major-orb'], setting['hard-orb'],setting['soft-orb'],setting['major-disp'],setting['hard-disp'],setting['soft-disp']);

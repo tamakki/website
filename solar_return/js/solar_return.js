@@ -289,6 +289,9 @@ function draw() {
         if(setting['house-system'] !== 'solar-sign' && setting['house-system'] !== 'solar'){
             bodies['ASC'] = {longitude: caspdata.ASC.angle, longitude_speed: 0};
             bodies['MC'] = {longitude: caspdata.MC.angle, longitude_speed: 0};
+        } else {
+            delete bodies['ASC'];
+            delete bodies['MC'];
         }
         // アスペクトを取得
         const aspect_calculator = new AspectCalculator();
