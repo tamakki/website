@@ -464,11 +464,15 @@ function draw() {
                 deg1 += 360;
             }
             let deg = base - (caspdata.casps[i].angle + (deg1 - deg2) * 0.5);
-            let text = new RadialTextBuilder(deg,INNER_CIRCLE_RADIUS - (layouted.length + 1) * gapPlanets + 10 * magnify, i+1)
+            let r = INNER_CIRCLE_RADIUS - (layouted.length + 1) * gapPlanets + 10 * magnify;
+            r = Math.max(r, 100);
+            let fontSize = r / magnify * Math.PI/9;
+            fontSize = Math.max(fontSize, 16);
+            let text = new RadialTextBuilder(deg, r, i+1)
             .set('class','symbol')
             .setStroke("#aaa")
             .setFill("#aaa")
-            .set('font-size', Math.min((INNER_CIRCLE_RADIUS - (layouted.length + 1) * gapPlanets + 10) * Math.PI/9, 16 * magnify))
+            .set('font-size', 16 * magnify)
             .build();
             sign.append(text);
         }

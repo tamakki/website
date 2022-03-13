@@ -641,7 +641,7 @@ function draw() {
             svg.append(elm);
         });
 
-        let font_size = Math.min( rBodies2 - wPlanets * Math.PI/9, 13 * magnify);
+        let font_size = 13 * magnify;
         rBodies2 -= font_size + gapPlanets / 2;
     
         for(let i = 0; i < caspdata.casps.length; i++){
@@ -654,7 +654,7 @@ function draw() {
                 deg1 += 360;
             }
             let deg = base - (caspdata.casps[i].angle + (deg1 - deg2) * 0.5);
-            let text = new RadialTextBuilder(deg, rBodies2, i+1)
+            let text = new RadialTextBuilder(deg, Math.max(rBodies2, 100), i+1)
             .set('class','symbol')
             .setStroke("#aaa")
             .setFill("#aaa")
