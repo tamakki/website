@@ -28,13 +28,13 @@ function init() {
         const disp = $('<td>').appendTo(tr);
         $('<input type="checkbox">').prop('id', key).prop('checked', aspect.display).appendTo(disp);
         const orb1 = $('<td>').appendTo(tr);
-        $('<input type="number" min="0" max="10" step="0.1" inputmode="decimal">').prop('id', key + '-orb-major-tight').val(aspect.orb.major.tight).appendTo(orb1);
+        $('<input type="number" min="0" max="10" step="0.1" inputmode="decimal">').prop('id', key + '_orb_major_tight').val(aspect.orb.major.tight).appendTo(orb1);
         const orb2 = $('<td>').appendTo(tr);
-        $('<input type="number" min="0" max="10" step="0.1" inputmode="decimal">').prop('id', key + '-orb-major-loose').val(aspect.orb.major.loose).appendTo(orb2);
+        $('<input type="number" min="0" max="10" step="0.1" inputmode="decimal">').prop('id', key + '_orb_major_loose').val(aspect.orb.major.loose).appendTo(orb2);
         const orb3 = $('<td>').appendTo(tr);
-        $('<input type="number" min="0" max="10" step="0.1" inputmode="decimal">').prop('id', key + '-orb-minor-tight').val(aspect.orb.minor.tight).appendTo(orb3);
+        $('<input type="number" min="0" max="10" step="0.1" inputmode="decimal">').prop('id', key + '_orb_minor_tight').val(aspect.orb.minor.tight).appendTo(orb3);
         const orb4 = $('<td>').appendTo(tr);
-        $('<input type="number" min="0" max="10" step="0.1" inputmode="decimal">').prop('id', key + '-orb-minor-loose').val(aspect.orb.minor.loose).appendTo(orb4);
+        $('<input type="number" min="0" max="10" step="0.1" inputmode="decimal">').prop('id', key + '_orb_minor_loose').val(aspect.orb.minor.loose).appendTo(orb4);
     }
     const minor = $('<tr class="body">').appendTo(table);
     $('<td colspan="7">').text('マイナーアスペクト').appendTo(minor);
@@ -50,13 +50,13 @@ function init() {
         const disp = $('<td>').appendTo(tr);
         $('<input type="checkbox">').prop('id', key).prop('checked', aspect.display).appendTo(disp);
         const orb1 = $('<td>').appendTo(tr);
-        $('<input type="number" min="0" max="10" step="0.1" inputmode="decimal">').prop('id', key + '-orb-major-tight').val(aspect.orb.major.tight).appendTo(orb1);
+        $('<input type="number" min="0" max="10" step="0.1" inputmode="decimal">').prop('id', key + '_orb_major_tight').val(aspect.orb.major.tight).appendTo(orb1);
         const orb2 = $('<td>').appendTo(tr);
-        $('<input type="number" min="0" max="10" step="0.1" inputmode="decimal">').prop('id', key + '-orb-major-loose').val(aspect.orb.major.loose).appendTo(orb2);
+        $('<input type="number" min="0" max="10" step="0.1" inputmode="decimal">').prop('id', key + '_orb_major_loose').val(aspect.orb.major.loose).appendTo(orb2);
         const orb3 = $('<td>').appendTo(tr);
-        $('<input type="number" min="0" max="10" step="0.1" inputmode="decimal">').prop('id', key + '-orb-minor-tight').val(aspect.orb.minor.tight).appendTo(orb3);
+        $('<input type="number" min="0" max="10" step="0.1" inputmode="decimal">').prop('id', key + '_orb_minor_tight').val(aspect.orb.minor.tight).appendTo(orb3);
         const orb4 = $('<td>').appendTo(tr);
-        $('<input type="number" min="0" max="10" step="0.1" inputmode="decimal">').prop('id', key + '-orb-minor-loose').val(aspect.orb.minor.loose).appendTo(orb4);
+        $('<input type="number" min="0" max="10" step="0.1" inputmode="decimal">').prop('id', key + '_orb-minor_loose').val(aspect.orb.minor.loose).appendTo(orb4);
     }
 
     $(document).on('change', 'input', onchange);
@@ -70,8 +70,8 @@ function onchange() {
     if($(elm).attr('type') === 'checkbox') {
         setting.aspectsetting[$(elm).prop('id')].display = $(elm).prop('checked');
     } else {
-        const props = $(elm).prop('id').split('-');
-        setting.aspectsetting[props[0]][props[1]][props[2]][props[3]] = $(elm).val();
+        const props = $(elm).prop('id').split('_');
+        setting.aspectsetting[props[0]][props[1]][props[2]][props[3]] = parseFloat($(elm).val());
     }
 
     SettingUtil.saveSetting(setting);
