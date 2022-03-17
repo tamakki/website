@@ -56,7 +56,7 @@ function init() {
         const orb3 = $('<td>').appendTo(tr);
         $('<input type="number" min="0" max="10" step="0.1" inputmode="decimal">').prop('id', key + '_orb_minor_tight').val(aspect.orb.minor.tight).appendTo(orb3);
         const orb4 = $('<td>').appendTo(tr);
-        $('<input type="number" min="0" max="10" step="0.1" inputmode="decimal">').prop('id', key + '_orb-minor_loose').val(aspect.orb.minor.loose).appendTo(orb4);
+        $('<input type="number" min="0" max="10" step="0.1" inputmode="decimal">').prop('id', key + '_orb_minor_loose').val(aspect.orb.minor.loose).appendTo(orb4);
     }
 
     $(document).on('change', 'input', onchange);
