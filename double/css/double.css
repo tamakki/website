@@ -15,7 +15,19 @@ body {
 }
 header {
     padding: 1em;
+    width: 100%;
+    display: flex;
+    align-items: center;
 }
+
+header .return {
+    margin-left: auto;
+}
+
+header div, header button {
+    margin-left: 1em;
+}
+
 .wrapper {
     display: flex;
     flex-direction: column;
@@ -24,13 +36,30 @@ h1, h2, h3, h4 {
     margin: 0;
 }
 
-.main {
+h1 {
+    display: inline-block;
+}
+
+button {
+    background-color: #fff;
+    border: 2px solid gray;
+    border-radius: 1em;
+    color: gray;
+    font-weight: bold;
+    margin: 0.2em;
+}
+
+.main_content {
     display: flex;
     flex-wrap: wrap;
     flex: 1;
     justify-content: flex-start;
-    width: calc(20em + 700px);
+    width: calc(18em + 700px);
     margin: 0 auto;
+}
+
+.return {
+    float: right;
 }
 
 .main header {
@@ -43,7 +72,7 @@ h1, h2, h3, h4 {
 
 /** 設定 */
 .params {
-    width: 20em;
+    width: 18em;
     padding: 1em;
 }
 
@@ -100,6 +129,11 @@ h1, h2, h3, h4 {
     background-color: #fff;
     padding: 0.2em;
     white-space: nowrap;
+    max-width: 20em;
+}
+
+#description div:last-child {
+    white-space: normal;
 }
 
 .description__icon {
@@ -110,13 +144,18 @@ h1, h2, h3, h4 {
 }
 
 .aspect-table {
-    margin: 1em auto;
+    width: 100%;
     padding: 1em;
+    text-align: center;
+    page-break-inside: avoid;
 }
 
-.aspect-table h3 {
-    text-align: center;
+#aspect-table {
+    width: fit-content;
+    padding: 2em;
+    margin: auto;
 }
+
 .aspect-table table {
     border-collapse: collapse;
 }
@@ -142,6 +181,7 @@ h1, h2, h3, h4 {
 .outer-body-th span {
     writing-mode: vertical-rl;
 }
+
 #aspect-data {
     position: absolute;
     display: none;
@@ -156,25 +196,27 @@ h1, h2, h3, h4 {
     justify-content: flex-start;
 }
 
+#body-data-wrapper {
+    width: 100%;
+}
+
 .body-table {
     border-collapse: collapse;
+    margin: 0 auto;
+    width: 100%;
 }
 .body-table td {
     padding-right: 1em;
     border-bottom: 1px solid #000;
-    text-align: left;
     white-space: nowrap;
 }
-
-
-.body-table td:nth-child(2) {
+.body-table td:nth-child(2), #body-table td:nth-child(4) {
     text-align: right;
 }
-.body-table td:nth-child(4) {
-    text-align: right;
-}
+
 .body-table td:last-child {
-    padding-right: 0;
+    padding:0;
+    white-space: normal;
 }
 
 .body-table__icon {
@@ -184,16 +226,22 @@ h1, h2, h3, h4 {
     top: 0.1em;
 }
 
-.body-data {
-    display: flex;
-    width: 100%;
-    justify-content: center;
+#body-data {
     padding: 1em;
-    text-align: center;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    width: calc(18em + 700px);
+    margin: auto;
 }
 
-.body-data div {
-    padding: 1em;
+#body-data > div {
+    margin: 1em;
+}
+
+#body-data h3 {
+    text-align: center;
 }
 
 .house-data {
@@ -268,51 +316,46 @@ footer {
     opacity: 0.3;
 }
 
-/** オーブ */
-.major {
-    border: 2px solid blue;
-    padding: 0.5em;
-    border-radius: 0.5em;
+.body-class {
+    width: fit-content;
+    margin: auto;
+    text-align: left;
 }
 
-.hard {
-    border: 2px solid red;
-    padding: 0.5em;
-    border-radius: 0.5em;
+.body-class h3 {
+    text-align: center;
 }
 
-.soft {
-    border: 2px dashed red;
-    padding: 0.5em;
-    border-radius: 0.5em;
+.body-class table {
+    margin-bottom: 1em;
+    border-collapse: collapse;
+    max-width: calc(100% - 2em);
+    text-align: left;
+    vertical-align: top;
+}
+
+.body-class th, .body-class td {
+    border: 1px solid black;
+    min-width: 6em;
+    text-align: left;
+    vertical-align: top;
+    padding: 0 0.5em;
+}
+
+.body-class th {
+    text-align: center;
+}
+
+.body-class td div {
+    white-space: nowrap;
 }
 
 .bold {
     font-weight: bold;
 }
 
-
-
-.draw-setting {
-    display:flex;
-    justify-content: flex-start;
-}
-
-.aspect-setting {
-    margin: 0 1em;
-}
-
-.aspect-display {
-    display: flex;
-    flex-direction: row;
-}
-
-.draw-setting div:nth-child(1), .draw-setting div:nth-last-child() {
-    margin-left: 0;
-}
-
-.outer-circle {
-    margin-left: 1em;
+.small {
+    font-size: 0.8em;
 }
 
 .btn_setting {
@@ -326,5 +369,197 @@ footer {
 
 .setting__hide {
     height: 0;
-    margin-bottom: 11em !important;
+    margin-bottom: 7em !important;
+}
+
+.draw-setting {
+    display: flex;
+    justify-content: center;
+    margin: 0 1em;
+}
+
+.aspect-setting {
+    margin: 0 1em;
+}
+
+.aspect-display {
+    display: flex;
+    flex-direction: row;
+}
+
+.btn_share {
+    height: 2em;
+    width: 5em;
+    color: #fff;
+    background: #14cb00;
+    border-radius: 0.4em;
+    font-weight: 600;
+    border: none;
+}
+
+#body_setting .inputs {
+    padding: 1em;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+#body_setting .icon {
+    height: 1em;
+    width: 1em;
+    margin: 0 1em 0 0.5em;
+    position: relative;
+    top: 0.1em;
+}
+
+#body_setting .category {
+    margin: 0;
+    margin-right: 2em;
+    margin-bottom: 1em;
+}
+
+#body_setting label {
+    white-space: nowrap;
+}
+
+#obe_setting table {
+    margin: auto;
+}
+
+.dialog_wrapper {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+.dialog__header {
+    display:flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.dialog__header button {
+    width: fit-content;
+}
+ 
+#body_setting {
+    max-width: 80vw;
+    width: 80vw;
+    height: 80vh;
+}
+
+#obe_setting {
+    max-width: 80vw;
+}
+
+#body_setting__inputs {
+    flex: 1;
+    display: flex;
+    flex-wrap: wrap;
+    overflow-y: scroll;
+}
+
+#save_setting_dialog {
+    border-radius: 0.5em;
+}
+
+#save_setting_dialog h2 {
+    font-size: 1em;
+    display: inline-block;
+}
+
+#save_setting_dialog input {
+    width: calc(100% - 4em);
+}
+
+#close_seve_setting {
+    border: none;
+    font-size: 1.2em;
+    background-color: #fff;
+    float: right;
+    cursor: pointer;
+}
+#load_setting_dialog h2 {
+    font-size: 1em;
+    display: inline-block;
+}
+
+#close_load_setting {
+    border: none;
+    font-size: 1.5em;
+    background-color: #fff;
+    float: right;
+    cursor: pointer;
+}
+
+.setting_item_wrapper {
+    min-width: 15em;
+    border: 1px solid #000;
+    border-radius: 0.2em;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    margin: 0.4em 0;
+    padding: 0.1em;
+    align-items: center;
+}
+
+.setting_item {
+    cursor: pointer;
+    flex: 1;
+}
+
+.delete_setting {
+    font-size: 1em;
+    float: right;
+    border: none;
+    width: 1.5em;
+    height: 1.5em;
+    text-align: center;
+    padding: 0;
+    border-radius: 0.75em;
+    background-color: red;
+    color: black;
+    cursor: pointer;
+}
+
+@media only screen and (max-device-width: 480px) {
+    
+    .modal a.close-modal { 
+        transform: scale(2);
+    }
+    header h1, header button {
+        margin: 0;
+        margin-right: 0.5em;
+    }
+    button, select {
+        font-size: 12pt;
+    }
+    #body_setting {
+        width: 80vw;
+        height: 80vh;
+    }
+    #body_setting, #obe_setting, #save_setting_dialog, #load_setting_dialog {
+        font-size: 3vw;
+        width: fit-content;
+    }
+    #body_setting input, #obe_setting input, #save_setting_dialog input, #load_setting_dialog input{
+        font-size: 3vw;
+    }
+    #save_setting_dialog button {
+        font-size: 3vw;
+    }
+    .category {
+        margin: 0 1em;
+    }
+    #body_setting span {
+        margin-bottom: 0.5em;
+    }
+    #body_setting input[type="checkbox"] {
+        width: 25pt;
+        height: 25pt;
+    }
+    .category{
+        width: 100%;
+    }
 }

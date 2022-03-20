@@ -1,12 +1,12 @@
-var bodies;
-var casps;
 var aspects;
 var magnify = 1.6;
 const settingVersion = 3;
+let setting = new Setting(JSON.stringify(SettingUtil.default_setting));
 
 // 初期設定
 $(function () {
     initBodySetting();
+    displayHouseValue();
     $.datepicker.setDefaults($.datepicker.regional["ja"]);
     $('#birth-date').datepicker({
         changeYear: true, //年を表示
@@ -78,8 +78,6 @@ $(function () {
         $('#house-list').empty();
         $('#body-table').empty();
         $('#aspect-table').empty();
-        localStorage.removeItem('bodies');
-        localStorage.removeItem('casps');
         localStorage.removeItem('magnify');
         localStorage.removeItem('display-bodydata');
         localStorage.removeItem('display-aspect');
@@ -94,23 +92,15 @@ $(function () {
     $(document).on('mousemove', '.aspect__cell', onAspectCell);
     $(document).on('mouseout', '.aspect__cell', outAspectCell);
 
-    bodies = localStorage.getItem('bodies');
-    casps = localStorage.getItem('casps');
-    magnify = localStorage.getItem('magnify')? parseFloat(localStorage.getItem('magnify')): magnify;
     $('#minus').prop('disabled', magnify < 1.2);
     $('#plus').prop('disabled', magnify > 1.8);
     $('#display-aspect').prop('checked', localStorage.getItem('display-aspect') === 'true');
     $('#display-bodydata').prop('checked', localStorage.getItem('display-bodydata') === 'true');
+    calc();
 });
 
 /** 初期表示用設定 */
 function initSetting() {
-    let setting = SettingUtil.getSetting();
-    if(setting.version !== settingVersion) {
-        SettingUtil.removeSetting();
-        setting = SettingUtil.getSetting();
-    }
-
     $.each(setting, function(key, value) {
         const elm = $('#' + key);
         if(elm) {
@@ -125,7 +115,6 @@ function initSetting() {
 
 /** 設定変更の保存 */
 function changeSetting() {
-    const setting = SettingUtil.getSetting();
     setting['birth-date'] = $('#birth-date').val();
     setting['birth-hour'] = $('#birth-hour').val();
     setting['birth-min'] = $('#birth-min').val();
@@ -160,9 +149,7 @@ function changePrefecture() {
 
 /** 天体計算 */
 function calc() {
-
-    bodies = getBodyData();
-    localStorage.setItem('bodies', JSON.stringify(bodies));
+    setting.bodies = getBodyData();
     draw();
 }
 
@@ -194,15 +181,14 @@ function validate(setting) {
 
 /** ホロスコープおよび各表を描画する */
 function draw() {
-    if(bodies) {
-        const setting = SettingUtil.getSetting();
+    if(setting.bodies) {
         // 描画を削除
         $('#horoscope').empty();
 
         // アスペクトを取得
         const aspect_calculator = new AspectCalculator();
         const elements = [];
-        $.each(bodies, function(key, value) {
+        $.each(setting.bodies, function(key, value) {
             if(value){
                 elements.push({'name': key, 'angle': value.longitude});
             }
@@ -213,7 +199,7 @@ function draw() {
         // ハウスを取得
         const caspdata = getHouse(setting);
         casps = caspdata;
-        localStorage.setItem('casps', JSON.stringify(casps));
+        setting.casps = casps;
 
         // viewBOX設定
         const VIEW_BOX_WIDTH = 800;
@@ -378,9 +364,9 @@ function draw() {
         const hitArea = 3.5 * magnify;
         var layouted = [];
         var angles = [];
-        for(let key in bodies) {
+        for(let key in setting.bodies) {
             var target = key;
-            const elm = bodies[key];
+            const elm = setting.bodies[key];
             if(elm) {
                 var angle = (180 + elm.longitude - base) * Math.PI/180;
     
@@ -518,7 +504,7 @@ function redraw() {
 }
 
 /** ハウス情報を取得 */
-function getHouse(setting) {
+function getHouse() {
     var casp1_sign = parseFloat($('#casp1-sign').val());
     var casp1_deg = parseFloat($('#casp1-deg').val());
     var casp1_min = parseFloat($('#casp1-min').val());
@@ -534,15 +520,15 @@ function getHouse(setting) {
 
     var casp10_deg = parseFloat($('#casp10-deg').val());
     var casp10_min = parseFloat($('#casp10-min').val());
-    var casp10 = fixDeg(casp1 - casp10_deg + (1/60 * casp10_min));
+    var casp10 = fixDeg(casp1 - casp10_deg - (1/60 * casp10_min));
 
     var casp11_deg = parseFloat($('#casp11-deg').val());
     var casp11_min = parseFloat($('#casp11-min').val());
-    var casp11 = fixDeg(casp1 - casp11_deg + (1/60 * casp11_min));
+    var casp11 = fixDeg(casp1 - casp11_deg - (1/60 * casp11_min));
 
     var casp12_deg = parseFloat($('#casp12-deg').val());
     var casp12_min = parseFloat($('#casp12-min').val());
-    var casp12 = fixDeg(casp1 - casp12_deg + (1/60 * casp12_min));
+    var casp12 = fixDeg(casp1 - casp12_deg - (1/60 * casp12_min));
 
     var casp4 = fixDeg(casp10 + 180);
     var casp5 = fixDeg(casp11 + 180);
@@ -582,7 +568,7 @@ function fixDeg(deg) {
 function getAspectTable (aspects){
     // 情報をもとにテーブルを作成
     let aspect_table = document.createElement("table");
-    for(let i = 0; i < SettingUtil.getSetting().targets.length; i++) {
+    for(let i = 0; i < setting.targets.length; i++) {
         let colgroup = document.createElement('col');
         colgroup.span = 1;
         aspect_table.append(colgroup);
@@ -618,12 +604,11 @@ function getAspectTable (aspects){
 function makeBodyList() {
     const table = $('#body-table');
     table.empty();
-    const setting = SettingUtil.getSetting();
     for(let i = 0; i < setting.targets.length; i++) {
         const tr = $('<tr>').appendTo(table);
         const key = setting.targets[i];
         const name = SettingUtil.body_list[key].name;
-        const data = bodies[key];
+        const data = setting.bodies[key];
         if(data === null || data === undefined){
             continue;
         }
@@ -705,10 +690,10 @@ function makeDiv4Table() {
     $('#div4').empty();
     // 四区分
     const div4 = [[],[],[],[]];
-    for(let i = 0; i < Object.keys(bodies).length; i++) {
-        const body = bodies[Object.keys(bodies)[i]];
+    for(let i = 0; i < Object.keys(setting.bodies).length; i++) {
+        const body = setting.bodies[Object.keys(setting.bodies)[i]];
         const num = (Math.floor(body.longitude / 30)) % 4;
-        div4[num].push(SettingUtil.body_list[Object.keys(bodies)[i]]);
+        div4[num].push(SettingUtil.body_list[Object.keys(setting.bodies)[i]]);
     }
     let table = $('<table>');
     let tr1 = $('<tr>').appendTo(table);
@@ -734,10 +719,10 @@ function makeDiv3Table() {
     $('#div3').empty();
     // 三区分
     const div3 = [[],[],[]];
-    for(let i = 0; i < Object.keys(bodies).length; i++) {
-        const body = bodies[Object.keys(bodies)[i]];
+    for(let i = 0; i < Object.keys(setting.bodies).length; i++) {
+        const body = setting.bodies[Object.keys(setting.bodies)[i]];
         const num = (Math.floor(body.longitude / 30)) % 3;
-        div3[num].push(SettingUtil.body_list[Object.keys(bodies)[i]]);
+        div3[num].push(SettingUtil.body_list[Object.keys(setting.bodies)[i]]);
     }
     let table = $('<table>');
     let tr1 = $('<tr>').appendTo(table);
@@ -762,10 +747,10 @@ function makeDiv2Table() {
     $('#div2').empty();
     // 二区分
     const div2 = [[],[]];
-    for(let i = 0; i < Object.keys(bodies).length; i++) {
-        const body = bodies[Object.keys(bodies)[i]];
+    for(let i = 0; i < Object.keys(setting.bodies).length; i++) {
+        const body = setting.bodies[Object.keys(setting.bodies)[i]];
         const num = (Math.floor(body.longitude / 30)) % 2;
-        div2[num].push(SettingUtil.body_list[Object.keys(bodies)[i]]);
+        div2[num].push(SettingUtil.body_list[Object.keys(setting.bodies)[i]]);
     }
     let table = $('<table>');
     let tr1 = $('<tr>').appendTo(table);
@@ -828,7 +813,7 @@ function onBody() {
         let x = event.pageX;
         let y = event.pageY;
         let elm = SettingUtil.body_list[name];
-        let body = bodies[name];
+        let body = setting.bodies[name];
         let title = event.target.getAttribute('title') + (body.longitudeSpeed < 0? ' 逆行': '' );
         let house = getHouseNum(body.longitude) + '室';
 
@@ -894,8 +879,8 @@ function onAspectCell() {
     if(aspect.aspect.angle !== null) {
         let node1 = SettingUtil.body_list[aspect.node1.name].name;
         let node2 = SettingUtil.body_list[aspect.node2.name].name;
-        let body1 = bodies[aspect.node1.name];
-        let body2 = bodies[aspect.node2.name];
+        let body1 = setting.bodies[aspect.node1.name];
+        let body2 = setting.bodies[aspect.node2.name];
         let sign1 = CalcAstroBase.getSign(body1.longitude);
         let sign2 = CalcAstroBase.getSign(body2.longitude);
         let house1 = getHouseNum(body1.longitude);
@@ -938,7 +923,7 @@ $('#plus').click(function() {
 
     localStorage.setItem('magnify', magnify);
 
-    draw();
+    redraw();
 });
 $('#minus').click(function() {
     if(magnify > 1) {
@@ -951,7 +936,7 @@ $('#minus').click(function() {
 
     localStorage.setItem('magnify', magnify);
 
-    draw();
+    redraw();
 });
 
 // 守護星を強調
@@ -1017,30 +1002,25 @@ const prefecture_list = [
 
 function initBodySetting() {
     var div = $('#body-setting');
-    div.append(getBodySettingItem('sun', '牡羊座'));
-    div.append(getBodySettingItem('moon', '牡牛座'));
-    div.append(getBodySettingItem('mercury','双子座'));
-    div.append(getBodySettingItem('venus', '蟹　座'));
-    div.append(getBodySettingItem('mars', '獅子座'));
-    div.append(getBodySettingItem('jupiter', '乙女座'));
-    div.append(getBodySettingItem('saturn', '天秤座'));
-    div.append(getBodySettingItem('neptune', '蠍　座'));
-    div.append(getBodySettingItem('uranus', '射手座'));
-    div.append(getBodySettingItem('pluto', '山羊座'));
-    displayHouseValue();
-    calc();
+    div.empty();
+    const keys = Object.keys(setting.bodies);
+    keys.forEach( (key) => {
+        const body = setting.bodies[key];
+        div.append(getBodySettingItem(key, body.longitude, body.longitudeSpeed < 0));
+    });
 }
 
-function getBodySettingItem(body, sign) {
+function getBodySettingItem(body, longitude, reverse) {
     var div = $('<div class="body-setting__item">');
+    const sign = CalcAstroBase.getSign(longitude);
     $('<button onclick="deleteBodyItem()">').text(' - ').appendTo(div);
     div.append(getBodySelect(body));
     div.append(getSignSelect(sign));
-    $('<input type="number" inputmode="numeric" min="0" max="29" class="body-setting__deg" value="0" onchange="calc()">').appendTo(div);
+    $('<input type="number" inputmode="numeric" min="0" max="29" class="body-setting__deg" onchange="calc()">').val(Math.floor(longitude % 30)).appendTo(div);
     div.append($('<span>').text('°'));
-    $('<input type="number" inputmode="mumeric" min="0" max="30" class="body-setting__min" value="0" onchange="calc()">').appendTo(div);
+    $('<input type="number" inputmode="mumeric" min="0" max="59" class="body-setting__min" onchange="calc()">').val(Math.round((longitude % 1) * 60)).appendTo(div);
     div.append($('<span>').text('\' 逆行'));
-    $('<input type="checkbox" class="body-setting__reverse" onchange="calc()">').appendTo(div);
+    $('<input type="checkbox" class="body-setting__reverse" onchange="calc()">').prop('checked', reverse).appendTo(div);
     div.append($)
     return div;
 }
@@ -1065,15 +1045,15 @@ function getSignSelect(sign) {
     $('<option>').val(0).text('牡羊座').prop('selected', sign == undefined || sign == '牡羊座').appendTo(select);
     $('<option>').val(30).text('牡牛座').prop('selected', sign == undefined || sign == '牡牛座').appendTo(select);
     $('<option>').val(60).text('双子座').prop('selected', sign == undefined || sign == '双子座').appendTo(select);
-    $('<option>').val(90).text('蟹　座').prop('selected', sign == undefined || sign == '蟹　座').appendTo(select);
+    $('<option>').val(90).text('蟹　座').prop('selected', sign == undefined || sign == '蟹座').appendTo(select);
     $('<option>').val(120).text('獅子座').prop('selected', sign == undefined || sign == '獅子座').appendTo(select);
     $('<option>').val(150).text('乙女座').prop('selected', sign == undefined || sign == '乙女座').appendTo(select);
     $('<option>').val(180).text('天秤座').prop('selected', sign == undefined || sign == '天秤座').appendTo(select);
-    $('<option>').val(210).text('蠍　座').prop('selected', sign == undefined || sign == '蠍　座').appendTo(select);
+    $('<option>').val(210).text('蠍　座').prop('selected', sign == undefined || sign == '蠍座').appendTo(select);
     $('<option>').val(240).text('射手座').prop('selected', sign == undefined || sign == '射手座').appendTo(select);
     $('<option>').val(270).text('山羊座').prop('selected', sign == undefined || sign == '山羊座').appendTo(select);
     $('<option>').val(300).text('水瓶座').prop('selected', sign == undefined || sign == '水瓶座').appendTo(select);
-    $('<option>').val(330).text('魚　座').prop('selected', sign == undefined || sign == '魚　座').appendTo(select);
+    $('<option>').val(330).text('魚　座').prop('selected', sign == undefined || sign == '魚座').appendTo(select);
     return select;
 }
 
@@ -1107,8 +1087,37 @@ function addBodyItem() {
 }
 
 function displayHouseValue() {
-    var data = getHouse();
-    casps = data.casps;
+    casps = setting.casps.casps;
+    $('#casp1-sign').val(Math.floor(casps[0].angle / 30) * 30);
+    $('#casp1-deg').val(Math.floor(casps[0].angle % 30));
+    $('#casp1-min').val(Math.round(casps[0].angle % 1 * 60));
+
+   
+    let deff_2 = casps[1].angle - casps[0].angle;
+    if(deff_2 < 0) deff_2 += 360; 
+    $('#casp2-deg').val(Math.floor(Math.floor(deff_2)));
+    $('#casp2-min').val(Math.round(deff_2 % 1 * 60));
+
+    let deff_3 = casps[2].angle - casps[0].angle;
+    if(deff_3 < 0) deff_3 += 360; 
+    $('#casp3-deg').val(Math.floor(Math.floor(deff_3)));
+    $('#casp3-min').val(Math.round(deff_3 % 1 * 60));
+   
+    let deff_10 = casps[0].angle - casps[9].angle;
+    if(deff_10 < 0) deff_10 += 360; 
+    $('#casp10-deg').val(Math.floor(Math.floor(deff_10)));
+    $('#casp10-min').val(Math.round(deff_10 % 1 * 60));
+   
+    let deff_11 = casps[0].angle - casps[10].angle;
+    if(deff_11 < 0) deff_11 += 360; 
+    $('#casp11-deg').val(Math.floor(Math.floor(deff_11)));
+    $('#casp11-min').val(Math.round(deff_11 % 1 * 60));
+   
+    let deff_12 = casps[0].angle - casps[11].angle;
+    if(deff_12 < 0) deff_12 += 360; 
+    $('#casp12-deg').val(Math.floor(Math.floor(deff_12)));
+    $('#casp12-min').val(Math.round(deff_12 % 1 * 60));
+
     $('#casp2-value').val(getHouseValueString(casps[1].angle));
     $('#casp3-value').val(getHouseValueString(casps[2].angle));
     $('#casp4-value').val(getHouseValueString(casps[3].angle));
@@ -1130,6 +1139,110 @@ function getHouseValueString(deg) {
 }
 
 function changeCaspSetting() {
+    setting.casps = getHouse();
     displayHouseValue();
     calc();
+}
+/** 天体設定ボタンクリックイベント */
+$("#open_body_setting").on("click", () => {
+    $("#body_setting__inputs").empty();
+
+    makeSetting();
+    initValue();
+    $("#body_setting").modal();
+});
+
+$("#body_setting").on($.modal.AFTER_CLOSE, () => {
+    calc();
+});
+
+/** オーブ設定ボタンクリックイベント */
+$("#open_obe_setting").on("click", () => {
+    $("#aspect_setting__inputs").empty();
+    init_obe_setting();
+    $("#obe_setting").modal();
+});
+
+$("#obe_setting").on($.modal.AFTER_CLOSE, () => {
+    calc();
+});
+
+/** 設定保存モーダル */
+$("#show_save_setting").on("click", () => {
+    $("#setting_name").val($("#name").val());
+    $("#save_setting_dialog").modal();
+    $("#setting_name").focus();
+});
+
+$("#btn_save_setting").on("click", () => {
+    $("#setting_name").blur();
+    setTimeout(() => {
+
+        if($("#setting_name").val()) {
+            SettingUtil.saveSetting(setting, $("#setting_name").val());
+            $.modal.close();
+            $("#setting_name").val("");
+        } else {
+            alert("設定名を入力してください");
+        }
+    }, 200);
+});
+
+
+$("#show_load_setting").on("click", () => {
+    const settings = JSON.parse(localStorage.getItem(SettingUtil.setting_key));
+    if(settings && settings.saved != null && Object.keys(settings.saved).length > 0) {
+        let keys = Object.keys(settings.saved);
+        $("#load_setting_list").empty();
+        for(let i = 0; i < keys.length; i++) {
+            let div = createSettingItem(keys[i]);
+            $("#load_setting_list").append(div);
+        }
+
+    $("#load_setting_dialog").modal();
+    } else {
+        alert("保存された設定がありません");
+    }
+});
+
+$(document).on("click", ".setting_item", () => {
+    let elm = $(event.target);
+    let target = elm.data("name");
+    let settings = JSON.parse(localStorage.getItem(SettingUtil.setting_key));
+    if(settings.saved[target]) {
+        setting = new Setting(JSON.stringify(settings.saved[target]));
+        console.log(setting);
+        initBodySetting();
+        displayHouseValue();
+        $("#name").val(target);
+        redraw();
+        $.modal.close();
+    }
+});
+$(document).on("click", ".delete_setting", () => {
+    let elm = $(event.target);
+    let target = elm.data("name");
+
+    if(confirm(target + " を削除してよろしいですか？")) {
+        let settings = JSON.parse(localStorage.getItem(SettingUtil.setting_key));
+        delete settings.saved[target];
+        localStorage.setItem(SettingUtil.setting_key, JSON.stringify(settings));
+        let keys = Object.keys(settings.saved);
+        $("#load_setting_list").empty();
+        for(let i = 0; i < keys.length; i++) {
+            let div = createSettingItem(keys[i]);
+            $("#load_setting_list").append(div);
+        }
+    }
+});
+
+/**
+ * 読み込み用の設定一覧のアイテムを作成する
+ * @param {*} key 
+ */
+function createSettingItem(key) {
+    let div = $("<div>").addClass("setting_item_wrapper");
+    $("<span>").text(key).attr("data-name", key).addClass("setting_item").appendTo(div);
+    $("<button>").text("━").attr("data-name", key).addClass("delete_setting").appendTo(div);
+    return div;
 }

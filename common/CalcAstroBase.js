@@ -265,7 +265,7 @@ CalcAstroBase.getTJD = function(JD){
  * @returns {number} グリニッジ恒星時 
  */
 CalcAstroBase.getGreenwichSiderealTime = function(TJD){
-    var ST0 = 360.0 * (0.671262 + 1.0027379094* TJD);
+    var ST0 = 360.0 * (0.671262 + 1.0027379094 * TJD);
     return ST0 % 360.0;
 }
 
@@ -300,7 +300,7 @@ CalcAstroBase.deg2time = function(deg){
     deg = deg % 30;
     let time = "";
     time += ("0" + Math.floor(deg) + "°").slice(-3);
-    time += ("0" + Math.floor((deg - Math.floor(deg)) * 60) + "'").slice(-3);
+    time += ("0" + Math.round((deg - Math.floor(deg)) * 60) + "'").slice(-3);
 
     return time;
 }

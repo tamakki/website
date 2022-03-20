@@ -119,7 +119,7 @@ AspectCalculator.prototype.calcAngle = function(angle1, angle2){
  */
 AspectCalculator.prototype.getAspects = function() {
     let aspects = [];
-    let targets = SettingUtil.getSetting().targets;
+    let targets = setting.targets;
     for(let i = 0; i < this.targets.length; i++){
         let target1 = this.targets[i];
         if(targets.indexOf(target1.name) === -1) continue;
@@ -145,7 +145,6 @@ AspectCalculator.prototype.getAspects = function() {
 AspectCalculator.prototype.getAspect = function(target1, target2){
     const angle = this.calcAngle(target1["angle"], target2["angle"]);
     const type = (MajorBodys.indexOf(target1.name) !== -1 && MajorBodys.indexOf(target2.name) !== -1) ? 'major': 'minor';
-    const setting = SettingUtil.getSetting();
     let result = AspectCalculator.NULL_ASPECT;
     // ハードアスペクト
     if(setting['disp-hard']) {

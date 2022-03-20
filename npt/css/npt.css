@@ -15,7 +15,19 @@ body {
 }
 header {
     padding: 1em;
+    width: 100%;
+    display: flex;
+    align-items: center;
 }
+
+header .return {
+    margin-left: auto;
+}
+
+header div, header button {
+    margin-left: 1em;
+}
+
 .wrapper {
     display: flex;
     flex-direction: column;
@@ -24,7 +36,24 @@ h1, h2, h3, h4 {
     margin: 0;
 }
 
-.main {
+h1 {
+    display: inline-block;
+}
+
+button {
+    background-color: #fff;
+    border: 2px solid gray;
+    border-radius: 1em;
+    color: gray;
+    font-weight: bold;
+    margin: 0.2em;
+}
+
+.return {
+    float: right;
+}
+
+.main_content {
     display: flex;
     flex-wrap: wrap;
     flex: 1;
@@ -342,4 +371,171 @@ footer {
 .setting__hide {
     height: 0;
     margin-bottom: 15em !important;
+}
+
+#body_setting .inputs {
+    padding: 1em;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+#body_setting .icon {
+    height: 1em;
+    width: 1em;
+    margin: 0 1em 0 0.5em;
+    position: relative;
+    top: 0.1em;
+}
+
+#body_setting .category {
+    margin: 0;
+    margin-right: 2em;
+    margin-bottom: 1em;
+}
+
+#body_setting label {
+    white-space: nowrap;
+}
+
+#obe_setting table {
+    margin: auto;
+}
+
+.dialog_wrapper {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+.dialog__header {
+    display:flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.dialog__header button {
+    width: fit-content;
+}
+ 
+#body_setting {
+    max-width: 80vw;
+    width: 80vw;
+    height: 80vh;
+}
+
+#obe_setting {
+    max-width: 80vw;
+}
+
+#body_setting__inputs {
+    flex: 1;
+    display: flex;
+    flex-wrap: wrap;
+    overflow-y: scroll;
+}
+
+#save_setting_dialog {
+    border-radius: 0.5em;
+}
+
+#save_setting_dialog h2 {
+    font-size: 1em;
+    display: inline-block;
+}
+
+#save_setting_dialog input {
+    width: calc(100% - 4em);
+}
+
+#close_seve_setting {
+    border: none;
+    font-size: 1.2em;
+    background-color: #fff;
+    float: right;
+    cursor: pointer;
+}
+#load_setting_dialog h2 {
+    font-size: 1em;
+    display: inline-block;
+}
+
+#close_load_setting {
+    border: none;
+    font-size: 1.5em;
+    background-color: #fff;
+    float: right;
+    cursor: pointer;
+}
+
+.setting_item_wrapper {
+    min-width: 15em;
+    border: 1px solid #000;
+    border-radius: 0.2em;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    margin: 0.4em 0;
+    padding: 0.1em;
+    align-items: center;
+}
+
+.setting_item {
+    cursor: pointer;
+    flex: 1;
+}
+
+.delete_setting {
+    font-size: 1em;
+    float: right;
+    border: none;
+    width: 1.5em;
+    height: 1.5em;
+    text-align: center;
+    padding: 0;
+    border-radius: 0.75em;
+    background-color: red;
+    color: black;
+    cursor: pointer;
+}
+
+@media only screen and (max-device-width: 480px) {
+    
+    .modal a.close-modal { 
+        transform: scale(2);
+    }
+    header h1, header button {
+        margin: 0;
+        margin-right: 0.5em;
+    }
+    button, select {
+        font-size: 12pt;
+    }
+    #body_setting {
+        width: 80vw;
+        height: 80vh;
+    }
+    #body_setting, #obe_setting, #save_setting_dialog, #load_setting_dialog {
+        font-size: 3vw;
+        width: fit-content;
+    }
+    #body_setting input, #obe_setting input, #save_setting_dialog input, #load_setting_dialog input{
+        font-size: 3vw;
+    }
+    #save_setting_dialog button {
+        font-size: 3vw;
+    }
+    .category {
+        margin: 0 1em;
+    }
+    #body_setting span {
+        margin-bottom: 0.5em;
+    }
+    #body_setting input[type="checkbox"] {
+        width: 25pt;
+        height: 25pt;
+    }
+    .category{
+        width: 100%;
+    }
 }

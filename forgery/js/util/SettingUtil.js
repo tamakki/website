@@ -6,8 +6,25 @@ SettingUtil.getSetting = function () {
 }
 
 /** 設定情報の保存 */
-SettingUtil.saveSetting = function (setting) {
-    localStorage.setItem(SettingUtil.setting_key, JSON.stringify(setting));
+SettingUtil.saveSetting = function (setting, setting_name) {
+    let settings = JSON.parse(localStorage.getItem(SettingUtil.setting_key));
+
+    if (!settings) {
+        settings = {};
+    }
+
+    if (!settings.saved) {
+        settings["saved"] = {};
+    }
+    var keys = Object.keys(settings.saved);
+    if (keys.indexOf(setting_name) !== -1) {
+        if (!confirm("同じ名前の設定がありますが上書きしますか？")) {
+            return;
+        }
+    }
+    settings.saved[setting_name] = setting;
+    localStorage.setItem(SettingUtil.setting_key, JSON.stringify(settings));
+    console.log('saved');
 }
 
 SettingUtil.removeSetting = function () {
@@ -106,8 +123,8 @@ SettingUtil.default_setting = {
             angle: 0,
             color: 'hard',
             orb: {
-                major: { tight: 5, loose: 8 },
-                minor: { tight: 3, loose: 5 }
+                major: { tight: 3, loose: 5 },
+                minor: { tight: 1, loose: 3 }
             }
         },
         "Semi-Square": {
@@ -116,8 +133,8 @@ SettingUtil.default_setting = {
             angle: 45,
             color: 'hard',
             orb: {
-                major: { tight: 5, loose: 8 },
-                minor: { tight: 3, loose: 5 }
+                major: { tight: 3, loose: 5 },
+                minor: { tight: 1, loose: 3 }
             }
         },
         "Semi-Sextile": {
@@ -166,8 +183,8 @@ SettingUtil.default_setting = {
             angle: 60,
             color: 'soft',
             orb: {
-                major: { tight: 5, loose: 8 },
-                minor: { tight: 3, loose: 5 }
+                major: { tight: 3, loose: 5 },
+                minor: { tight: 1, loose: 3 }
             }
         },
         Quintile: {
@@ -176,8 +193,8 @@ SettingUtil.default_setting = {
             angle: 72,
             color: 'soft',
             orb: {
-                major: { tight: 5, loose: 8 },
-                minor: { tight: 3, loose: 5 }
+                major: { tight: 3, loose: 5 },
+                minor: { tight: 1, loose: 3 }
             }
         },
         Square: {
@@ -186,8 +203,8 @@ SettingUtil.default_setting = {
             angle: 90,
             color: 'hard',
             orb: {
-                major: { tight: 5, loose: 8 },
-                minor: { tight: 3, loose: 5 }
+                major: { tight: 3, loose: 5 },
+                minor: { tight: 1, loose: 3 }
             }
         },
         Trine: {
@@ -196,12 +213,12 @@ SettingUtil.default_setting = {
             angle: 120,
             color: 'soft',
             orb: {
-                major: { tight: 5, loose: 8 },
-                minor: { tight: 3, loose: 5 }
+                major: { tight: 3, loose: 5 },
+                minor: { tight: 1, loose: 3 }
             }
         },
         "Sesqui-square": {
-            display: true, 
+            display: true,
             isMajor: false,
             angle: 135,
             color: 'hard',
@@ -236,9 +253,70 @@ SettingUtil.default_setting = {
             angle: 180,
             color: 'hard',
             orb: {
-                major: { tight: 5, loose: 8 },
-                minor: { tight: 3, loose: 5 }
+                major: { tight: 3, loose: 5 },
+                minor: { tight: 1, loose: 3 }
             }
         },
+    },
+    'bodies': {
+        'sun': {
+            longitude: 0,
+            longitudeSpeed: 1
+        },
+        'moon': {
+            longitude: 30,
+            longitudeSpeed: 1
+        },
+        'mercury': {
+            longitude: 60,
+            longitudeSpeed: 1
+        },
+        'venus': {
+            longitude: 90,
+            longitudeSpeed: 1
+        },
+        'mars': {
+            longitude: 120,
+            longitudeSpeed: 1
+        },
+        'jupiter': {
+            longitude: 150,
+            longitudeSpeed: 1
+        },
+        'saturn': {
+            longitude: 180,
+            longitudeSpeed: 1
+        },
+        'uranus': {
+            longitude: 210,
+            longitudeSpeed: 1
+        },
+        'neptune': {
+            longitude: 240,
+            longitudeSpeed: 1
+        },
+        'pluto': {
+            longitude: 270,
+            longitudeSpeed: 1
+        }
+    },
+    casps: {
+        "ASC": { "angle": 0 }, 
+        "MC": { "angle": 270 }, 
+        "casps": [
+            { "angle": 0 }, 
+            { "angle": 30 }, 
+            { "angle": 60 }, 
+            { "angle": 90 }, 
+            { "angle": 120 }, 
+            { "angle": 150 }, 
+            { "angle": 180 }, 
+            { "angle": 210 }, 
+            { "angle": 240 }, 
+            { "angle": 270 }, 
+            { "angle": 300 }, 
+            { "angle": 330 }
+        ]
     }
+
 }

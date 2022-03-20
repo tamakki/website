@@ -88,7 +88,11 @@ SvgBuilder.prototype.build = function() {
     let element = document.createElementNS('http://www.w3.org/2000/svg', this.type);
     // 属性の設定
     this.attribute_list.forEach(function(attr){
-        element.setAttributeNS(null, attr.name, attr.value);
+        try {
+            element.setAttributeNS(null, attr.name, attr.value);
+        }catch(ex) {
+            console.log(ex);
+        }
     });
     this.xlink_attribute_list.forEach(function(attr){
         element.setAttributeNS('http://www.w3.org/1999/xlink', attr.name, attr.value);

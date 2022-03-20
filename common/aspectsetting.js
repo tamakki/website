@@ -1,7 +1,6 @@
-function init() {
+function init_obe_setting() {
     // 入力欄を作ろう
-    const setting = SettingUtil.getSetting();
-    const table = $('<table>').appendTo('#setting');
+    const table = $('<table>').appendTo('#aspect_setting__inputs');
     const header1 = $('<tr class="header">').appendTo(table);
     $('<th rowspan="2">').text('角度').appendTo(header1);
     $('<th rowspan="2">').text('アスペクト').appendTo(header1);
@@ -59,28 +58,22 @@ function init() {
         $('<input type="number" min="0" max="10" step="0.1" inputmode="decimal">').prop('id', key + '_orb_minor_loose').val(aspect.orb.minor.loose).appendTo(orb4);
     }
 
-    $(document).on('change', 'input', onchange);
-    $(document).on('click', 'tr', onclick);
+    $(document).on('change', '#aspect_setting__inputs input', change_obe_setting);
+    $(document).on('click', '#aspect_setting__inputs tr', click_obe_setting);
 }
 
 // 設定変更時イベント
-function onchange() {
+function change_obe_setting() {
     const elm = event.target;
-    const setting = SettingUtil.getSetting();
     if($(elm).attr('type') === 'checkbox') {
         setting.aspectsetting[$(elm).prop('id')].display = $(elm).prop('checked');
     } else {
         const props = $(elm).prop('id').split('_');
         setting.aspectsetting[props[0]][props[1]][props[2]][props[3]] = parseFloat($(elm).val());
     }
-
-    SettingUtil.saveSetting(setting);
 }
 
-function onclick() {
+function click_obe_setting() {
     $('tr').removeClass('active');
     $(event.target).closest('tr').addClass('active');
 }
-
-// 初期化処理
-init();

@@ -7,8 +7,24 @@ SettingUtil.getSetting = function() {
 }
 
 /** 設定情報の保存 */
-SettingUtil.saveSetting = function(setting) {
-    localStorage.setItem(SettingUtil.setting_key, JSON.stringify(setting));
+SettingUtil.saveSetting = function (setting, setting_name) {
+    let settings =  JSON.parse(localStorage.getItem(SettingUtil.setting_key));
+
+    if(!settings) {
+        settings = {};
+    }
+
+    if(!settings.saved) {
+        settings["saved"] = {};
+    }
+    var keys = Object.keys(settings.saved);
+    if(keys.indexOf(setting_name) !== -1) {
+        if(!confirm("同じ名前の設定がありますが上書きしますか？")){
+            return;
+        }
+    }
+    settings.saved[setting_name] = setting;
+    localStorage.setItem(SettingUtil.setting_key, JSON.stringify(settings));
 }
 
 SettingUtil.removeSetting = function () {
@@ -149,8 +165,8 @@ SettingUtil.default_setting = {
             angle: 0,
             color: 'hard',
             orb: {
-                major: { tight: 5, loose: 8 },
-                minor: { tight: 3, loose: 5 }
+                major: { tight: 3, loose: 5 },
+                minor: { tight: 1, loose: 3 }
             }
         },
         "Semi-Square": {
@@ -159,8 +175,8 @@ SettingUtil.default_setting = {
             angle: 45,
             color: 'hard',
             orb: {
-                major: { tight: 5, loose: 8 },
-                minor: { tight: 3, loose: 5 }
+                major: { tight: 3, loose: 5 },
+                minor: { tight: 1, loose: 3 }
             }
         },
         "Semi-Sextile": {
@@ -209,8 +225,8 @@ SettingUtil.default_setting = {
             angle: 60,
             color: 'soft',
             orb: {
-                major: { tight: 5, loose: 8 },
-                minor: { tight: 3, loose: 5 }
+                major: { tight: 3, loose: 5 },
+                minor: { tight: 1, loose: 3 }
             }
         },
         Quintile: {
@@ -219,8 +235,8 @@ SettingUtil.default_setting = {
             angle: 72,
             color: 'soft',
             orb: {
-                major: { tight: 5, loose: 8 },
-                minor: { tight: 3, loose: 5 }
+                major: { tight: 3, loose: 5 },
+                minor: { tight: 1, loose: 3 }
             }
         },
         Square: {
@@ -229,8 +245,8 @@ SettingUtil.default_setting = {
             angle: 90,
             color: 'hard',
             orb: {
-                major: { tight: 5, loose: 8 },
-                minor: { tight: 3, loose: 5 }
+                major: { tight: 3, loose: 5 },
+                minor: { tight: 1, loose: 3 }
             }
         },
         Trine: {
@@ -239,8 +255,8 @@ SettingUtil.default_setting = {
             angle: 120,
             color: 'soft',
             orb: {
-                major: { tight: 5, loose: 8 },
-                minor: { tight: 3, loose: 5 }
+                major: { tight: 3, loose: 5 },
+                minor: { tight: 1, loose: 3 }
             }
         },
         "Sesqui-square": {
@@ -279,8 +295,8 @@ SettingUtil.default_setting = {
             angle: 180,
             color: 'hard',
             orb: {
-                major: { tight: 5, loose: 8 },
-                minor: { tight: 3, loose: 5 }
+                major: { tight: 3, loose: 5 },
+                minor: { tight: 1, loose: 3 }
             }
         },
     }

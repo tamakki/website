@@ -4,6 +4,7 @@ var aspects;
 var magnify = 1.6;
 const settingVersion = 3;
 var setting_open = true;
+let setting = new Setting(JSON.stringify(SettingUtil.default_setting));
 
 // 初期設定
 $(function () {
@@ -73,7 +74,7 @@ $(function () {
     });
     $('#btn_remove_setting').click(function() {
         if(confirm('設定を初期化します。よろしいですか？')){
-            SettingUtil.removeSetting();
+            setting = new Setting(JSON.stringify(SettingUtil.default_setting));
             initSetting();
             $('#horoscope').empty();
             $('#house-list').empty();
@@ -96,45 +97,17 @@ $(function () {
     $(document).on('mousemove', '.aspect__cell', onAspectCell);
     $(document).on('mouseout', '.aspect__cell', outAspectCell);
 
-    bodies = localStorage.getItem('bodies');
-    casps = localStorage.getItem('casps');
-    magnify = localStorage.getItem('magnify')? parseFloat(localStorage.getItem('magnify')): magnify;
     $('#minus').prop('disabled', magnify < 1.2);
     $('#plus').prop('disabled', magnify > 1.8);
-    if(bodies) {
-        bodies = JSON.parse(bodies);
-        casps = JSON.parse(casps);
-        draw();
-    }
+
     $('#display-aspect').prop('checked', localStorage.getItem('display-aspect') === 'true');
     $('#display-bodydata').prop('checked', localStorage.getItem('display-bodydata') === 'true');
 
-    // 自動計算
-    const setting = SettingUtil.getSetting();
-    if(bodies && setting){
-        const keys = Object.keys(bodies);
-        if(keys.length < setting.targets.length) {
-            calc();
-        } else {
-            for(let i = 0; i < keys.length; i++) {
-                const key = keys[i];
-                if(setting.targets.indexOf(key) === -1) {
-                    calc();
-                    break;
-                }
-            }
-        }
-    }
+    calc();
 });
 
 /** 初期表示用設定 */
 function initSetting() {
-    let setting = SettingUtil.getSetting();
-    if(setting.version !== settingVersion) {
-        SettingUtil.removeSetting();
-        setting = SettingUtil.getSetting();
-    }
-
     $.each(setting, function(key, value) {
         const elm = $('#' + key);
         if(elm) {
@@ -149,7 +122,6 @@ function initSetting() {
 
 /** 設定変更の保存 */
 function changeSetting() {
-    const setting = SettingUtil.getSetting();
     setting['birth-date'] = $('#birth-date').val();
     setting['birth-hour'] = $('#birth-hour').val();
     setting['birth-min'] = $('#birth-min').val();
@@ -166,7 +138,6 @@ function changeSetting() {
     setting['disp-loose'] = $('#disp-loose').prop('checked');
     setting['orb-tight'] = parseFloat($('#orb-tight').val());
     setting['orb-loose'] = parseFloat($('#orb-loose').val());
-    SettingUtil.saveSetting(setting);
 }
 
 /** 県選択時イベント */
@@ -184,10 +155,10 @@ function changePrefecture() {
 
 /** 天体計算 */
 function calc() {
-    const setting = SettingUtil.getSetting();
-    const targets = setting.targets;
-    targets.push('sun');
-    targets.push('moon')
+    let targets = [];
+    targets = targets.concat(setting.targets);
+    if(targets.indexOf('sun') === -1) targets.push('sun');
+    if(targets.indexOf('moon') === -1) targets.push('moon');
     if(validate(setting)) {
         $.LoadingOverlay('show');
         $.ajax({
@@ -246,7 +217,6 @@ function validate(setting) {
 function draw() {
     changeSetting();
     if(bodies) {
-        const setting = SettingUtil.getSetting();
         // 描画を削除
         $('#horoscope').empty();   
 
@@ -640,7 +610,7 @@ function getHouse(setting) {
 function getAspectTable (aspects){
     // 情報をもとにテーブルを作成
     let aspect_table = document.createElement("table");
-    for(let i = 0; i < SettingUtil.getSetting().targets.length; i++) {
+    for(let i = 0; i < setting.targets.length; i++) {
         let colgroup = document.createElement('col');
         colgroup.span = 1;
         aspect_table.append(colgroup);
@@ -676,7 +646,6 @@ function getAspectTable (aspects){
 function makeBodyList() {
     const table = $('#body-table');
     table.empty();
-    const setting = SettingUtil.getSetting();
     for(let i = 0; i < setting.targets.length; i++) {
         const key = setting.targets[i];
         if(key === 'ASC' || key === 'MC') continue;
@@ -1049,54 +1018,3 @@ function switchSettingOpen() {
     }
     setting_open = !setting_open;
 }
-
-/** 県リスト */
-const prefecture_list = [
-    {"name":"北海道","latitude":43.06417,"longitude":141.34694},
-    {"name":"青森県","latitude":40.82444,"longitude":140.74},
-    {"name":"岩手県","latitude":39.70361,"longitude":141.1525},
-    {"name":"宮城県","latitude":38.26889,"longitude":140.87194},
-    {"name":"秋田県","latitude":39.71861,"longitude":140.1025},
-    {"name":"山形県","latitude":38.24056,"longitude":140.36333},
-    {"name":"福島県","latitude":37.75,"longitude":140.46778},
-    {"name":"茨城県","latitude":36.34139,"longitude":140.44667},
-    {"name":"栃木県","latitude":36.56583,"longitude":139.88361},
-    {"name":"群馬県","latitude":36.39111,"longitude":139.06083},
-    {"name":"埼玉県","latitude":35.85694,"longitude":139.64889},
-    {"name":"千葉県","latitude":35.60472,"longitude":140.12333},
-    {"name":"東京都","latitude":35.68944,"longitude":139.69167},
-    {"name":"神奈川県","latitude":35.44778,"longitude":139.6425},
-    {"name":"新潟県","latitude":37.90222,"longitude":139.02361},
-    {"name":"富山県","latitude":36.69528,"longitude":137.21139},
-    {"name":"石川県","latitude":36.59444,"longitude":136.62556},
-    {"name":"福井県","latitude":36.06528,"longitude":136.22194},
-    {"name":"山梨県","latitude":35.66389,"longitude":138.56833},
-    {"name":"長野県","latitude":36.65139,"longitude":138.18111},
-    {"name":"岐阜県","latitude":35.39111,"longitude":136.72222},
-    {"name":"静岡県","latitude":34.97694,"longitude":138.38306},
-    {"name":"愛知県","latitude":35.18028,"longitude":136.90667},
-    {"name":"三重県","latitude":34.73028,"longitude":136.50861},
-    {"name":"滋賀県","latitude":35.00444,"longitude":135.86833},
-    {"name":"京都府","latitude":35.02139,"longitude":135.75556},
-    {"name":"大阪府","latitude":34.68639,"longitude":135.52},
-    {"name":"兵庫県","latitude":34.69139,"longitude":135.18306},
-    {"name":"奈良県","latitude":34.68528,"longitude":135.83278},
-    {"name":"和歌山県","latitude":34.22611,"longitude":135.1675},
-    {"name":"鳥取県","latitude":35.50361,"longitude":134.23833},
-    {"name":"島根県","latitude":35.47222,"longitude":133.05056},
-    {"name":"岡山県","latitude":34.66167,"longitude":133.935},
-    {"name":"広島県","latitude":34.39639,"longitude":132.45944},
-    {"name":"山口県","latitude":34.18583,"longitude":131.47139},
-    {"name":"徳島県","latitude":34.06583,"longitude":134.55944},
-    {"name":"香川県","latitude":34.34028,"longitude":134.04333},
-    {"name":"愛媛県","latitude":33.84167,"longitude":132.76611},
-    {"name":"高知県","latitude":33.55972,"longitude":133.53111},
-    {"name":"福岡県","latitude":33.60639,"longitude":130.41806},
-    {"name":"佐賀県","latitude":33.24944,"longitude":130.29889},
-    {"name":"長崎県","latitude":32.74472,"longitude":129.87361},
-    {"name":"熊本県","latitude":32.78972,"longitude":130.74167},
-    {"name":"大分県","latitude":33.23806,"longitude":131.6125},
-    {"name":"宮崎県","latitude":31.91111,"longitude":131.42389},
-    {"name":"鹿児島県","latitude":31.56028,"longitude":130.55806},
-    {"name":"沖縄県","latitude":26.2125,"longitude":127.68111},
-];
