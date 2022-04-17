@@ -126,7 +126,7 @@ $(function () {
         }
     });
     $('#display-bodydata').change(function() {
-        localStorage.setItem('display-bodydata_npt', $('#display-bodydata').prop('checked'));
+        localStorage.setItem('display-bodydata', $('#display-bodydata').val());
     });
     $('#display-aspect').change(function() {
         localStorage.setItem('display-aspect_npt', $('#display-aspect').prop('checked'));
@@ -143,7 +143,11 @@ $(function () {
     $('#minus').prop('disabled', magnify < 1.2);
     $('#plus').prop('disabled', magnify > 1.8);
     $('#display-aspect').prop('checked', localStorage.getItem('display-aspect_npt') === 'true');
-    $('#display-bodydata').prop('checked', localStorage.getItem('display-bodydata_npt') === 'true');
+
+
+    if(localStorage.getItem('display-bodydata') === 'detail' || localStorage.getItem('display-bodydata') === 'name' || localStorage.getItem('display-bodydata') === 'none') {
+        $('#display-bodydata').val(localStorage.getItem('display-bodydata'));
+    }
     $('#display-opponent').prop('checked', localStorage.getItem('display-opponent_npt') === 'true');
 
     calc();
@@ -1166,14 +1170,18 @@ function overBodyTransit() {
 }
 function onBody() {
     const name = event.target.getAttribute('name') ;
+    const onBodySetting = $('#display-bodydata').val();
 
     // 天体の詳細表示
-    if($('#display-bodydata').prop('checked')){
+    if(onBodySetting === 'detail'){
         let div = $('#description');
         $(div).empty();
         let x = event.pageX;
         let y = event.pageY;
         let title = event.target.getAttribute('title');
+        if($(event.target).attr('speed') < 0) {
+           title += ' 逆行';
+        }
         let elm = SettingUtil.body_list[name];
 
         $('<img class="description__icon">').prop('src',elm.svg).appendTo(div);
@@ -1188,9 +1196,27 @@ function onBody() {
         let house = getHouseNum(angle) + '室';
         $('<div>').text(house).appendTo(div);
 
-        if($(event.target).attr('speed') < 0) {
-            $('<div>').text('R').appendTo(div);
+        div.css('display', 'block');
+        if(event.clientX > window.innerWidth - div.width()) {
+            div.css('left', x - div.width() - 10)
+        } else {
+            div.css('left', x + 16);
         }
+        if(event.clientY > window.innerHeight - div.height()) {
+            div.css('top', y - div.height() - 5);
+        } else {
+            div.css('top', y + 5);
+        }
+    } else if (onBodySetting === 'name') {
+        let div = $('#description');
+        $(div).empty();
+        let x = event.pageX;
+        let y = event.pageY;
+        let title = event.target.getAttribute('title');
+        let elm = SettingUtil.body_list[name];
+
+        $('<img class="description__icon">').prop('src',elm.svg).appendTo(div);
+        $('<span>').text(title).appendTo(div);
 
         div.css('display', 'block');
         if(event.clientX > window.innerWidth - div.width()) {

@@ -16,14 +16,14 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.css" />
     <link rel="stylesheet" href="../common/aspectsetting.css">
-    <script src="js/util/SettingUtilProgress.js?ver=8"></script>
-    <script src="../common/SettingUtilCommon.js?ver=8"></script>
+    <script src="js/util/SettingUtilProgress.js?ver=9"></script>
+    <script src="../common/SettingUtilCommon.js?ver=9"></script>
     <script src="../common/SvgBuilder.js?ver=1.0.1"></script>
-    <script src="../common/AspectCalculator.js?ver=8"></script>
-    <script src="../common/HouseCalcurator.js?ver=8"></script>
-    <script src="../common/CalcAstroBase.js?ver=8"></script>
-    <script src="../common/SabianUtil.js?ver=8"></script>
-    <script src="../common/aspectsetting.js?ver=8"></script>
+    <script src="../common/AspectCalculator.js?ver=9"></script>
+    <script src="../common/HouseCalcurator.js?ver=9"></script>
+    <script src="../common/CalcAstroBase.js?ver=9"></script>
+    <script src="../common/SabianUtil.js?ver=9"></script>
+    <script src="../common/aspectsetting.js?ver=9"></script>
 </head>
 
 <body>
@@ -33,15 +33,15 @@
                 <h1>プログレス二重円メーカー</h1>
                 <button id="open_body_setting">天体設定</button>
                 <button id="open_obe_setting">オーブ設定</button>
-                <button id="show_save_setting">設定保存</button>
-                <button id="show_load_setting">設定読込</button>
-                <button id="btn_remove_setting">初期化</button>
+                <button id="show_save_setting">設定を保存する</button>
+                <button id="show_load_setting">設定を読み込む</button>
                 <a href="../horo_index.html" class="return">戻る</a>
             </header>
             <!-- パラメータ設定-->
             <section id="params" class="params">
                 <h2>設定
                     <button class="btn_setting" id="btn_hide" onclick="switchSettingOpen()">隠す</button> 
+                    <button class="btn_setting" id="btn_remove_setting">設定を初期化</button>
                 </h2>
                 <div>
                     <h3>お名前</h3>
@@ -125,7 +125,11 @@
                     </div>
                     <div>
                         <h4>天体にオンマウス</h4>
-                        <label><input id="display-bodydata" type="checkbox">天体情報表示</label><br>
+                        <select id="display-bodydata">
+                            <option value="none">表示なし</option>
+                            <option value="name">天体名</option>
+                            <option value="detail">詳細情報</option>
+                        </select><br>
                         <label><input id="display-aspect" type="checkbox">アスペクト表示</label><br>
                         <label><input id="display-opponent" type="checkbox">対になる天体を表示</label>
                     </div>
@@ -201,8 +205,8 @@
         <div id="description"></div>
         <div id="aspect-data"></div>
     </article>
-    <script src="../common/bodysetting.js?ver=8"></script>
-    <script src="./js/progress.js?ver=8"></script>
+    <script src="../common/bodysetting.js?ver=9"></script>
+    <script src="./js/progress.js?ver=9"></script>
 </body>
 
 </html>

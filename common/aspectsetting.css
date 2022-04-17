@@ -29,3 +29,13 @@
 .soft {
     color: blue;
 }
+
+#body_setting label {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+.body_section__title {
+    display: inline-block;
+}

@@ -88,7 +88,7 @@ $(function () {
         }
     });
     $('#display-bodydata').change(function() {
-        localStorage.setItem('display-bodydata', $('#display-bodydata').prop('checked'));
+        localStorage.setItem('display-bodydata', $('#display-bodydata').val());
     });
     $('#display-aspect').change(function() {
         localStorage.setItem('display-aspect', $('#display-aspect').prop('checked'));
@@ -101,7 +101,10 @@ $(function () {
     $('#plus').prop('disabled', magnify > 1.8);
 
     $('#display-aspect').prop('checked', localStorage.getItem('display-aspect') === 'true');
-    $('#display-bodydata').prop('checked', localStorage.getItem('display-bodydata') === 'true');
+
+    if(localStorage.getItem('display-bodydata') === 'detail' || localStorage.getItem('display-bodydata') === 'name' || localStorage.getItem('display-bodydata') === 'none') {
+        $('#display-bodydata').val(localStorage.getItem('display-bodydata'));
+    }
 
     calc();
 });
@@ -846,11 +849,18 @@ function overBody() {
         });
     }
 }
-function onBody() {
-    const name = event.target.getAttribute('name') ;
 
+/**
+ * 天体にマウスオン or Tap時の挙動
+ */
+ function onBody() {
+    const name = event.target.getAttribute('name') ;
+  
     // 天体の詳細表示
-    if($('#display-bodydata').prop('checked')){
+    const checked = $('#display-bodydata').prop('checkec');
+    const onBodySetting = $('#display-bodydata').val();
+  
+    if(checked || onBodySetting === 'detail'){
         let div = $('#description');
         $(div).empty();
         let x = event.pageX;
@@ -859,18 +869,18 @@ function onBody() {
         let body = bodies[name];
         let title = event.target.getAttribute('title') + (body.longitudeSpeed < 0? ' 逆行': '' );
         let house = getHouseNum(body.longitude) + '室';
-
+  
         $('<img class="description__icon">').prop('src',elm.svg).appendTo(div);
         $('<span>').text(title).appendTo(div);
-
+  
         let sign = CalcAstroBase.getSign(body.longitude);
         let time = CalcAstroBase.deg2time(body.longitude % 30);
         let sign_str = sign + ' ' + time;
         $('<div>').text(`${sign_str} ${house}`).appendTo(div);
-
+  
         let sabian = SabianUtil.getSabianString(body.longitude);
         $('<div>').text(sabian).appendTo(div);
-
+  
         div.css('display', 'block');
         if(event.clientX > window.innerWidth - div.width()) {
             div.css('left', x - div.width() - 10)
@@ -881,6 +891,30 @@ function onBody() {
             div.css('top', y - div.height() - 5);
         } else {
             div.css('top', y + 5);
+        }
+    } else {
+        if(onBodySetting === 'name') {
+            let div = $('#description');
+            $(div).empty();
+            let x = event.pageX;
+            let y = event.pageY;
+            let elm = SettingUtil.body_list[name];
+            let title = event.target.getAttribute('title');
+    
+            $('<img class="description__icon">').prop('src',elm.svg).appendTo(div);
+            $('<span>').text(title).appendTo(div);
+    
+            div.css('display', 'block');
+            if(event.clientX > window.innerWidth - div.width()) {
+                div.css('left', x - div.width() - 10)
+            } else {
+                div.css('left', x + 16);
+            }
+            if(event.clientY > window.innerHeight - div.height()) {
+                div.css('top', y - div.height() - 5);
+            } else {
+                div.css('top', y + 5);
+            }
         }
     }
 }
