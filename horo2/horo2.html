@@ -7,6 +7,7 @@
     <link rel="shortcut icon" href="img/favicon.ico" type="image/x-icon">
     <link rel="icon" href="img/favicon.svg" type="image/icon">
     <link rel="apple-touch-icon" href="img/favicon.png" sizes="128x128">
+    <link rel="stylesheet" href="../common/common.css">
     <link rel="stylesheet" href="css/horo2.css?ver=2">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/themes/base/jquery-ui.min.css">
     <link rel="stylesheet" href="../common/aspectsetting.css">
@@ -45,8 +46,7 @@
                     <button class="btn_setting" id="btn_hide" onclick="switchSettingOpen()">隠す</button> 
                     <button class="btn_setting" id="btn_remove_setting">設定を初期化</button></h2>
                 <div>
-                    <h3>お名前</h3>
-                    <input id="name" autocomplete="off">
+                    <input id="name" autocomplete="off" placeholder="お名前">
                 </div>
                 <div id="setting">
                     <div class="birth-datetime">
@@ -63,8 +63,7 @@
                             type="number" inputmode="numeric" id="latitude-min" class="min" min="0" max="59">′
                         <h4>経度（東経）</h4>
                         <input type="number" inputmode="numeric" id="longitude-deg" class="deg" min="-180" max="180">°<input
-                            type="number" inputmode="numeric" id="longitude-min" class="min" min="0" max="59">′
-                        <h4>都道府県から選ぶ</h4>
+                            type="number" inputmode="numeric" id="longitude-min" class="min" min="0" max="59">′<br>
                         <select id="prefecture"></select>
                     </div>
                     <div class="time-diff">
@@ -82,7 +81,6 @@
                 </div>
             </section>
             <section id="result" class="result">
-                <h2>計算結果</h2>
                 <div class="draw-setting">
                     <div class="house-system">
                         <h4>ハウスシステム</h4>
@@ -212,7 +210,7 @@
         <div id="aspect-data"></div>
     </article>
     <script src="../common/bodysetting.js"></script>
-    <script src="./js/horo2.js?ver=9"></script>
+    <script src="./js/horo2.js?ver=10"></script>
 </body>
 
 </html>

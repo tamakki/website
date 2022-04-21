@@ -39,7 +39,7 @@ $(function () {
         }
         $('#time-diff').append(option);
     }
-    $('#prefecture').append($('<option>'));
+    $('#prefecture').append($('<option hidden>都道府県</option>'));
     for(let i = 0; i < prefecture_list.length; i++) {
         const elm = prefecture_list[i];
         const option = $('<option>');
@@ -113,7 +113,7 @@ $(function () {
 function initSetting() {
     $.each(setting, function(key, value) {
         const elm = $('#' + key);
-        if(elm) {
+        if(elm && value) {
             if(key.indexOf('disp') !== -1){
                 elm.prop('checked', value);
             } else {

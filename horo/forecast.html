@@ -6,10 +6,16 @@
     <title>ホロスコープ</title>
     <style>
         .main {
-            font-size: 3vw;
+            font-size: 16px;
             padding: 1em;
             display: flex;
             justify-content: center;
+        }
+
+        @media only screen and (max-device-width: 480px) {
+            .main {
+                font-size: 3vw;
+            }
         }
         table {
             border-collapse: collapse;

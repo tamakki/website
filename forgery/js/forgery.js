@@ -105,7 +105,7 @@ $(function () {
 function initSetting() {
     $.each(setting, function(key, value) {
         const elm = $('#' + key);
-        if(elm) {
+        if(elm && value !== null) {
             if(key.indexOf('disp') !== -1){
                 elm.prop('checked', value);
             } else {

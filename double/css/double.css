@@ -1,75 +1,6 @@
-* {
-    box-sizing: border-box;
-}
-body, window {
-    margin: 0;
-    padding: 0;
-}
-body {
-    position: relative;
-    top: 0;
-    left: 0;
-    height: 100vh;
-    width: 100%;
-    overflow-y: scroll;
-}
-header {
-    padding: 1em;
-    width: 100%;
-    display: flex;
-    align-items: center;
-}
-
-header .return {
-    margin-left: auto;
-}
-
-header div, header button {
-    margin-left: 1em;
-}
-
-.wrapper {
-    display: flex;
-    flex-direction: column;
-}
-h1, h2, h3, h4 {
-    margin: 0;
-}
-
-h1 {
-    display: inline-block;
-}
-
-button {
-    background-color: #fff;
-    border: 2px solid gray;
-    border-radius: 1em;
-    color: gray;
-    font-weight: bold;
-    margin: 0.2em;
-}
-
 .main_content {
-    display: flex;
-    flex-wrap: wrap;
-    flex: 1;
-    justify-content: flex-start;
     width: calc(18em + 700px);
-    margin: 0 auto;
 }
-
-.return {
-    float: right;
-}
-
-.main header {
-    width: 100%;
-}
-
-.main div {
-    margin-bottom: 0.5em;
-}
-
 /** 設定 */
 .params {
     width: 18em;
@@ -96,7 +27,7 @@ button {
 
 .result {
     padding: 1em;
-    max-width: calc(100% - 20em);
+    max-width: calc(100% - 18em);
 }
 
 .result div {
@@ -174,6 +105,11 @@ button {
     white-space: nowrap;
     padding-right: 0.4em;
 }
+
+.outer-circle {
+    margin-left: 0.5em;
+}
+
 .outer-body-th {
     min-height: 1em;
     vertical-align: bottom;
@@ -374,12 +310,11 @@ footer {
 
 .draw-setting {
     display: flex;
-    justify-content: center;
-    margin: 0 1em;
+    justify-content: space-between;
 }
 
 .aspect-setting {
-    margin: 0 1em;
+    margin-right: 0 1em;
 }
 
 .aspect-display {

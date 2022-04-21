@@ -39,7 +39,7 @@ $(function () {
         }
         $('#time-diff').append(option);
     }
-    $('#prefecture').append($('<option>'));
+    $('#prefecture').append($('<option hidden>都道府県</option>'));
     for(let i = 0; i < prefecture_list.length; i++) {
         const elm = prefecture_list[i];
         const option = $('<option>');
@@ -121,7 +121,7 @@ $(function () {
 function initSetting() {
     $.each(setting, function(key, value) {
         const elm = $('#' + key);
-        if(elm) {
+        if(elm && value) {
             if(key.indexOf('disp') !== -1){
                 elm.prop('checked', value);
             } else {
@@ -705,7 +705,7 @@ function makeHouseList() {
     $('<span class="house_name">').text('ASC').appendTo(li_asc);
     $('<span class="house_sign">').text(sign_asc).appendTo(li_asc);
     $('<span clsss="house_time">').text(time_asc).appendTo(li_asc);
-    $('<span>').text(GetFullDateString(GetDateSunHasSpecificAngle(ASC, target_date))).appendTo(li_asc);
+    $('<span class="return_date">').text(GetFullDateString(GetDateSunHasSpecificAngle(ASC, target_date))).appendTo(li_asc);
     $('<span class="sabian">').text(SabianUtil.getSabianSymbol(ASC)).appendTo(li_asc);
 
     const sign_mc = CalcAstroBase.getSign(MC);
@@ -714,7 +714,7 @@ function makeHouseList() {
     $('<span class="house_name">').text('MC').appendTo(li_mc);
     $('<span class="house_sign">').text(sign_mc).appendTo(li_mc);
     $('<span class="house_time">').text(time_mc).appendTo(li_mc);
-    $('<span>').text(GetFullDateString(GetDateSunHasSpecificAngle(MC, target_date))).appendTo(li_mc);
+    $('<span class="return_date">').text(GetFullDateString(GetDateSunHasSpecificAngle(MC, target_date))).appendTo(li_mc);
     $('<span class="sabian">').text(SabianUtil.getSabianSymbol(MC)).appendTo(li_mc);
 
     for(let i = 0; i < casps.casps.length; i++) {
@@ -725,7 +725,7 @@ function makeHouseList() {
         $('<span class="house_name">').text('第' + (i + 1) + 'カスプ').appendTo(li);
         $('<span class="house_sign">').text(sign).appendTo(li);
         $('<span class="house_time">').text(time).appendTo(li);
-        $('<span>').text(GetFullDateString(GetDateSunHasSpecificAngle(deg, target_date))).appendTo(li);
+        $('<span class="return_date">').text(GetFullDateString(GetDateSunHasSpecificAngle(deg, target_date))).appendTo(li);
         $('<span class="sabian">').text(SabianUtil.getSabianSymbol(deg)).appendTo(li);
 
     }
