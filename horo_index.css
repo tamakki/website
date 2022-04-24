@@ -23,7 +23,7 @@ a {
     background-color: #fff;
 }
 
-@media (orientation: portrait) and (max-width: 760pt) {
+@media (orientation: portrait) and (max-width: 599px) {
     h1 {
         font-size: 5vw;
     }

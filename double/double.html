@@ -25,6 +25,15 @@
     <script src="../common/aspectsetting.js?ver=10"></script>
     <script src="../common/SabianUtil.js"></script>
     <script src="../common/common.js?var=1"></script>
+    <!-- location picker -->
+    <script src="../common/locationPicker.js"></script>
+    <link rel="stylesheet" href="../common/locationPicker.css">
+    <script
+      type="text/javascript"
+      src="https://www.bing.com/api/maps/mapcontrol?callback=GetMap&key=AgRqnRmHzHQpDTsrCfHJBIo1oOeDSuPj_Hi8SJCMhrIXoO77Ng9S4ZV7TvNBmZyT"
+      async
+      defer
+    ></script>
 </head>
 
 <body>
@@ -66,7 +75,8 @@
                                 <h4>経度（東経）</h4>
                                 <input type="number" inputmode="numeric" id="longitude-deg" class="deg" min="-180" max="180">°<input
                                     type="number" inputmode="numeric" id="longitude-min" class="min" min="0" max="59">′
-                                <select id="prefecture"></select>
+                                <select id="prefecture"></select><br>
+                                <button id="openLocationPicker">地図検索</button>
                             </div>
                             <div class="time-diff">
                                 <h4>時差</h4>
@@ -86,7 +96,7 @@
                                 <h4>時差</h4>
                                 <select id="time-diff2"></select>
                             </div>
-                            <div>
+                            <div class="date-adjuster">
                                 年 <button onclick="addYear()">+1</button> <button onclick="redYear()">-1</button><br>
                                 月 <button onclick="addMonth()">+1</button> <button onclick="redMonth()">-1</button><br>
                                 週 <button onclick="addWeek()">+1</button> <button onclick="redWeek()">-1</button><br>
@@ -193,6 +203,27 @@
             </div>
             <div id="load_setting_list">
 
+            </div>
+        </div>
+        <div id="locationPicker" class="modal">
+            <div class="location-picker_map-wrapper">
+            <div id="map" class="location-picker_map"></div>
+            <div class="location-picker_sight">
+              ┼
+            </div>
+            </div>
+            <div class="location-picker_lonlat">
+                <div>
+                    緯度: <input readonly id="locationPicker-lat" value="35.7" /><br />
+                    経度: <input readonly id="locationPicker-lng" value="139.7"/>
+                </div>
+                <div>
+                    <button id="pickLocation">決定</button>
+                </div>
+            </div>
+        
+            <div id="searchBoxContainer" class="location-picker_search-box-container">
+                <input id="locationSearchKeyword" placeholder="住所" class="location-picker_search-box" autocomplete="off"> <button id="locationSearch" class="location-picker_search-button" onclick="locationSearch()">検索</button>
             </div>
         </div>
         <footer>

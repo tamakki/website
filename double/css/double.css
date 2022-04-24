@@ -12,7 +12,7 @@
 }
 
 .birth-date {
-    width: 6.5em;
+    width: 7em;
 }
 
 
@@ -106,8 +106,12 @@
     padding-right: 0.4em;
 }
 
-.outer-circle {
-    margin-left: 0.5em;
+.outer-circle button {
+    font-size: 10pt;
+}
+
+.date-adjuster {
+    white-space: nowrap;
 }
 
 .outer-body-th {
