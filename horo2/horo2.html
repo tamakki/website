@@ -157,26 +157,6 @@
                 <h4>二区分</h4>
                 <div id="div2"></div>
             </div>
-            
-            <button class="btn_share" onclick="test()">Share</button>
-            <div id="test"></div>
-            <script>
-                async function test() {
-                    let svg = document.getElementById("horoscope").children[0];
-                    let casps = document.getElementById("house-list");
-                    let bodies = document.getElementById("body-data-wrapper");
-                    let aspects = document.getElementById("aspect-table");
-                    if(svg && casps && bodies && aspects) {
-                        let files = [];
-                        files.push(new File([await CommonUtil.Svg2Blob(svg)], "image.png", {type: "image/png"}));
-                        files.push(new File([await CommonUtil.Element2Blob(casps)], "image.png", {type: "image/png"}));
-                        files.push(new File([await CommonUtil.Element2Blob(bodies)], "image.png", {type: "image/png"}));
-                        files.push(new File([await CommonUtil.Element2Blob(aspects)], "image.png", {type: "image/png"}));
-                        CommonUtil.Share("小惑星沢山ホロスコープ\n\n#たまスコープ\n#ホロスコープ\n" + "https://tamakki.github.io/website/horo_index.html", "https://tamakki.github.io/website/horo_index.html", files);
-                    }
-                }
-            </script>
-            <script src="../common/dom-to-image.js" async></script>
         </div>
         <div id="body_setting" class="modal">
             <div class="dialog_wrapper">

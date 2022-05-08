@@ -453,7 +453,7 @@ footer {
         height: 80vh;
     }
     #body_setting, #obe_setting, #save_setting_dialog, #load_setting_dialog {
-        font-size: 3vw;
+        font-size: 2.5vw;
         width: fit-content;
     }
     #body_setting input, #obe_setting input, #save_setting_dialog input, #load_setting_dialog input{
