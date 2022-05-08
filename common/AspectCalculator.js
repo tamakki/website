@@ -150,7 +150,10 @@ AspectCalculator.prototype.getAspect = function(target1, target2){
     if(setting['disp-hard']) {
         for(let i = 0; i < AspectCalculator.HARD_ASPECT.length; i++){
             let aspect = AspectCalculator.HARD_ASPECT[i];
-            const aspectSetting = setting.aspectsetting[aspect.name];
+            const aspectSetting = 
+            (setting.indivisuals && setting.indivisuals[target1.name]) ? setting.indivisuals[target1.name].aspectsetting[aspect.name] 
+            : (setting.indivisuals && setting.indivisuals[target2.name]) ? setting.indivisuals[target2.name].aspectsetting[aspect.name] 
+            : setting.aspectsetting[aspect.name];
             if(!aspectSetting.display){
                 continue;
             }
@@ -187,7 +190,10 @@ AspectCalculator.prototype.getAspect = function(target1, target2){
     if(setting['disp-soft']) {
         for(let i = 0; i < AspectCalculator.SOFT_ASPECT.length; i++){
             let aspect = AspectCalculator.SOFT_ASPECT[i];
-            const aspectSetting = setting.aspectsetting[aspect.name];
+            const aspectSetting = 
+            (setting.indivisuals && setting.indivisuals[target1.name]) ? setting.indivisuals[target1.name].aspectsetting[aspect.name] 
+            : (setting.indivisuals && setting.indivisuals[target2.name]) ? setting.indivisuals[target2.name].aspectsetting[aspect.name] 
+            : setting.aspectsetting[aspect.name];
             if(!aspectSetting.display){
                 continue;
             }

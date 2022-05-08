@@ -1,4 +1,5 @@
 #obe_setting table {
+    min-width: 28em;
     border-collapse: collapse;
 }
 .header th {
@@ -38,4 +39,26 @@
 
 .body_section__title {
     display: inline-block;
+}
+
+.indivisuals {
+    margin-bottom: 1em !important;
+}
+
+.add_indivisuals {
+    width: 10em;
+}
+
+.obe_setting__header { 
+    margin: 1em auto;
+    width: 28em;
+}
+
+.add_indivisual__button {
+    margin: 0.5em 1em;
+}
+
+#obe_setting select {
+    height: 2em;
+    font-size: 1em;
 }
