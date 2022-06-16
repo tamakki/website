@@ -1,230 +1,318 @@
 <!DOCTYPE html>
 <html lang="ja">
-
-<head>
-    <meta charset="utf-8">
+  <head>
+    <meta charset="utf-8" />
     <title>たまスコープ　ソーラーリターン</title>
-    <link rel="shortcut icon" href="../img/favicon.ico" type="image/x-icon">
-    <link rel="icon" href="../img/favicon.svg" type="image/icon">
-    <link rel="apple-touch-icon" href="../img/favicon.png" sizes="128x128">
-    <link rel="stylesheet" href="../common/common.css">
-    <link rel="stylesheet" href="css/solar_return.css?ver=11">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/themes/base/jquery-ui.min.css">
-    <link rel="stylesheet" href="../common/aspectsetting.css">
-    <script src="https://code.jquery.com/jquery-3.5.1.min.js" integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
-    <script script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+    <link rel="shortcut icon" href="../img/favicon.ico" type="image/x-icon" />
+    <link rel="icon" href="../img/favicon.svg" type="image/icon" />
+    <link rel="apple-touch-icon" href="../img/favicon.png" sizes="128x128" />
+    <link rel="stylesheet" href="../common/common.css" />
+    <link rel="stylesheet" href="css/solar_return.css?ver=11" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/themes/base/jquery-ui.min.css"
+    />
+    <link rel="stylesheet" href="../common/aspectsetting.css" />
+    <script
+      src="https://code.jquery.com/jquery-3.5.1.min.js"
+      integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0="
+      crossorigin="anonymous"
+    ></script>
+    <script
+      script
+      src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"
+    ></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1/i18n/jquery.ui.datepicker-ja.min.js"></script>
     <script src="https://cdn.jsdelivr.net/jquery.loadingoverlay/latest/loadingoverlay.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.js"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.css"
+    />
     <script src="js/ephemeris-0.1.0.min.js"></script>
     <script src="../common/SvgBuilder.js?ver=1.0.1"></script>
     <script src="../common/AspectCalculator.js?ver=11"></script>
     <script src="../common/HouseCalcurator.js"></script>
     <script src="../common/CalcAstroBase.js?ver=1.0.1"></script>
     <script src="../common/SabianUtil.js"></script>
-    <script src="../common/aspectsetting.js"></script>    
+    <script src="../common/aspectsetting.js"></script>
     <script src="js/util/SettingUtil.js?ver=11"></script>
     <script src="../common/SettingUtilCommon.js?ver=11"></script>
     <!-- location picker -->
     <script src="../common/locationPicker.js"></script>
-    <link rel="stylesheet" href="../common/locationPicker.css">
+    <link rel="stylesheet" href="../common/locationPicker.css" />
     <script
       type="text/javascript"
       src="https://www.bing.com/api/maps/mapcontrol?callback=GetMap&key=AgRqnRmHzHQpDTsrCfHJBIo1oOeDSuPj_Hi8SJCMhrIXoO77Ng9S4ZV7TvNBmZyT"
       async
       defer
     ></script>
-</head>
+  </head>
 
-<body>
+  <body>
     <article class="wrapper">
-        <main class="main_content">
-            <header>
-                <h1>ソーラーリターン</h1>
-                <button id="open_body_setting">天体設定</button>
-                <button id="open_obe_setting">オーブ設定</button>
-                <button id="show_save_setting">設定を保存する</button>
-                <button id="show_load_setting">設定を読み込む</button>
-                <a href="../horo_index.html" class="return">戻る</a>
-            </header>
-            <!-- パラメータ設定-->
-            <section id="params" class="params">
-                <h2>設定
-                    <button class="btn_setting" id="btn_hide" onclick="switchSettingOpen()">隠す</button> 
-                    <button class="btn_setting" id="btn_remove_setting">設定を初期化</button>
-                </h2>
+      <main class="main_content">
+        <header>
+          <h1>ソーラーリターン</h1>
+          <button id="open_body_setting">天体設定</button>
+          <button id="open_obe_setting">オーブ設定</button>
+          <button id="show_save_setting">設定を保存する</button>
+          <button id="show_load_setting">設定を読み込む</button>
+          <a href="../horo_index.html" class="return">戻る</a>
+        </header>
+        <!-- パラメータ設定-->
+        <section id="params" class="params">
+          <h2>
+            設定
+            <button
+              class="btn_setting"
+              id="btn_hide"
+              onclick="switchSettingOpen()"
+            >
+              隠す
+            </button>
+            <button class="btn_setting" id="btn_remove_setting">
+              設定を初期化
+            </button>
+          </h2>
+          <div>
+            <input id="name" autocomplete="off" placeholder="お名前" />
+          </div>
+          <div id="setting">
+            <div class="birth-datetime">
+              <h3>誕生日時</h3>
+              <input id="birth-date" placeholder="誕生日" readonly />
+              <select id="birth-hour"></select
+              >:
+              <select id="birth-min"></select>
+            </div>
+            <div class="birth-place">
+              <h3>指定地</h3>
+              <h4>緯度（北緯）</h4>
+              <input
+                type="number"
+                inputmode="numeric"
+                id="latitude-deg"
+                class="deg"
+                min="-180"
+                max="180"
+              />°<input
+                type="number"
+                inputmode="numeric"
+                id="latitude-min"
+                class="min"
+                min="0"
+                max="59"
+              />′
+              <h4>経度（東経）</h4>
+              <input
+                type="number"
+                inputmode="numeric"
+                id="longitude-deg"
+                class="deg"
+                min="-180"
+                max="180"
+              />°<input
+                type="number"
+                inputmode="numeric"
+                id="longitude-min"
+                class="min"
+                min="0"
+                max="59"
+              />′<br />
+              <select id="prefecture"></select
+              ><br />
+              <button id="openLocationPicker">地図検索</button>
+            </div>
+            <div class="time-diff">
+              <h4>時差</h4>
+              <select id="time-diff"></select>
+            </div>
+            <div class="target-year">
+              <h4>対象年</h4>
+              <select id="target-year"></select>
+            </div>
+            <div class="buttons">
+              <button id="btn_calc">計算</button>
+            </div>
+          </div>
+        </section>
+        <section id="result" class="result">
+          <div>
+            <h4>ソーラーリターン日時</h4>
+            <div id="target-date"></div>
+          </div>
+          <div class="draw-setting">
+            <div class="house-system">
+              <h4>ハウスシステム</h4>
+              <select id="house-system" onchange="redraw()">
+                <option value="placidus" selected>プラシーダス</option>
+                <option value="campanus">キャンパナス</option>
+                <option value="regiomontanus">レジオモンタナス</option>
+                <option value="solar">ソーラー</option>
+                <option value="solar-sign">ソーラーサイン</option>
+                <option value="koch">コッホ</option>
+              </select>
+            </div>
+            <div class="aspect-setting">
+              <h4>アスペクトの表示</h4>
+              <div class="aspect-display">
                 <div>
-                    <input id="name" autocomplete="off" placeholder="お名前">
-                </div>
-                <div id="setting">
-                    <div class="birth-datetime">
-                        <h3>誕生日時</h3>
-                        <input id="birth-date" placeholder="誕生日" readonly>
-                        <select id="birth-hour"></select>:
-                        <select id="birth-min"></select>
-                    </div>
-                    <div class="birth-place">
-                        <h3>指定地</h3>
-                        <h4>緯度（北緯）</h4>
-                        <input type="number" inputmode="numeric" id="latitude-deg" class="deg" min="-180" max="180">°<input
-                            type="number" inputmode="numeric" id="latitude-min" class="min" min="0" max="59">′
-                        <h4>経度（東経）</h4>
-                        <input type="number" inputmode="numeric" id="longitude-deg" class="deg" min="-180" max="180">°<input
-                            type="number" inputmode="numeric" id="longitude-min" class="min" min="0" max="59">′<br>
-                        <select id="prefecture"></select><br>
-                        <button id="openLocationPicker">地図検索</button>
-                    </div>
-                    <div class="time-diff">
-                        <h4>時差</h4>
-                        <select id="time-diff"></select>
-                    </div>
-                    <div class="target-year">
-                        <h4>対象年</h4>
-                        <select id="target-year"></select>
-                    </div>
-                    <div class="buttons">
-                        <button id="btn_calc">計算</button>
-                    </div>
-                </div>
-            </section>
-            <section id="result" class="result">
-                <div>
-                    <h4>ソーラーリターン日時</h4>
-                    <div id="target-date"></div>
-                </div>
-                <div class="draw-setting">
-                    <div class="house-system">
-                        <h4>ハウスシステム</h4>
-                        <select id="house-system" onchange="redraw()">
-                            <option value="placidus" selected>プラシーダス</option>
-                            <option value="campanus">キャンパナス</option>
-                            <option value="regiomontanus">レジオモンタナス</option>
-                            <option value="solar">ソーラー</option>
-                            <option value="solar-sign">ソーラーサイン</option>
-                            <option value="koch">コッホ</option>
-                        </select>
-                    </div>
-                    <div class="aspect-setting">
-                        <h4>アスペクトの表示</h4>
-                        <div class="aspect-display">
-                            <div>
-                                <label><input id="disp-hard" type="checkbox" onclick="redraw()">ハード</label><br>
-                                <label><input id="disp-soft" type="checkbox" onclick="redraw()">ソフト</label><br>
-                            </div>
-                            <div>
-                                <label><input id="disp-tight" type="checkbox" onclick="redraw()" checked>タイト</label><br>
-                                <label><input id="disp-loose" type="checkbox" onclick="redraw()" checked>ルーズ</label><br>
-                            </div>
-                        </div>
-                    </div>
-                    <div>
-                        <h4>天体にオンマウス</h4>
-                        <select id="display-bodydata">
-                            <option value="none">表示なし</option>
-                            <option value="name">天体名</option>
-                            <option value="detail">詳細情報</option>
-                        </select><br>
-                        <label><input id="display-aspect" type="checkbox">アスペクト表示</label>
-                    </div>
-                </div>
-                <div id="horoscope" class="horoscope-area"></div>
-                <div id="magnify">
-                    <button id="plus" class="btn_magnify">＋</button>
-                    <button id="minus" class="btn_magnify" disabled>－</button>
-                </div>
-            </section>
-        </main>
-        <div id="body-data" class="body-data">
-            <h3>天体</h3>
-            <table id="body-table"></table>
-        </div>
-        <div id="house-data" class="house-data">
-            <h3>ハウス</h3>
-            <ul id="house-list"></ul>
-        </div>
-        <div class="aspect-table">
-            <h3>アスペクト</h3>
-            <div id="aspect-table"></div>
-        </div>
-        <div class="body-class">
-            <h3>天体区分</h3>
-            <div>
-                <h4>四区分</h4>
-                <div id="div4"></div>
-            </div>
-            <div>
-                <h4>三区分</h4>
-                <div id="div3"></div>
-            </div>
-            <div>
-                <h4>二区分</h4>
-                <div id="div2"></div>
-            </div>
-        </div>
-        <div id="body_setting" class="modal">
-            <div class="dialog_wrapper">
-                <div class="dialog__header">
-                    <h2>天体設定</h2>
-                </div>
-                <div id="body_setting__inputs">
-                </div>
-            </div>
-        </div>
-        <div id="obe_setting" class="modal">
-            <div class="dialog_wrapper">
-                <div class="dialog__header">
-                    <h2>オーブ設定</h2>
-                </div>
-                <div id="aspect_setting__inputs">
-                </div>
-            </div>
-        </div>
-        <div id="save_setting_dialog" class="modal">
-            <div>
-                <h2>保存名</h2>
-            </div>
-            <input type="text" id="setting_name">
-            <button id="btn_save_setting">保存</button><br>
-        </div>
-        <div id="load_setting_dialog" class="modal">
-            <div>
-                <h2>設定一覧</h2>
-            </div>
-            <div id="load_setting_list">
-
-            </div>
-        </div>
-        <div id="locationPicker" class="modal">
-            <div class="location-picker_map-wrapper">
-            <div id="map" class="location-picker_map"></div>
-            <div class="location-picker_sight">
-              ┼
-            </div>
-            </div>
-            <div class="location-picker_lonlat">
-                <div>
-                    緯度: <input readonly id="locationPicker-lat" value="35.7" /><br />
-                    経度: <input readonly id="locationPicker-lng" value="139.7"/>
+                  <label
+                    ><input
+                      id="disp-hard"
+                      type="checkbox"
+                      onclick="redraw()"
+                    />ハード</label
+                  ><br />
+                  <label
+                    ><input
+                      id="disp-soft"
+                      type="checkbox"
+                      onclick="redraw()"
+                    />ソフト</label
+                  ><br />
                 </div>
                 <div>
-                    <button id="pickLocation">決定</button>
+                  <label
+                    ><input
+                      id="disp-tight"
+                      type="checkbox"
+                      onclick="redraw()"
+                      checked
+                    />タイト</label
+                  ><br />
+                  <label
+                    ><input
+                      id="disp-loose"
+                      type="checkbox"
+                      onclick="redraw()"
+                      checked
+                    />ルーズ</label
+                  ><br />
                 </div>
+              </div>
             </div>
-            <div id="searchBoxContainer" class="location-picker_search-box-container">
-                <input id="locationSearchKeyword" placeholder="住所" class="location-picker_search-box" autocomplete="off"> <button id="locationSearch" class="location-picker_search-button" onclick="locationSearch()">検索</button>
+            <div>
+              <h4>天体にオンマウス</h4>
+              <select id="display-bodydata">
+                <option value="none">表示なし</option>
+                <option value="name">天体名</option>
+                <option value="detail">詳細情報</option></select
+              ><br />
+              <label
+                ><input
+                  id="display-aspect"
+                  type="checkbox"
+                />アスペクト表示</label
+              >
             </div>
+          </div>
+          <div id="horoscope" class="horoscope-area"></div>
+          <div id="magnify">
+            <button id="plus" class="btn_magnify">＋</button>
+            <button id="minus" class="btn_magnify" disabled>－</button>
+          </div>
+        </section>
+      </main>
+      <div id="body-data" class="body-data">
+        <h3>天体</h3>
+        <table id="body-table"></table>
+      </div>
+      <div id="house-data" class="house-data">
+        <h3>ハウス</h3>
+        <ul id="house-list"></ul>
+      </div>
+      <div class="aspect-table">
+        <h3>アスペクト</h3>
+        <div id="aspect-table"></div>
+      </div>
+      <div class="body-class">
+        <h3>天体区分</h3>
+        <div>
+          <h4>四区分</h4>
+          <div id="div4"></div>
         </div>
-        <footer>
-            <!-- admax -->
-            <script src="https://adm.shinobi.jp/s/5c8d51baf2d24a2ee2195cb917fec71e"></script>
-            <!-- admax -->
-        </footer>
-        <div id="description"></div>
-        <div id="aspect-data"></div>
+        <div>
+          <h4>三区分</h4>
+          <div id="div3"></div>
+        </div>
+        <div>
+          <h4>二区分</h4>
+          <div id="div2"></div>
+        </div>
+      </div>
+      <div id="body_setting" class="modal">
+        <div class="dialog_wrapper">
+          <div class="dialog__header">
+            <h2>天体設定</h2>
+          </div>
+          <div id="body_setting__inputs"></div>
+        </div>
+      </div>
+      <div id="obe_setting" class="modal">
+        <div class="dialog_wrapper">
+          <div class="dialog__header">
+            <h2>オーブ設定</h2>
+          </div>
+          <div id="aspect_setting__inputs"></div>
+        </div>
+      </div>
+      <div id="save_setting_dialog" class="modal">
+        <div>
+          <h2>保存名</h2>
+        </div>
+        <input type="text" id="setting_name" />
+        <button id="btn_save_setting">保存</button><br />
+      </div>
+      <div id="load_setting_dialog" class="modal">
+        <div>
+          <h2>設定一覧</h2>
+        </div>
+        <div id="load_setting_list"></div>
+      </div>
+      <div id="locationPicker" class="modal">
+        <div class="location-picker_map-wrapper">
+          <div id="map" class="location-picker_map"></div>
+          <div class="location-picker_sight">┼</div>
+        </div>
+        <div class="location-picker_lonlat">
+          <div>
+            緯度: <input readonly id="locationPicker-lat" value="35.7" /><br />
+            経度: <input readonly id="locationPicker-lng" value="139.7" />
+          </div>
+          <div>
+            <button id="pickLocation">決定</button>
+          </div>
+        </div>
+        <div
+          id="searchBoxContainer"
+          class="location-picker_search-box-container"
+        >
+          <input
+            id="locationSearchKeyword"
+            placeholder="住所"
+            class="location-picker_search-box"
+            autocomplete="off"
+          />
+          <button
+            id="locationSearch"
+            class="location-picker_search-button"
+            onclick="locationSearch()"
+          >
+            検索
+          </button>
+        </div>
+      </div>
+      <footer>
+        <!-- admax -->
+        <!-- <script src="https://adm.shinobi.jp/s/5c8d51baf2d24a2ee2195cb917fec71e"></script> -->
+        <!-- admax -->
+      </footer>
+      <div id="description"></div>
+      <div id="aspect-data"></div>
     </article>
     <script src="../common/bodysetting.js"></script>
     <script src="./js/solar_return.js?ver=11"></script>
-</body>
-
+  </body>
 </html>
