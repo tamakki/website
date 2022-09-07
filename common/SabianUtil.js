@@ -370,8 +370,12 @@ const SabianUtil = function () {
  * サビアン文字列の取得
  * @param {number} deg 黄経[deg] 
  */
-SabianUtil.getSabianString = function　(deg) {
-    const sign = CalcAstroBase.signs[Math.floor(deg/30)];
+SabianUtil.getSabianString = function (deg) {
+    while (deg < 0) {
+        deg += 360;
+    }
+    deg %= 360;
+    const sign = CalcAstroBase.signs[Math.floor(deg / 30)];
     const deg_display = Math.floor(deg % 30) + 1;
     const sabian = sabians[Math.floor(deg)];
     return `${sign}[${deg_display}] ${sabian}`;
@@ -382,11 +386,15 @@ SabianUtil.getSabianString = function　(deg) {
  * @param {*} deg 
  */
 SabianUtil.getSabianSymbol = function (deg) {
+    while (deg < 0) {
+        deg += 360;
+    }
+    deg %= 360;
     return sabians[Math.floor(deg)];
 }
 
 SabianUtil.getSabianDeg = function (deg) {
-    const sign = CalcAstroBase.signs[Math.floor(deg/30)];
+    const sign = CalcAstroBase.signs[Math.floor(deg / 30)];
     const deg_display = Math.floor(deg % 30) + 1;
     return `${sign}[${deg_display}]`;
 }

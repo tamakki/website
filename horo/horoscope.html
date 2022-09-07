@@ -1,360 +1,447 @@
 <!DOCTYPE html>
 <html lang="ja">
-
-<head>
-    <meta charset="UTF-8">
+  <head>
+    <meta charset="UTF-8" />
     <title>ホロスコープ</title>
-    <link rel="shortcut icon" href="../img/favicon.ico" type="image/x-icon">
-    <link rel="icon" href="../img/favicon.svg" type="image/icon">
-    <link rel="apple-touch-icon" href="../img/favicon.png" sizes="128x128">
+    <link rel="shortcut icon" href="../img/favicon.ico" type="image/x-icon" />
+    <link rel="icon" href="../img/favicon.svg" type="image/icon" />
+    <link rel="apple-touch-icon" href="../img/favicon.png" sizes="128x128" />
     <style>
-        @media (orientation: portrait) and (max-width: 760pt){
-            body {
-                font-size: 3.1vw;
-                margin: 1em;
-            }
+      @media (orientation: portrait) and (max-width: 760pt) {
+        body {
+          font-size: 3.1vw;
+          margin: 1em;
         }
-        h2 {
-            font-size: 1.1em;
-            margin-bottom: 0.5em;
-        }
-        h3 {
-            font-size: 1.1em;
-            margin-bottom: 0.5em;
-        }
-        div {
-            margin-bottom: 0.5em;
-        }
-        .main {
-            padding: 1em;
-            display: flex;
-            justify-content: center;
-        }
+      }
+      h2 {
+        font-size: 1.1em;
+        margin-bottom: 0.5em;
+      }
+      h3 {
+        font-size: 1.1em;
+        margin-bottom: 0.5em;
+      }
+      div {
+        margin-bottom: 0.5em;
+      }
+      .main {
+        padding: 1em;
+        display: flex;
+        justify-content: center;
+      }
 
-        @media (orientation: portrait) and (max-width: 760pt) {
-            input, select, button {
-                font-size: 1em;
-            }
+      @media (orientation: portrait) and (max-width: 760pt) {
+        input,
+        select,
+        button {
+          font-size: 1em;
         }
-        .calc_button_area {
-            text-align: center;
+      }
+      .calc_button_area {
+        text-align: center;
+      }
+      .btn_calc {
+        width: 10em;
+        margin: 1em;
+      }
+      @media (orientation: portrait) and (max-width: 760pt) {
+        .btn_calc {
+          width: 50vw;
+          margin: 1em;
         }
-            .btn_calc {
-                width: 10em;
-                margin: 1em;
-            }
-        @media (orientation: portrait) and (max-width: 760pt){
-            .btn_calc {
-                width: 50vw;
-                margin: 1em;
-            }
-        }
+      }
+      .input_area {
+        display: flex;
+        justify-content: center;
+      }
+      @media (orientation: portrait) and (max-width: 760pt) {
         .input_area {
-            display: flex;
-            justify-content: center;
+          display: flex;
+          justify-content: flex-start;
         }
-        @media (orientation: portrait) and (max-width: 760pt) {
-            .input_area {
-                display: flex;
-                justify-content: flex-start;
-            }
-        }
-        #latitude, #longitude{
-            width: 7.5em;
-        }
-        .input_area__group {
-            margin: 0 2em;
-            width: fit-content;
-        }
-        .diff {
-            margin: 2em auto;
-            width: fit-content;
-        }
-        #result {
-            margin: 2em auto;
-            width: fit-content;
-        }
-        table {
-            border-collapse: collapse;
-            margin: 1em;
-        }
-        td{
-            text-align: right;
-        }
-        thead tr{
-            border-bottom: 3px double #000;
-        }
-        .layout, .celestial, .house{
-            display: flex;
-            justify-content: center;
-        }
+      }
+      #latitude,
+      #longitude {
+        width: 7.5em;
+      }
+      .input_area__group {
+        margin: 0 2em;
+        width: fit-content;
+      }
+      .diff {
+        margin: 2em auto;
+        width: fit-content;
+      }
+      #result {
+        margin: 2em auto;
+        width: fit-content;
+      }
+      table {
+        border-collapse: collapse;
+        margin: 1em;
+      }
+      td {
+        text-align: right;
+      }
+      thead tr {
+        border-bottom: 3px double #000;
+      }
+      .layout,
+      .celestial,
+      .house {
+        display: flex;
+        justify-content: center;
+      }
 
-        .chart{
-            width: 80vw;
-            max-width: 500px;
-            height: 80vw;
-            max-height: 500px;
-            vertical-align: middle;
-        }
+      .chart {
+        width: 80vw;
+        max-width: 500px;
+        height: 80vw;
+        max-height: 500px;
+        vertical-align: middle;
+      }
 
-        @media (orientation: portrait) and (max-width: 760pt) {
-            .chart {
-                width: 90vw;
-                height: 90vw;
-                max-width:100%;
-                max-height: unset;
-            }
+      @media (orientation: portrait) and (max-width: 760pt) {
+        .chart {
+          width: 90vw;
+          height: 90vw;
+          max-width: 100%;
+          max-height: unset;
         }
-        .chart svg{
-            display:block;
-            width:100%;
-            height:100%;
-            margin: auto;
-        }
+      }
+      .chart svg {
+        display: block;
+        width: 100%;
+        height: 100%;
+        margin: auto;
+      }
 
-        .aspect_setting {
-            display: flex;
-            justify-content: center;
-            text-align: center;
-        }
+      .aspect_setting {
+        display: flex;
+        justify-content: center;
+        text-align: center;
+      }
 
-        .aspect_display {
-            margin-right: 1em;
-        }
+      .aspect_display {
+        margin-right: 1em;
+      }
 
-        .display_setting {
-            display: flex;
-            flex-direction: row;
-        }
+      .display_setting {
+        display: flex;
+        flex-direction: row;
+      }
 
-        .orb__input div {
-            text-align: left;
-            margin: 0 1em;
-        }
+      .orb__input div {
+        text-align: left;
+        margin: 0 1em;
+      }
 
-        .layout h3{
-            text-align: center;
-        }
+      .layout h3 {
+        text-align: center;
+      }
 
+      .symbol {
+        font-size: 0.8em;
+      }
+      @media (orientation: portrait) and (max-width: 760pt) {
         .symbol {
-            font-size: 0.8em;
+          font-size: 0.6em;
         }
-        @media (orientation: portrait) and (max-width: 760pt) {
-            .symbol {
-                font-size: 0.6em;
-            }
-        }
+      }
 
-        .layout_table td{
-            padding: 0 0.5em;
-        }
-        .layout_table td.r{
-            width: 2em;
-            min-width: 2em;
-        }
-        .house_table td{
-            padding: 0 0.5em;
-        }
-        .house_table td.r{
-            width: 2em;
-            min-width: 2em;
-        }
-        
+      .layout_table td {
+        padding: 0 0.5em;
+      }
+      .layout_table td.r {
+        width: 2em;
+        min-width: 2em;
+      }
+      .house_table td {
+        padding: 0 0.5em;
+      }
+      .house_table td.r {
+        width: 2em;
+        min-width: 2em;
+      }
+
+      .aspect_table {
+        font-size: 0.8em;
+      }
+      @media (orientation: portrait) and (max-width: 760pt) {
         .aspect_table {
-            font-size: 0.8em;
+          font-size: 0.6em;
         }
-        @media (orientation: portrait) and (max-width: 760pt) {
-            .aspect_table {
-                font-size: 0.6em;
-            }
-        }
-        .aspect_table td, .aspect_table th{
-            border: 1px solid #000;
-            width: 3.5em;
-            max-width: 3.5em;
-            min-width: 3.5em;
-            white-space: nowrap;
-            height: 2.5em;
-            text-align: center;
-        }
-        .aspect_table th{
-            background-color: none;
-            border: none;
-            text-decoration: underline;
-            text-align: left;
-            padding: 0.5em;
-        }
-        .result {
-            display: flex;
-            justify-content: center;
-        }
+      }
+      .aspect_table td,
+      .aspect_table th {
+        border: 1px solid #000;
+        width: 3.5em;
+        max-width: 3.5em;
+        min-width: 3.5em;
+        white-space: nowrap;
+        height: 2.5em;
+        text-align: center;
+      }
+      .aspect_table th {
+        background-color: none;
+        border: none;
+        text-decoration: underline;
+        text-align: left;
+        padding: 0.5em;
+      }
+      .result {
+        display: flex;
+        justify-content: center;
+      }
 
-        footer {
-            margin-top: 4em;
-        }
+      footer {
+        margin-top: 4em;
+      }
 
-        .bold {
-            font-weight: bold;
-        }
-        .control {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
-        .control__button {
-            font-size: 1em;
-            margin: 0.2em 0.2em;
-            height: 2em;
-            width: 3em;
-            text-align: center;
-            vertical-align: middle;
-        }
+      .bold {
+        font-weight: bold;
+      }
+      .control {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      }
+      .control__button {
+        font-size: 1em;
+        margin: 0.2em 0.2em;
+        height: 2em;
+        width: 3em;
+        text-align: center;
+        vertical-align: middle;
+      }
     </style>
-    <script src="horo.js?ver=11021519"></script>
-    <script src="HoroscopeCalculator.js?ver=110211224"></script>
-</head>
+    <script src="horo.js?ver=12021519"></script>
+    <script src="HoroscopeCalculator.js?ver=120211224"></script>
+  </head>
 
-<body class="main" onload="init()">
+  <body class="main" onload="init()">
     <main>
-        <head>
-            <h1>シンプルなホロスコープ</h1>
-            <a href="../horo_index.html" class="btn_return">戻る</a>
-        </head>
-        <div class="input_area">
-            <div class="input_area__group">
-                <h2>誕生日時</h2>
-                <input type="date" id="birthday"><br>
-                <input type="time" id="birthtime"><br>
-                <button onclick="setNow()">現在日時</button>
-                <h2>時差</h2>
-                <select id="time_diff">
-                    <option value="12">+12時間</option>
-                    <option value="11">+11時間</option>
-                    <option value="10">+10時間</option>
-                    <option value="9" selected>+ 9時間</option>
-                    <option value="8">+ 8時間</option>
-                    <option value="7">+ 7時間</option>
-                    <option value="6">+ 6時間</option>
-                    <option value="5">+ 5時間</option>
-                    <option value="4">+ 4時間</option>
-                    <option value="3">+ 3時間</option>
-                    <option value="2">+ 2時間</option>
-                    <option value="1">+ 1時間</option>
-                    <option value="0">± 0時間</option>
-                    <option value="-1">- 1時間</option>
-                    <option value="-2">- 2時間</option>
-                    <option value="-3">- 3時間</option>
-                    <option value="-4">- 4時間</option>
-                    <option value="-5">- 5時間</option>
-                    <option value="-6">- 6時間</option>
-                    <option value="-7">- 7時間</option>
-                    <option value="-8">- 8時間</option>
-                    <option value="-9">- 9時間</option>
-                    <option value="-10">-10時間</option>
-                    <option value="-11">-11時間</option>
-                    <option value="-12">-12時間</option>
-                </select>
-            </div>
-            <div class="input_area__group">
-                <h2>誕生地</h2>
-                北緯: <input type="number" id="latitude" max="90" min="-90" step="0.001" value="35"><br>
-                東経: <input type="number" id="longitude" size="20" max="180" min="-180" step="0.001" value="135"><br>
-                都道府県: <span id="prefecture"></span>
-                <h2>ハウスシステム</h2>
-                <select id="house_system" onchange="calcHoro()">
-                    <option value="placidus">プラシーダス</option>
-                    <option value="soler">ソーラー</option>
-                    <option value="soler_sign">ソーラーサイン</option>
-                    <option value="campanus">キャンパナス</option>
-                    <option value="regiomontanus">レジオモンタナス</option>
-                    <option value="koch">コッホ</option>
-                </select>
-            </div>
+      <head>
+        <h1>シンプルなホロスコープ</h1>
+        <a href="../horo_index.html" class="btn_return">戻る</a>
+      </head>
+      <div class="input_area">
+        <div class="input_area__group">
+          <h2>誕生日時</h2>
+          <input type="date" id="birthday" /><br />
+          <input type="time" id="birthtime" /><br />
+          <button onclick="setNow()">現在日時</button>
+          <h2>時差</h2>
+          <select id="time_diff">
+            <option value="12">+12時間</option>
+            <option value="11">+11時間</option>
+            <option value="10">+10時間</option>
+            <option value="9" selected>+ 9時間</option>
+            <option value="8">+ 8時間</option>
+            <option value="7">+ 7時間</option>
+            <option value="6">+ 6時間</option>
+            <option value="5">+ 5時間</option>
+            <option value="4">+ 4時間</option>
+            <option value="3">+ 3時間</option>
+            <option value="2">+ 2時間</option>
+            <option value="1">+ 1時間</option>
+            <option value="0">± 0時間</option>
+            <option value="-1">- 1時間</option>
+            <option value="-2">- 2時間</option>
+            <option value="-3">- 3時間</option>
+            <option value="-4">- 4時間</option>
+            <option value="-5">- 5時間</option>
+            <option value="-6">- 6時間</option>
+            <option value="-7">- 7時間</option>
+            <option value="-8">- 8時間</option>
+            <option value="-9">- 9時間</option>
+            <option value="-10">-10時間</option>
+            <option value="-11">-11時間</option>
+            <option value="-12">-12時間</option>
+          </select>
         </div>
-        <div class="calc_button_area">
-            <button class="btn_calc" onclick="calcHoro()">計算</button><br>
+        <div class="input_area__group">
+          <h2>誕生地</h2>
+          北緯:
+          <input
+            type="number"
+            id="latitude"
+            max="90"
+            min="-90"
+            step="0.001"
+            value="35"
+          /><br />
+          東経:
+          <input
+            type="number"
+            id="longitude"
+            size="20"
+            max="180"
+            min="-180"
+            step="0.001"
+            value="135"
+          /><br />
+          都道府県: <span id="prefecture"></span>
+          <h2>ハウスシステム</h2>
+          <select id="house_system" onchange="calcHoro()">
+            <option value="placidus">プラシーダス</option>
+            <option value="soler">ソーラー</option>
+            <option value="soler_sign">ソーラーサイン</option>
+            <option value="campanus">キャンパナス</option>
+            <option value="regiomontanus">レジオモンタナス</option>
+            <option value="koch">コッホ</option>
+          </select>
         </div>
-        <div class="control">
-            <h3>コマ送り</h3>
-            <div class="play_diff">
-                進行間隔
-                <select id="play_diff">
-                    <option value="60000">1分</option>
-                    <option value="600000">10分</option>
-                    <option value="3600000">1時間</option>
-                    <option value="86400000" selected>1日</option>
-                    <option value="604800000">1週</option>
-                </select><br>
-                アニメーション間隔
-                <select id="play_duration">
-                    <option value="100">0.1秒</option>
-                    <option value="500" selected>0.5秒</option>
-                    <option value="1000">1秒</option>
-                </select>
-            </div>
-            <div class="control_buttons">
-                <button class="control__button" id="btn_reverse" onclick="reverse()">&lt;&lt;</button>
-                <button class="control__button" id="btn_back" onclick="back()">&lt;</button>
-                <button class="control__button" id="btn_stop" onclick="stop()">□</button>
-                <button class="control__button" id="btn_advance" onclick="advance()">&gt;</button>
-                <button class="control__button" id="btn_play" onclick="play()">&gt;&gt;</button>
-            </div>
+      </div>
+      <div class="calc_button_area">
+        <button class="btn_calc" onclick="calcHoro()">計算</button><br />
+      </div>
+      <div class="control">
+        <h3>コマ送り</h3>
+        <div class="play_diff">
+          進行間隔
+          <select id="play_diff">
+            <option value="60000">1分</option>
+            <option value="600000">10分</option>
+            <option value="3600000">1時間</option>
+            <option value="86400000" selected>1日</option>
+            <option value="604800000">1週</option></select
+          ><br />
+          アニメーション間隔
+          <select id="play_duration">
+            <option value="100">0.1秒</option>
+            <option value="500" selected>0.5秒</option>
+            <option value="1000">1秒</option>
+          </select>
         </div>
-        <div class="result">
+        <div class="control_buttons">
+          <button class="control__button" id="btn_reverse" onclick="reverse()">
+            &lt;&lt;
+          </button>
+          <button class="control__button" id="btn_back" onclick="back()">
+            &lt;
+          </button>
+          <button class="control__button" id="btn_stop" onclick="stop()">
+            □
+          </button>
+          <button class="control__button" id="btn_advance" onclick="advance()">
+            &gt;
+          </button>
+          <button class="control__button" id="btn_play" onclick="play()">
+            &gt;&gt;
+          </button>
+        </div>
+      </div>
+      <div class="result">
+        <div>
+          <div class="layout">
             <div>
-                <div class="layout">
-                    <div>
-                        <div id="chart" class="chart"></div>
-                    </div>
-                </div>
-                <div class="aspect_setting">
-                    <div class="aspect_display">
-                        <h3>アスペクト表示</h3>
-                        <div class="display_setting">
-                            <div>
-                                <label><input id="DispHard" type="checkbox" checked onchange="calcHoro()">ハード</label><br>
-                                <label><input id="DispSoft" type="checkbox" checked onchange="calcHoro()">ソフト</label>
-                            </div>
-                            <div>
-                                <label><input id="DispTight" type="checkbox" checked onchange="calcHoro()">タイト</label><br>
-                                <label><input id="DispLoose" type="checkbox" checked onchange="calcHoro()">ルーズ</label>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="orb">
-                        <h3>オーブ</h3>
-                        <div class="orb__input">
-                            タイト<input id="orb_tight" type="number" min="0" max="10" step="0.1" value="3" onchange="calcHoro();" inputmode="decimal"><br>
-                            ルーズ<input id="orb_loose" type="number" min="0" max="10" step="0.1" value="5" onchange="calcHoro();" inputmode="decimal">
-                        </div>
-                    </div>
-                </div>
-                <div class="layout">
-                    <div>
-                        <h3>天体</h3>
-                        <div id="data" class="layout_table"></div>
-                    </div>
-                    <div>
-                        <h3>ハウス</h3>
-                        <div id="casps" class="house_table"></div>
-                    </div>
-                </div>
-                <div class="layout">
-                    <div>
-                        <h3>アスペクト</h3>
-                        <div id="aspect" class="aspect_table"></div>
-                    </div>
-                </div>
+              <div id="chart" class="chart"></div>
             </div>
+          </div>
+          <div class="aspect_setting">
+            <div class="aspect_display">
+              <h3>アスペクト表示</h3>
+              <div class="display_setting">
+                <div>
+                  <label
+                    ><input
+                      id="DispHard"
+                      type="checkbox"
+                      checked
+                      onchange="calcHoro()"
+                    />ハード</label
+                  ><br />
+                  <label
+                    ><input
+                      id="DispSoft"
+                      type="checkbox"
+                      checked
+                      onchange="calcHoro()"
+                    />ソフト</label
+                  >
+                </div>
+                <div>
+                  <label
+                    ><input
+                      id="DispTight"
+                      type="checkbox"
+                      checked
+                      onchange="calcHoro()"
+                    />タイト</label
+                  ><br />
+                  <label
+                    ><input
+                      id="DispLoose"
+                      type="checkbox"
+                      checked
+                      onchange="calcHoro()"
+                    />ルーズ</label
+                  >
+                </div>
+              </div>
+            </div>
+            <div class="orb">
+              <h3>オーブ</h3>
+              <div class="orb__input">
+                タイト<input
+                  id="orb_tight"
+                  type="number"
+                  min="0"
+                  max="10"
+                  step="0.1"
+                  value="3"
+                  onchange="calcHoro();"
+                  inputmode="decimal"
+                /><br />
+                ルーズ<input
+                  id="orb_loose"
+                  type="number"
+                  min="0"
+                  max="10"
+                  step="0.1"
+                  value="5"
+                  onchange="calcHoro();"
+                  inputmode="decimal"
+                />
+              </div>
+            </div>
+          </div>
+          <div class="layout">
+            <div>
+              <h3>天体</h3>
+              <div id="data" class="layout_table"></div>
+            </div>
+            <div>
+              <h3>ハウス</h3>
+              <div id="casps" class="house_table"></div>
+            </div>
+          </div>
+          <div class="layout">
+            <div>
+              <h3>アスペクト</h3>
+              <div id="aspect" class="aspect_table"></div>
+            </div>
+          </div>
         </div>
+      </div>
     </main>
     <script>
-        let now = new Date();
-        document.getElementById("birthday").value = now.getFullYear() + "-" + ("0" + (now.getMonth() + 1)).slice(-2) + "-" + ("0" + now.getDate()).slice(-2);
-        document.getElementById("birthtime").value = ("0" + now.getHours()).slice(-2) + ":" + ("0" + now.getMinutes()).slice(-2);
-        document.getElementById("prefecture").innerHTML = "";
-        document.getElementById("prefecture").append(HoroscopeCalculator.getPrefectureOptions());
+      let now = new Date();
+      document.getElementById("birthday").value =
+        now.getFullYear() +
+        "-" +
+        ("0" + (now.getMonth() + 1)).slice(-2) +
+        "-" +
+        ("0" + now.getDate()).slice(-2);
+      document.getElementById("birthtime").value =
+        ("0" + now.getHours()).slice(-2) +
+        ":" +
+        ("0" + now.getMinutes()).slice(-2);
+      document.getElementById("prefecture").innerHTML = "";
+      document
+        .getElementById("prefecture")
+        .append(HoroscopeCalculator.getPrefectureOptions());
     </script>
-</body>
-
+  </body>
 </html>

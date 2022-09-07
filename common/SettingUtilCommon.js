@@ -19,7 +19,7 @@ function makeSetting() {
  * @param {string} key 
  * @param {any} value 
  */
-function makeInput(key,value,tag) {
+function makeInput(key, value, tag) {
     const div = $('<div>');
     const label = $('<label>').appendTo(div);
     const check = $('<input type="checkbox">').val(key).addClass('body').addClass(tag).appendTo(label);
@@ -41,9 +41,9 @@ function makeInputArea(title, tag) {
     $('<input type="checkbox">').addClass('all').val(tag).appendTo(label);
     $('<span class="body_section__title">').html(title).appendTo(label);
     const main__div = $('<div>').appendTo(main);
-    $.each(SettingUtil.body_list, function(key, value) {
-        if(value.tag.includes(tag)) {
-            main__div.append(makeInput(key,value,tag));
+    $.each(SettingUtil.body_list, function (key, value) {
+        if (value.tag.includes(tag)) {
+            main__div.append(makeInput(key, value, tag));
         }
     });
 }
@@ -52,10 +52,10 @@ function makeInputArea(title, tag) {
  * 設定を読み込んで反映する
  */
 function initValue() {
-    $.each(setting.targets, function(key, value) {
+    $.each(setting.targets, function (key, value) {
         $('input[value="' + value + '"]').prop('checked', true);
     });
-    $.each(setting['targets-all'], function(key, value) {
+    $.each(setting['targets-all'], function (key, value) {
         $('input[value="' + value + '"]').prop('checked', true);
     });
 }
@@ -64,22 +64,22 @@ function initValue() {
 /**
  * 設定の変更を反映する
  */
- function changeValue(event) {
-    if(event) {
+function changeValue(event) {
+    if (event) {
         // チェックの整理
         const section = $(event.target).closest('section');
-        $(section).find('.all').prop('checked',$(section).find('.body').length === $(section).find('.body:checked').length);
+        $(section).find('.all').prop('checked', $(section).find('.body').length === $(section).find('.body:checked').length);
     }
-    if(event) {
+    if (event) {
         document.querySelectorAll(`input[value="${event.target.value}"]`).forEach(elm => elm.checked = event.target.checked);
     }
 
     let targets = [];
-    $('.body:checked').each(function(key, elm){
-        if(!targets.includes(elm.value)) targets.push($(elm).val());
+    $('.body:checked').each(function (key, elm) {
+        if (!targets.includes(elm.value)) targets.push($(elm).val());
     });
     let targets_all = [];
-    $('.all:checked').each(function(key, elm) {
+    $('.all:checked').each(function (key, elm) {
         targets_all.push($(elm).val());
     });
     setting.targets = targets;
@@ -91,7 +91,7 @@ function initValue() {
  * 同じ種類の全チェックを変更
  * @param {any} elm 
  */
- function changeAll(event) {
+function changeAll(event) {
     let checked = $(event.target).prop('checked');
     Object.entries(SettingUtil.body_list).filter(elm => {
         return elm[1].tag.includes(event.target.value)
@@ -155,12 +155,12 @@ function makeOther() {
 
 /** 架空点のチェックボックスを作る */
 function makeVirtualPoint() {
-  makeInputArea('架空点', 'virtualPoint');
+    makeInputArea('架空点', 'virtualPoint');
 }
 
 /** 現代の人物のチェックボックスを作る */
 function makePerson() {
-  makeInputArea('現代の人物', 'person');
+    makeInputArea('現代の人物', 'person');
 }
 
 SettingUtil.body_list = {
@@ -174,6 +174,16 @@ SettingUtil.body_list = {
         'name': "MC",
         'tag': ['main'],
         'svg': '../svg/MC.svg'
+    },
+    'DSC': {
+        'name': 'DSC',
+        'tag': ['main'],
+        'svg': '../svg/DSC.svg'
+    },
+    'IC': {
+        'name': 'IC',
+        'tag': ['main'],
+        'svg': '../svg/IC.svg'
     },
     'sun': {
         'name': '太陽',
@@ -468,7 +478,7 @@ SettingUtil.body_list = {
         'tag': ['greek', 'uranianVirtual'],
         'svg': '../svg/zeus.svg'
     },
-    'daphne' : {
+    'daphne': {
         'name': 'ダフネ',
         'tag': ['greek'],
         'svg': '../svg/daphne.svg'
@@ -520,7 +530,7 @@ SettingUtil.body_list = {
         'svg': '../svg/sedna.svg'
     },
     'bacchus': {
-        'name' : 'バッカス',
+        'name': 'バッカス',
         'tag': ['roman'],
         'svg': '../svg/bacchus.svg'
     },
@@ -531,9 +541,9 @@ SettingUtil.body_list = {
         'svg': '../svg/alexandra.svg'
     },
     'anpanman': {
-      'name': 'アンパンマン',
-      'tag': ['other'],
-      'svg': '../svg/anpanman.svg'
+        'name': 'アンパンマン',
+        'tag': ['other'],
+        'svg': '../svg/anpanman.svg'
     },
     'quaoar': {
         'name': 'クアオアー',
@@ -562,39 +572,39 @@ SettingUtil.body_list = {
     },
     // 架空天体
     'part of fortune': {
-      'name': 'ﾊﾟｰﾄｵﾌﾞﾌｫｰﾁｭﾝ',
-      'tag': ['virtualPoint'],
-      'svg': '../svg/part_of_fortune.svg'
+        'name': 'ﾊﾟｰﾄｵﾌﾞﾌｫｰﾁｭﾝ',
+        'tag': ['virtualPoint'],
+        'svg': '../svg/part_of_fortune.svg'
     },
     'vertex': {
-      'name': 'ﾊﾞｰﾃｯｸｽ',
-      'tag': ['virtualPoint'],
-      'svg': '../svg/vertex.svg'
+        'name': 'ﾊﾞｰﾃｯｸｽ',
+        'tag': ['virtualPoint'],
+        'svg': '../svg/vertex.svg'
     },
     // 現代の人物
     'hideakianno': {
-      'name': '庵野秀明',
-      'tag': ['person'],
-      'svg': '../svg/hideakianno.svg'
+        'name': '庵野秀明',
+        'tag': ['person'],
+        'svg': '../svg/hideakianno.svg'
     },
     'tezuka': {
-      'name': '手塚治虫',
-      'tag': ['person'],
-      'svg': '../svg/tezuka.svg'
+        'name': '手塚治虫',
+        'tag': ['person'],
+        'svg': '../svg/tezuka.svg'
     },
     'kinokonasu': {
-      'name': '奈須きのこ',
-      'tag': ['person'],
-      'svg': '../svg/kinokonasu.svg'
+        'name': '奈須きのこ',
+        'tag': ['person'],
+        'svg': '../svg/kinokonasu.svg'
     },
     'miyazakihayao': {
-      'name': '宮崎駿',
-      'tag': ['person'],
-      'svg': '../svg/miyazakihayao.svg'
+        'name': '宮崎駿',
+        'tag': ['person'],
+        'svg': '../svg/miyazakihayao.svg'
     },
     'yanase': {
-      'name': 'やなせたかし',
-      'tag': ['person'],
-      'svg': '../svg/yanase.svg'
+        'name': 'やなせたかし',
+        'tag': ['person'],
+        'svg': '../svg/yanase.svg'
     },
 }

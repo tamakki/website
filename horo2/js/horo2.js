@@ -251,9 +251,23 @@ function draw() {
                     longitude: MC
                 };
             }
+
+            if (setting.targets.indexOf('DSC') !== -1) {
+                bodies['DSC'] = {
+                    longitude: (ASC + 180) % 360
+                }
+            }
+
+            if (setting.targets.indexOf('IC') !== -1) {
+                bodies['IC'] = {
+                    longitude: (MC + 180) % 360
+                }
+            }
         } else {
             delete bodies['ASC'];
             delete bodies['MC'];
+            delete bodies['DSC'];
+            delete bodies['IC'];
         }
 
         // アスペクトを取得
@@ -668,7 +682,11 @@ function makeBodyList() {
         $('<span class="body_name">').text(name).appendTo(td);
         $('<td class="body_sign">').text(sign).appendTo(tr);
         $('<td>').text(time).appendTo(tr);
-        $('<td>').text(house_num + '室').appendTo(tr);
+        if (key === 'ASC' || key === 'MC' || key === 'DSC' || key === 'IC') {
+            $('<td>').text('-').appendTo(tr);
+        } else {
+            $('<td>').text(house_num + '室').appendTo(tr);
+        }
         if (data.longitudeSpeed < 0) {
             $('<td>').text('逆行').appendTo(tr);
         } else {
@@ -682,34 +700,53 @@ function makeBodyList() {
 
 function makeHouseList() {
     const ul = $('#house-list');
-    let ASC;
-    let MC;
     ul.empty();
-    if (casps.ASC !== undefined) {
-        ASC = casps.ASC.angle;
-    } else {
-        ASC = casps.casps[0].angle;
+    if (setting['house-system'] !== 'solar-sign' && setting['house-system'] !== 'solar') {
+        let ASC;
+        let MC;
+        let DSC;
+        let IC;
+        if (casps.ASC !== undefined) {
+            ASC = casps.ASC.angle;
+        } else {
+            ASC = casps.casps[0].angle;
+        }
+        DSC = (ASC + 180) % 360;
+        if (casps.MC !== undefined) {
+            MC = casps.MC.angle;
+        } else {
+            MC = casps.casps[9].angle;
+        }
+        IC = (MC + 180) % 360;
+
+        const sign_asc = CalcAstroBase.getSign(ASC);
+        const time_asc = CalcAstroBase.deg2time(ASC % 30);
+        const li_asc = $('<li>').appendTo(ul);
+        $('<span class="house_name">').text('ASC').appendTo(li_asc);
+        $('<span class="house_sign">').text(sign_asc).appendTo(li_asc);
+        $('<span clsss="house_time">').text(time_asc).appendTo(li_asc);
+
+        const sign_mc = CalcAstroBase.getSign(MC);
+        const time_mc = CalcAstroBase.deg2time(MC % 30);
+        const li_mc = $('<li>').appendTo(ul);
+        $('<span class="house_name">').text('MC').appendTo(li_mc);
+        $('<span class="house_sign">').text(sign_mc).appendTo(li_mc);
+        $('<span class="house_time">').text(time_mc).appendTo(li_mc);
+
+        const sign_dsc = CalcAstroBase.getSign(DSC);
+        const time_dsc = CalcAstroBase.deg2time(DSC % 30);
+        const li_dsc = $('<li>').appendTo(ul);
+        $('<span class="house_name">').text('DSC').appendTo(li_dsc);
+        $('<span class="house_sign">').text(sign_dsc).appendTo(li_dsc);
+        $('<span clsss="house_time">').text(time_dsc).appendTo(li_dsc);
+
+        const sign_ic = CalcAstroBase.getSign(IC);
+        const time_ic = CalcAstroBase.deg2time(IC % 30);
+        const li_ic = $('<li>').appendTo(ul);
+        $('<span class="house_name">').text('IC').appendTo(li_ic);
+        $('<span class="house_sign">').text(sign_ic).appendTo(li_ic);
+        $('<span clsss="house_time">').text(time_ic).appendTo(li_ic);
     }
-    if (casps.MC !== undefined) {
-        MC = casps.MC.angle;
-    } else {
-        MC = casps.casps[9].angle;
-    }
-
-    const sign_asc = CalcAstroBase.getSign(ASC);
-    const time_asc = CalcAstroBase.deg2time(ASC % 30);
-    const li_asc = $('<li>').appendTo(ul);
-    $('<span class="house_name">').text('ASC').appendTo(li_asc);
-    $('<span class="house_sign">').text(sign_asc).appendTo(li_asc);
-    $('<span clsss="house_time">').text(time_asc).appendTo(li_asc);
-
-    const sign_mc = CalcAstroBase.getSign(MC);
-    const time_mc = CalcAstroBase.deg2time(MC % 30);
-    const li_mc = $('<li>').appendTo(ul);
-    $('<span class="house_name">').text('MC').appendTo(li_mc);
-    $('<span class="house_sign">').text(sign_mc).appendTo(li_mc);
-    $('<span class="house_time">').text(time_mc).appendTo(li_mc);
-
     for (let i = 0; i < casps.casps.length; i++) {
         const deg = casps.casps[i].angle;
         const sign = CalcAstroBase.getSign(deg);
@@ -718,7 +755,6 @@ function makeHouseList() {
         $('<span class="house_name">').text('第' + (i + 1) + 'カスプ').appendTo(li);
         $('<span class="house_sign">').text(sign).appendTo(li);
         $('<span class="house_time">').text(time).appendTo(li);
-
     }
 }
 
