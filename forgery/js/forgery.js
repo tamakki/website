@@ -1101,7 +1101,6 @@ function getBodyData(div) {
         })
     }
 
-    console.log(data);
     return data;
 }
 
