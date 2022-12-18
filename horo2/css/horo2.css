@@ -1,484 +1,471 @@
 /** 設定 */
 .params {
-    width: 18em;
-    padding: 1em;
+  width: 18em;
+  padding: 1em;
 }
 
 #birth-date {
-    width: 7em;
+  width: 7em;
 }
-
 
 .deg {
-    text-align: right;
-    width: 3.5em; 
+  text-align: right;
+  width: 3.5em;
 }
 .min {
-    text-align: right;
-    width: 3em;
+  text-align: right;
+  width: 3em;
 }
 
 .result {
-    padding: 1em;
-    max-width: calc(100% - 18em);
-    flex: 1;
+  padding: 1em;
+  max-width: calc(100% - 18em);
+  flex: 1;
 }
 
 .result div {
-    margin-bottom: 0.5em;
+  margin-bottom: 0.5em;
 }
 
 .orb__input {
-    display: flex;
-    width: 100%;
+  display: flex;
+  width: 100%;
 }
 
 .orb__input div {
-    margin-right: 1em;
+  margin-right: 1em;
 }
 
 .horoscope-area {
-    width: 600px;
-    text-align: center;
+  width: 600px;
+  text-align: center;
 }
 
 .horoscope {
-    width: 600px;
-    max-width: 100%;
-}
-
-#description {
-    position: absolute;
-    display: none;
-    border: 1px solid #000;
-    background-color: #fff;
-    padding: 0.2em;
-    white-space: nowrap;
-    max-width: 20em;
-}
-
-#description div:last-child {
-    white-space: normal;
-}
-
-.description__icon {
-    width: 1.5m;
-    height: 1.8em;
-    vertical-align: text-bottom;
-    margin-right: 0.2em;
+  width: 600px;
+  max-width: 100%;
 }
 
 .aspect-table {
-    width: fit-content;
-    padding: 1em;
-    margin: auto;
-    text-align: center;
-    page-break-inside: avoid;
+  width: fit-content;
+  padding: 1em;
+  margin: auto;
+  text-align: center;
+  page-break-inside: avoid;
 }
 
 #aspect-table {
-    width: fit-content;
-    padding: 2em;
-    margin: auto;
+  width: fit-content;
+  padding: 2em;
+  margin: auto;
 }
 
 .aspect-table table {
-    border-collapse: collapse;
+  border-collapse: collapse;
 }
 
 .aspect-table td {
-    font-size: 0.8em;
-    border: 1px solid #000;
-    width: 3em;
-    height: 3em;
-    min-width: 3em;
-    min-height: 3em;
-    text-align: right;
-    cursor: default;
+  font-size: 0.8em;
+  border: 1px solid #000;
+  width: 3em;
+  height: 3em;
+  min-width: 3em;
+  min-height: 3em;
+  text-align: right;
+  cursor: default;
 }
 
 .aspect-table th {
-    text-align: left;
-    white-space: nowrap;
-    max-width: 2em;
+  text-align: left;
+  white-space: nowrap;
+  max-width: 2em;
 }
 
 #aspect-data {
-    position: absolute;
-    display: none;
-    border: 1px solid #000;
-    background-color: #fff;
-    white-space: nowrap;
-    padding: 0 0.3em;
+  position: absolute;
+  display: none;
+  border: 1px solid #000;
+  background-color: #fff;
+  white-space: nowrap;
+  padding: 0 0.3em;
 }
 
 .data-area {
-    display: flex;
-    justify-content: flex-start;
+  display: flex;
+  justify-content: flex-start;
 }
 
 #body-data-wrapper {
-    width: 100%;
+  width: 100%;
 }
 
 #body-table {
-    border-collapse: collapse;
-    margin: 0 auto;
-    width: 100%;
+  border-collapse: collapse;
+  margin: 0 auto;
+  width: 100%;
 }
 #body-table td {
-    padding-right: 1em;
-    border-bottom: 1px solid #000;
-    white-space: nowrap;
+  padding-right: 1em;
+  border-bottom: 1px solid #000;
+  white-space: nowrap;
 }
-#body-table td:nth-child(2), #body-table td:nth-child(4) {
-    text-align: right;
+#body-table td:nth-child(2),
+#body-table td:nth-child(4) {
+  text-align: right;
 }
 
 #body-table td:last-child {
-    padding:0;
-    white-space: normal;
+  padding: 0;
+  white-space: normal;
 }
 
 .body-table__icon {
-    height: 1em;
-    width: 1em;
-    position: relative;
-    top: 0.1em;
+  height: 1em;
+  width: 1em;
+  position: relative;
+  top: 0.1em;
 }
 
 #body-data {
-    padding: 1em;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    width: calc(18em + 600px);
-    margin: auto;
+  padding: 1em;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: calc(18em + 600px);
+  margin: auto;
 }
 
 #body-data h3 {
-    text-align: center;
+  text-align: center;
 }
 
 #house-data {
-    padding: 1em 0;
+  padding: 1em 0;
 }
 
 #house-list {
-    padding: 0;
-    width: fit-content;
+  padding: 0;
+  width: fit-content;
 }
 #house-list li {
-    list-style-type: none;
-    border-bottom: 1px solid #000;
+  list-style-type: none;
+  border-bottom: 1px solid #000;
 }
 
 #house-list li span {
-    padding-right: 1em;
+  padding-right: 1em;
 }
 
 #house-list li span:nth-child(2) {
-    text-align: right;
+  text-align: right;
 }
 #house-list li span:last-child {
-    padding-right: 0;
+  padding-right: 0;
 }
 
 .house_name {
-    display: inline-block;
-    width: 7em;
+  display: inline-block;
+  width: 7em;
 }
 
-.house_sign  {
-    display: inline-block;
-    width: 4em;
+.house_sign {
+  display: inline-block;
+  width: 4em;
 }
 
 .house_time {
-    display: inline-block;
-    width: 4em;
+  display: inline-block;
+  width: 4em;
 }
 
 footer {
-    text-align: center;
-    width: 80%;
-    margin: 0 auto;
-    margin-top: 4em;
+  text-align: center;
+  width: 80%;
+  margin: 0 auto;
+  margin-top: 4em;
 }
 
 .btn_magnify {
-    width: 4em;
-    background-color: #fff;
-    border: 2px solid gray;
-    border-radius: 1em;
-    color: gray;
-    font-weight: bold;
+  width: 4em;
+  background-color: #fff;
+  border: 2px solid gray;
+  border-radius: 1em;
+  color: gray;
+  font-weight: bold;
 }
 
 #magnify {
-    width: 600px;
-    text-align: center;
+  width: 600px;
+  text-align: center;
 }
 
 .btn_magnify:active {
-    outline: none;
-    background-color: #ddd;
-    color: white;
+  outline: none;
+  background-color: #ddd;
+  color: white;
 }
 
 .btn_magnify:focus {
-    outline:none;
+  outline: none;
 }
 
 .btn_magnify:disabled {
-    opacity: 0.3;
+  opacity: 0.3;
 }
 
 .body-class {
-    width: fit-content;
-    margin: auto;
-    text-align: left;
+  width: fit-content;
+  margin: auto;
+  text-align: left;
 }
 
 .body-class h3 {
-    text-align: center;
+  text-align: center;
 }
 
 .body-class table {
-    margin-bottom: 1em;
-    border-collapse: collapse;
-    max-width: calc(100% - 2em);
-    text-align: left;
-    vertical-align: top;
-    width: fit-content;
-    padding: 2em;
+  margin-bottom: 1em;
+  border-collapse: collapse;
+  max-width: calc(100% - 2em);
+  text-align: left;
+  vertical-align: top;
+  width: fit-content;
+  padding: 2em;
 }
 
-.body-class th, .body-class td {
-    border: 1px solid black;
-    min-width: 6em;
-    text-align: left;
-    vertical-align: top;
-    padding: 0 0.5em;
+.body-class th,
+.body-class td {
+  border: 1px solid black;
+  min-width: 6em;
+  text-align: left;
+  vertical-align: top;
+  padding: 0 0.5em;
 }
 
 .body-class th {
-    text-align: center;
+  text-align: center;
 }
 
 .body-class td div {
-    white-space: nowrap;
+  white-space: nowrap;
 }
 
 .bold {
-    font-weight: bold;
+  font-weight: bold;
 }
 
 .small {
-    font-size: 0.8em;
+  font-size: 0.8em;
 }
 
 .btn_setting {
-    position: relative;
-    bottom: 0.3em;
+  position: relative;
+  bottom: 0.3em;
 }
 
 #setting {
-    overflow: hidden;
+  overflow: hidden;
 }
 
 .setting__hide {
-    height: 0;
-    margin-bottom: 7em !important;
+  height: 0;
+  margin-bottom: 7em !important;
 }
 
 .draw-setting {
-    display: flex;
-    justify-content: space-between;
+  display: flex;
+  justify-content: space-between;
 }
 
 .aspect-setting {
-    margin: 0 1em;
+  margin: 0 1em;
 }
 
 .aspect-display {
-    display: flex;
-    flex-direction: row;
+  display: flex;
+  flex-direction: row;
 }
 
 .btn_share {
-    height: 2em;
-    width: 5em;
-    color: #fff;
-    background: #14cb00;
-    border-radius: 0.4em;
-    font-weight: 600;
-    border: none;
+  height: 2em;
+  width: 5em;
+  color: #fff;
+  background: #14cb00;
+  border-radius: 0.4em;
+  font-weight: 600;
+  border: none;
 }
 
 #body_setting .inputs {
-    padding: 1em;
-    display: flex;
-    flex-wrap: wrap;
+  padding: 1em;
+  display: flex;
+  flex-wrap: wrap;
 }
 
 #body_setting .icon {
-    height: 1em;
-    width: 1em;
-    margin: 0 1em 0 0.5em;
-    position: relative;
-    top: 0.1em;
+  height: 1em;
+  width: 1em;
+  margin: 0 1em 0 0.5em;
+  position: relative;
+  top: 0.1em;
 }
 
 #body_setting .category {
-    margin: 0;
-    margin-right: 2em;
-    margin-bottom: 1em;
+  margin: 0;
+  margin-right: 2em;
+  margin-bottom: 1em;
 }
 
 #body_setting label {
-    white-space: nowrap;
+  white-space: nowrap;
 }
 
 #obe_setting table {
-    margin: auto;
+  margin: auto;
 }
 
 .dialog_wrapper {
-    display: flex;
-    flex-direction: column;
-    height: 100%;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
 }
 
 .dialog__header {
-    display:flex;
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: center;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
 }
 
 .dialog__header button {
-    width: fit-content;
+  width: fit-content;
 }
- 
+
 #body_setting {
-    max-width: 80vw;
-    width: 80vw;
-    height: 80vh;
+  max-width: 80vw;
+  width: 80vw;
+  height: 80vh;
 }
 
 #obe_setting {
-    max-width: 80vw;
+  max-width: 80vw;
 }
 
 #body_setting__inputs {
-    flex: 1;
-    display: flex;
-    flex-wrap: wrap;
-    overflow-y: scroll;
+  flex: 1;
+  display: flex;
+  flex-wrap: wrap;
+  overflow-y: scroll;
 }
 
 #save_setting_dialog {
-    border-radius: 0.5em;
+  border-radius: 0.5em;
 }
 
 #save_setting_dialog h2 {
-    font-size: 1em;
-    display: inline-block;
+  font-size: 1em;
+  display: inline-block;
 }
 
 #save_setting_dialog input {
-    width: calc(100% - 4em);
+  width: calc(100% - 4em);
 }
 
 #close_seve_setting {
-    border: none;
-    font-size: 1.2em;
-    background-color: #fff;
-    float: right;
-    cursor: pointer;
+  border: none;
+  font-size: 1.2em;
+  background-color: #fff;
+  float: right;
+  cursor: pointer;
 }
 #load_setting_dialog h2 {
-    font-size: 1em;
-    display: inline-block;
+  font-size: 1em;
+  display: inline-block;
 }
 
 #close_load_setting {
-    border: none;
-    font-size: 1.5em;
-    background-color: #fff;
-    float: right;
-    cursor: pointer;
+  border: none;
+  font-size: 1.5em;
+  background-color: #fff;
+  float: right;
+  cursor: pointer;
 }
 
 .setting_item_wrapper {
-    min-width: 15em;
-    border: 1px solid #000;
-    border-radius: 0.2em;
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    margin: 0.4em 0;
-    padding: 0.1em;
-    align-items: center;
+  min-width: 15em;
+  border: 1px solid #000;
+  border-radius: 0.2em;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  margin: 0.4em 0;
+  padding: 0.1em;
+  align-items: center;
 }
 
 .setting_item {
-    cursor: pointer;
-    flex: 1;
+  cursor: pointer;
+  flex: 1;
 }
 
 .delete_setting {
-    font-size: 1em;
-    float: right;
-    border: none;
-    width: 1.5em;
-    height: 1.5em;
-    text-align: center;
-    padding: 0;
-    border-radius: 0.75em;
-    background-color: red;
-    color: black;
-    cursor: pointer;
+  font-size: 1em;
+  float: right;
+  border: none;
+  width: 1.5em;
+  height: 1.5em;
+  text-align: center;
+  padding: 0;
+  border-radius: 0.75em;
+  background-color: red;
+  color: black;
+  cursor: pointer;
 }
 
 @media only screen and (max-device-width: 480px) {
-    
-    .modal a.close-modal { 
-        transform: scale(2);
-    }
-    header h1, header button {
-        margin: 0;
-        margin-right: 0.5em;
-    }
-    button, select {
-        font-size: 12pt;
-    }
-    #body_setting {
-        width: 80vw;
-        height: 80vh;
-    }
-    #body_setting, #obe_setting, #save_setting_dialog, #load_setting_dialog {
-        font-size: 2.5vw;
-        width: fit-content;
-    }
-    #body_setting input, #obe_setting input, #save_setting_dialog input, #load_setting_dialog input{
-        font-size: 3vw;
-    }
-    #save_setting_dialog button {
-        font-size: 3vw;
-    }
-    .category {
-        margin: 0 1em;
-    }
-    #body_setting span {
-        margin-bottom: 0.5em;
-    }
-    #body_setting input[type="checkbox"] {
-        width: 25pt;
-        height: 25pt;
-    }
-    .category{
-        width: 100%;
-    }
+  .modal a.close-modal {
+    transform: scale(2);
+  }
+  header h1,
+  header button {
+    margin: 0;
+    margin-right: 0.5em;
+  }
+  button,
+  select {
+    font-size: 12pt;
+  }
+  #body_setting {
+    width: 80vw;
+    height: 80vh;
+  }
+  #body_setting,
+  #obe_setting,
+  #save_setting_dialog,
+  #load_setting_dialog {
+    font-size: 2.5vw;
+    width: fit-content;
+  }
+  #body_setting input,
+  #obe_setting input,
+  #save_setting_dialog input,
+  #load_setting_dialog input {
+    font-size: 3vw;
+  }
+  #save_setting_dialog button {
+    font-size: 3vw;
+  }
+  .category {
+    margin: 0 1em;
+  }
+  #body_setting span {
+    margin-bottom: 0.5em;
+  }
+  #body_setting input[type="checkbox"] {
+    width: 25pt;
+    height: 25pt;
+  }
+  .category {
+    width: 100%;
+  }
 }
