@@ -117,16 +117,32 @@
 .body-table {
   border-collapse: collapse;
   margin: 0 auto;
-  width: 100%;
 }
 .body-table td {
   white-space: nowrap;
+  width: fit-content;
+  vertical-align: top;
+}
+.body-table td.reverse {
+  width: auto;
 }
 .body-table td.sabian {
-  padding-right: 1em;
+  padding-left: 1em;
   border-bottom: 1px solid #000;
-  white-space: nowrap;
+  max-width: calc(50vw - 0.75em);
+  white-space: normal;
 }
+
+.body-table th {
+  max-width: 50%;
+  text-align: start;
+}
+
+.body-table td.space {
+  padding-right: 1em;
+  border-bottom: none;
+}
+
 .body-table td:nth-child(2),
 #body-table td:nth-child(4) {
   text-align: right;
@@ -135,13 +151,10 @@
 .body-table td:last-child {
   padding: 0;
   white-space: normal;
-  width: 100%;
 }
 
 .body-table td:last-child.sabian {
   padding: 0;
-  white-space: nowrap;
-  width: 100%;
 }
 
 .body-table__icon {
@@ -152,17 +165,16 @@
 }
 
 #body-data {
-  padding: 1em;
   display: flex;
   flex-direction: row;
-  justify-content: center;
-  align-items: center;
   width: calc(18em + 700px);
   margin: auto;
 }
 
 #body-data > div {
   margin: 1em;
+  max-width: 100%;
+  min-width: 100%;
 }
 
 #body-data h3 {

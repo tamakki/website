@@ -987,60 +987,42 @@ function getAspectTable(aspects) {
 function makeBodyList() {
     const table = $('#body-table-inner');
     table.empty();
+    const header = $("<tr>").appendTo(table);
+    $("<th>").text("内側").appendTo(header);
+    $("<th>").appendTo(header);
+    $("<th>").text("外側").appendTo(header);
     for (let i = 0; i < setting.targets.length; i++) {
         const key = setting.targets[i];
         if (key === 'ASC' || key === 'MC' || key === 'DSC' || key === 'IC') continue;
         const tr = $('<tr>').appendTo(table);
         const name = SettingUtil.body_list[key].name;
         const data = bodies[key];
+        const data2 = bodies2[key];
         const sign = CalcAstroBase.getSign(data.longitude);
+        const sign2 = CalcAstroBase.getSign(data2.longitude);
         const time = CalcAstroBase.deg2time(data.longitude % 30);
+        const time2 = CalcAstroBase.deg2time(data2.longitude % 30);
         const house_num = getHouseNum(data.longitude);
+        const house_num2 = getHouseNum(data.longitude);
         const td = $('<td>').appendTo(tr);
         const img = $('<img class="body-table__icon">').appendTo(td);
         img.prop('src', SettingUtil.body_list[key].svg);
-        $('<span class="body_name">').text(name).appendTo(td);
-        $('<td class="body_sign">').text(sign).appendTo(tr);
-        $('<td>').text(time).appendTo(tr);
-        $('<td>').text(house_num + '室').appendTo(tr);
-        if (data.longitudeSpeed < 0) {
-            $('<td>').text('逆行').appendTo(tr);
-        } else {
-            $('<td>').appendTo(tr);
-        }
+        $('<span class="body_name">').text(name + ' ' + sign + ' ' + time + ' ' + house_num + '室' + ' ' + (data.longitudeSpeed < 0 ? '逆行' : '')).appendTo(td);
+
+        $('<td class="space">').appendTo(tr);
+
+        const td2 = $("<td>").appendTo(tr);
+        const img2 = $('<img class="body-table__icon">').appendTo(td2);
+        img2.prop('src', SettingUtil.body_list[key].svg);
+        $('<span class="body_name">').text(name + ' ' + sign2 + ' ' + time2 + ' ' + house_num2 + '室' + ' ' + (data2.longitudeSpeed < 0 ? '逆行' : '')).appendTo(td2);
+
         const tr2 = $('<tr>').appendTo(table);
         const sabian = SabianUtil.getSabianString(data.longitude);
-        $('<td colspan="5" class="sabian">').text(sabian).appendTo(tr2);
+        $('<td class="sabian">').text(sabian).appendTo(tr2);
+        $('<td class="space">').appendTo(tr2);
+        const sabian2 = SabianUtil.getSabianString(data2.longitude);
+        $('<td class="sabian">').text(sabian2).appendTo(tr2);
     }
-    const table_outer = $('#body-table-outer');
-    table_outer.empty();
-    for (let i = 0; i < setting.targets.length; i++) {
-        const key = setting.targets[i];
-        if (key === 'ASC' || key === 'MC' || key === 'DSC' || key === 'IC') continue;
-        const tr = $('<tr>').appendTo(table_outer);
-        const name = SettingUtil.body_list[key].name;
-        const data = bodies2[key];
-        if (!data) continue;
-        const sign = CalcAstroBase.getSign(data.longitude);
-        const time = CalcAstroBase.deg2time(data.longitude % 30);
-        const house_num = getHouseNum(data.longitude);
-        const td = $('<td>').appendTo(tr);
-        const img = $('<img class="body-table__icon">').appendTo(td);
-        img.prop('src', SettingUtil.body_list[key].svg);
-        $('<span class="body_name">').text(name).appendTo(td);
-        $('<td class="body_sign">').text(sign).appendTo(tr);
-        $('<td>').text(time).appendTo(tr);
-        $('<td>').text(house_num + '室').appendTo(tr);
-        if (data.longitudeSpeed < 0) {
-            $('<td>').text('逆行').appendTo(tr);
-        } else {
-            $('<td>').appendTo(tr);
-        }
-        const tr2 = $('<tr>').appendTo(table_outer);
-        const sabian = SabianUtil.getSabianString(data.longitude);
-        $('<td colspan="5" class="sabian">').text(sabian).appendTo(tr2);
-    }
-
 }
 
 function makeHouseList() {
