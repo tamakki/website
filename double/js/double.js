@@ -1,6 +1,7 @@
 var bodies;
 var bodies2;
 var casps;
+var casps2;
 var aspects;
 var magnify = 1;
 const settingVersion = 3;
@@ -78,6 +79,14 @@ $(function () {
         option.text(elm.name);
         $('#prefecture').append(option);
     };
+    $('#prefecture2').append($('<option hidden>都道府県</option>'));
+    for (let i = 0; i < prefecture_list.length; i++) {
+        const elm = prefecture_list[i];
+        const option = $('<option>');
+        option.val(JSON.stringify(elm));
+        option.text(elm.name);
+        $('#prefecture2').append(option);
+    };
 
     initSetting();
 
@@ -89,8 +98,16 @@ $(function () {
     $('#longitude-min').change(changeSetting);
     $('#latitude-deg').change(changeSetting);
     $('#latitude-min').change(changeSetting);
+    $('#longitude-deg2').change(changeSetting);
+    $('#longitude-min2').change(changeSetting);
+    $('#latitude-deg2').change(changeSetting);
+    $('#latitude-min2').change(changeSetting);
     $('#prefecture').change(function () {
         changePrefecture();
+        changeSetting();
+    });
+    $('#prefecture2').change(function () {
+        changePrefecture2();
         changeSetting();
     });
     $('#time-diff').change(changeSetting);
@@ -173,7 +190,12 @@ function changeSetting() {
     setting['longitude-min'] = $('#longitude-min').val();
     setting['latitude-deg'] = $('#latitude-deg').val();
     setting['latitude-min'] = $('#latitude-min').val();
+    setting['longitude-deg2'] = $('#longitude-deg2').val();
+    setting['longitude-min2'] = $('#longitude-min2').val();
+    setting['latitude-deg2'] = $('#latitude-deg2').val();
+    setting['latitude-min2'] = $('#latitude-min2').val();
     setting['prefecture'] = $('#prefecture').val();
+    setting['prefecture'] = $('#prefecture2').val();
     setting['time-diff'] = $('#time-diff').val();
     setting['house-system'] = $('#house-system').val();
     setting['disp-hard'] = $('#disp-hard').prop('checked');
@@ -195,6 +217,19 @@ function changePrefecture() {
     $('#longitude-min').val(longitude_min);
     $('#latitude-deg').val(latitude_deg);
     $('#latitude-min').val(latitude_min);
+}
+
+/** 県選択時イベント */
+function changePrefecture2() {
+    const prefecture = JSON.parse($('#prefecture2').val());
+    const longitude_deg = Math.floor(prefecture.longitude);
+    const longitude_min = ('0' + Math.round((prefecture.longitude % 1) / (1 / 60))).slice(-2);
+    const latitude_deg = Math.floor(prefecture.latitude);
+    const latitude_min = ('0' + Math.round((prefecture.latitude % 1) / (1 / 60))).slice(-2);
+    $('#longitude-deg2').val(longitude_deg);
+    $('#longitude-min2').val(longitude_min);
+    $('#latitude-deg2').val(latitude_deg);
+    $('#latitude-min2').val(latitude_min);
 }
 
 /** 天体計算 */
@@ -286,6 +321,10 @@ function draw() {
         casps = caspdata;
         localStorage.setItem('casps_double', JSON.stringify(casps));
 
+        const caspdata2 = getHouse2(setting);
+        casps2 = caspdata2;
+        localStorage.setItem('casps_double2', JSON.stringify(casps2));
+
         // viewBOX設定
         const VIEW_BOX_WIDTH = 800;
         const VIEW_BOX_HEIGHT = 800;
@@ -315,33 +354,53 @@ function draw() {
             MC = caspdata.casps[9].angle;
         }
 
+        let base2 = (caspdata2.casps[0].angle + 180) % 360;
+        let ASC2;
+        let MC2;
+        if (setting['house-system'] === "campanus") {
+            base2 = (caspdata2.ASC.angle + 180) % 360;
+            ASC2 = caspdata2.ASC.angle;
+            MC2 = caspdata2.MC.angle;
+        } else {
+            ASC2 = caspdata2.casps[0].angle;
+            MC2 = caspdata2.casps[9].angle;
+        }
+
         if (setting['house-system'] !== 'solar-sign' && setting['house-system'] !== 'solar') {
             if (setting.targets.indexOf('ASC') !== -1) {
                 bodies['ASC'] = {
                     longitude: ASC
                 };
-                delete bodies2['ASC'];
+                bodies2['ASC'] = {
+                    longitude: ASC2
+                };
             }
 
             if (setting.targets.indexOf('MC') !== -1) {
                 bodies['MC'] = {
                     longitude: MC
                 };
-                delete bodies2['MC'];
+                bodies2['MC'] = {
+                    longitude: MC2
+                };
             }
 
             if (setting.targets.indexOf('DSC') !== -1) {
                 bodies['DSC'] = {
                     longitude: (ASC + 180) % 360
                 }
-                delete bodies2['DSC'];
+                bodies2['DSC'] = {
+                    longitude: (ASC2 + 180) % 360
+                }
             }
 
             if (setting.targets.indexOf('IC') !== -1) {
                 bodies['IC'] = {
                     longitude: (MC + 180) % 360
                 }
-                delete bodies2['IC'];
+                bodies2['IC'] = {
+                    longitude: (MC2 + 180) % 360
+                }
             }
         } else {
             delete bodies['ASC'];
@@ -384,53 +443,6 @@ function draw() {
             let arc = new ArcBuilder(x, y, r, start, end).setStroke(CalcAstroBase.sign_symbol_colors[i]).setStrokeWidth(OUTER_CIRCLE_RADIUS - INNER_CIRCLE_RADIUS).build();
             sign.append(arc);
         }
-        let house = setting['house-system'];
-        caspdata.casps.forEach(function (casp) {
-            let width = 1.0
-            let color = "#aaa";
-            if (house === 'placidus' || house === 'regiomontanus' || house === 'koch') {
-                if (casp === caspdata.casps[0] || casp === caspdata.casps[3] || casp === caspdata.casps[6] || casp === caspdata.casps[9]) {
-                    width = 2.0;
-                }
-            }
-            let line = new RadialLineBuilder(base - casp.angle, INNER_CIRCLE_RADIUS)
-                .setStroke(color)
-                .setStrokeWidth(width)
-                .build();
-            sign.append(line);
-        });
-
-        // ASCの矢印
-        if (house === 'placidus' || house === 'regiomontanus' || house === 'koch') {
-            const deg1 = base - caspdata.casps[9].angle;
-            const deg2 = deg1 + 1;
-            const deg3 = deg1 - 1;
-            const r2 = INNER_CIRCLE_RADIUS - 16;
-            const p1 = { x: INNER_CIRCLE_RADIUS * Math.cos(deg1 * Math.PI / 180), y: INNER_CIRCLE_RADIUS * Math.sin(deg1 * Math.PI / 180) };
-            const p2 = { x: r2 * Math.cos(deg2 * Math.PI / 180), y: r2 * Math.sin(deg2 * Math.PI / 180) };
-            const p3 = { x: r2 * Math.cos(deg3 * Math.PI / 180), y: r2 * Math.sin(deg3 * Math.PI / 180) };
-            let polygon = new PolygonBuilder([p1, p2, p3])
-                .setFill('#aaa')
-                .setStroke('none')
-                .build();
-            sign.append(polygon);
-        }
-
-        // MCの矢印
-        if (house === 'placidus' || house === 'regiomontanus' || house === 'koch') {
-            const deg1 = 180;
-            const deg2 = deg1 + 1;
-            const deg3 = deg1 - 1;
-            const r2 = INNER_CIRCLE_RADIUS - 16;
-            const p1 = { x: INNER_CIRCLE_RADIUS * Math.cos(deg1 * Math.PI / 180), y: INNER_CIRCLE_RADIUS * Math.sin(deg1 * Math.PI / 180) };
-            const p2 = { x: r2 * Math.cos(deg2 * Math.PI / 180), y: r2 * Math.sin(deg2 * Math.PI / 180) };
-            const p3 = { x: r2 * Math.cos(deg3 * Math.PI / 180), y: r2 * Math.sin(deg3 * Math.PI / 180) };
-            let polygon = new PolygonBuilder([p1, p2, p3])
-                .setFill('#aaa')
-                .setStroke('none')
-                .build();
-            sign.append(polygon);
-        }
 
         // 外側の円
         let outer_circle = new CircleBuilder()
@@ -464,24 +476,6 @@ function draw() {
                 (OUTER_CIRCLE_RADIUS - INNER_CIRCLE_RADIUS) * 0.7)
                 .build();
             sign.append(image);
-        }
-
-        // カスプ
-        if (setting['house-system'] === "campanus") {
-            let color = "#aaa";
-            let width = 0.5
-            let line = new RadialLineBuilder(base - ASC, INNER_CIRCLE_RADIUS, INNER_CIRCLE_RADIUS * 0.7)
-                .setStroke(color)
-                .setStrokeWidth(width)
-                .set('stroke-dasharray', '4 4')
-                .build();
-            svg.append(line);
-            line = new RadialLineBuilder(base - MC, INNER_CIRCLE_RADIUS, INNER_CIRCLE_RADIUS * 0.7)
-                .setStroke(color)
-                .setStrokeWidth(width)
-                .set('stroke-dasharray', '4 4')
-                .build();
-            svg.append(line);
         }
 
         // 天体
@@ -567,8 +561,30 @@ function draw() {
             }
         }
 
-        let rBodies2 = rBodies;
+        // 外側のハウス番号
+        let font_size = 13 * magnify;
 
+        rBodies -= font_size + gapPlanets / 2;
+        for (let i = 0; i < caspdata2.casps.length; i++) {
+            let deg1 = caspdata2.casps[0].angle;
+            if (i + 1 < caspdata2.casps.length) {
+                deg1 = caspdata2.casps[i + 1].angle;
+            }
+            let deg2 = caspdata2.casps[i].angle;
+            if (deg1 < deg2) {
+                deg1 += 360;
+            }
+            let deg = base - (caspdata2.casps[i].angle + (deg1 - deg2) * 0.5);
+            let text = new RadialTextBuilder(deg, Math.max(rBodies, 100), i + 1)
+                .set('class', 'symbol')
+                .setStroke("#aaa")
+                .setFill("#aaa")
+                .set('font-size', font_size)
+                .build();
+            sign.append(text);
+        }
+
+        let rBodies2 = rBodies; let house = setting['house-system'];
         //　内側の円
         var layouted2 = [];
         var angles2 = [];
@@ -578,6 +594,138 @@ function draw() {
             .setFill("none")
             .build();
         sign.append(border);
+        // 外側のカスプ
+        caspdata2.casps.forEach(function (casp) {
+            let width = 1.0
+            let color = "#aaa";
+            if (house === 'placidus' || house === 'regiomontanus' || house === 'koch') {
+                if (casp === caspdata2.casps[0] || casp === caspdata2.casps[3] || casp === caspdata2.casps[6] || casp === caspdata2.casps[9]) {
+                    width = 2.0;
+                }
+            }
+            let line = new RadialLineBuilder(base - casp.angle, INNER_CIRCLE_RADIUS, rBodies)
+                .setStroke(color)
+                .setStrokeWidth(width)
+                .build();
+            sign.append(line);
+        });
+
+        // MCの矢印
+        if (house === 'placidus' || house === 'regiomontanus' || house === 'koch') {
+            const deg1 = base - caspdata2.casps[9].angle;
+            const deg2 = deg1 + 0.8;
+            const deg3 = deg1 - 0.8;
+            const r2 = INNER_CIRCLE_RADIUS - 16;
+            const p1 = { x: INNER_CIRCLE_RADIUS * Math.cos(deg1 * Math.PI / 180), y: INNER_CIRCLE_RADIUS * Math.sin(deg1 * Math.PI / 180) };
+            const p2 = { x: r2 * Math.cos(deg2 * Math.PI / 180), y: r2 * Math.sin(deg2 * Math.PI / 180) };
+            const p3 = { x: r2 * Math.cos(deg3 * Math.PI / 180), y: r2 * Math.sin(deg3 * Math.PI / 180) };
+            let polygon = new PolygonBuilder([p1, p2, p3])
+                .setFill('#aaa')
+                .setStroke('none')
+                .build();
+            sign.append(polygon);
+        }
+
+        // ASCの矢印
+        if (house === 'placidus' || house === 'regiomontanus' || house === 'koch') {
+            const deg1 = base - caspdata2.casps[0].angle;
+            const deg2 = deg1 + 0.8;
+            const deg3 = deg1 - 0.8;
+            const r2 = INNER_CIRCLE_RADIUS - 16;
+            const p1 = { x: INNER_CIRCLE_RADIUS * Math.cos(deg1 * Math.PI / 180), y: INNER_CIRCLE_RADIUS * Math.sin(deg1 * Math.PI / 180) };
+            const p2 = { x: r2 * Math.cos(deg2 * Math.PI / 180), y: r2 * Math.sin(deg2 * Math.PI / 180) };
+            const p3 = { x: r2 * Math.cos(deg3 * Math.PI / 180), y: r2 * Math.sin(deg3 * Math.PI / 180) };
+            let polygon = new PolygonBuilder([p1, p2, p3])
+                .setFill('#aaa')
+                .setStroke('none')
+                .build();
+            sign.append(polygon);
+        }
+
+        // キャンパナスのASC
+        if (setting['house-system'] === "campanus") {
+            let color = "#aaa";
+            let width = 0.5
+            let line = new RadialLineBuilder(base - ASC2, INNER_CIRCLE_RADIUS, rBodies)
+                .setStroke(color)
+                .setStrokeWidth(width)
+                .set('stroke-dasharray', '4 4')
+                .build();
+            svg.append(line);
+            line = new RadialLineBuilder(base - MC2, INNER_CIRCLE_RADIUS, rBodies)
+                .setStroke(color)
+                .setStrokeWidth(width)
+                .set('stroke-dasharray', '4 4')
+                .build();
+            svg.append(line);
+        }
+
+        // 内側のカスプ
+        caspdata.casps.forEach(function (casp) {
+            let width = 1.0
+            let color = "#aaa";
+            if (house === 'placidus' || house === 'regiomontanus' || house === 'koch') {
+                if (casp === caspdata.casps[0] || casp === caspdata.casps[3] || casp === caspdata.casps[6] || casp === caspdata.casps[9]) {
+                    width = 2.0;
+                }
+            }
+            let line = new RadialLineBuilder(base - casp.angle, rBodies)
+                .setStroke(color)
+                .setStrokeWidth(width)
+                .build();
+            sign.append(line);
+        });
+
+        // MCの矢印
+        if (house === 'placidus' || house === 'regiomontanus' || house === 'koch') {
+            const deg1 = base - caspdata.casps[9].angle;
+            const deg2 = deg1 + 1;
+            const deg3 = deg1 - 1;
+            const r2 = rBodies - 16;
+            const p1 = { x: rBodies * Math.cos(deg1 * Math.PI / 180), y: rBodies * Math.sin(deg1 * Math.PI / 180) };
+            const p2 = { x: r2 * Math.cos(deg2 * Math.PI / 180), y: r2 * Math.sin(deg2 * Math.PI / 180) };
+            const p3 = { x: r2 * Math.cos(deg3 * Math.PI / 180), y: r2 * Math.sin(deg3 * Math.PI / 180) };
+            let polygon = new PolygonBuilder([p1, p2, p3])
+                .setFill('#aaa')
+                .setStroke('none')
+                .build();
+            sign.append(polygon);
+        }
+
+        // ASCの矢印
+        if (house === 'placidus' || house === 'regiomontanus' || house === 'koch') {
+            const deg1 = 180;
+            const deg2 = deg1 + 1;
+            const deg3 = deg1 - 1;
+            const r2 = rBodies - 16;
+            const p1 = { x: rBodies * Math.cos(deg1 * Math.PI / 180), y: rBodies * Math.sin(deg1 * Math.PI / 180) };
+            const p2 = { x: r2 * Math.cos(deg2 * Math.PI / 180), y: r2 * Math.sin(deg2 * Math.PI / 180) };
+            const p3 = { x: r2 * Math.cos(deg3 * Math.PI / 180), y: r2 * Math.sin(deg3 * Math.PI / 180) };
+            let polygon = new PolygonBuilder([p1, p2, p3])
+                .setFill('#aaa')
+                .setStroke('none')
+                .build();
+            sign.append(polygon);
+        }
+
+        // キャンパナスのASC
+        if (setting['house-system'] === "campanus") {
+            let color = "#aaa";
+            let width = 0.5
+            let line = new RadialLineBuilder(base - ASC, rBodies, rBodies * 0.7)
+                .setStroke(color)
+                .setStrokeWidth(width)
+                .set('stroke-dasharray', '4 4')
+                .build();
+            svg.append(line);
+            line = new RadialLineBuilder(base - MC, rBodies, rBodies * 0.7)
+                .setStroke(color)
+                .setStrokeWidth(width)
+                .set('stroke-dasharray', '4 4')
+                .build();
+            svg.append(line);
+        }
+
         for (let i = 0; i < setting.targets.length; i++) {
             const target = setting.targets[i];
             const elm = bodies[target];
@@ -663,7 +811,6 @@ function draw() {
             svg.append(elm);
         });
 
-        let font_size = 13 * magnify;
         rBodies2 -= font_size + gapPlanets / 2;
 
         for (let i = 0; i < caspdata.casps.length; i++) {
@@ -758,7 +905,40 @@ function getHouse(setting) {
         return calcurator.getKoch();
     }
     return house_list;
-
+}
+/** ハウス情報を取得 */
+function getHouse2(setting) {
+    let house_list = [];
+    let calcurator = new HouseCalcurator(setting.getBirthDate2(), setting.getLongitude2(), setting.getLatitude2());
+    if (setting['house-system'] === "placidus") {
+        return calcurator.getPlacidus();
+    } else if (setting['house-system'] === "solar") {
+        let sun = bodies.sun;
+        let caspdata = {};
+        let casps = [];
+        for (let i = 1; i <= 12; i++) {
+            casps.push({ angle: sun.longitude + 30 * (i - 1) % 360 });
+        }
+        caspdata.casps = casps;
+        return caspdata;
+    } else if (setting['house-system'] === "solar-sign") {
+        let sun = bodies.sun;
+        let base = sun.longitude - sun.longitude % 30;
+        let caspdata = {};
+        let casps = [];
+        for (let i = 1; i <= 12; i++) {
+            casps.push({ angle: base + 30 * (i - 1) % 360 });
+        }
+        caspdata2.casps = casps;
+        return caspdata;
+    } else if (setting['house-system'] === "campanus") {
+        return calcurator.getCampanus();
+    } else if (setting['house-system'] === "regiomontanus") {
+        return calcurator.getRegiomontanus();
+    } else if (setting['house-system'] === "koch") {
+        return calcurator.getKoch();
+    }
+    return house_list;
 }
 
 /** アスペクトテーブルを作る */
@@ -828,6 +1008,9 @@ function makeBodyList() {
         } else {
             $('<td>').appendTo(tr);
         }
+        const tr2 = $('<tr>').appendTo(table);
+        const sabian = SabianUtil.getSabianString(data.longitude);
+        $('<td colspan="5" class="sabian">').text(sabian).appendTo(tr2);
     }
     const table_outer = $('#body-table-outer');
     table_outer.empty();
@@ -853,6 +1036,9 @@ function makeBodyList() {
         } else {
             $('<td>').appendTo(tr);
         }
+        const tr2 = $('<tr>').appendTo(table_outer);
+        const sabian = SabianUtil.getSabianString(data.longitude);
+        $('<td colspan="5" class="sabian">').text(sabian).appendTo(tr2);
     }
 
 }
@@ -1009,6 +1195,9 @@ function onBody() {
 
         let house = getHouseNum(angle) + '室';
         $('<div>').text(house).appendTo(div);
+
+        let sabian = SabianUtil.getSabianString(angle);
+        $('<div>').text(sabian).appendTo(div);
 
         div.css('display', 'block');
         if (event.clientX > window.innerWidth - div.width()) {

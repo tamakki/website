@@ -28,7 +28,7 @@ placidus.src = "PlacidusHouse.js";
 document.head.appendChild(placidus);
 // アスペクト計算クラス
 let aspect_js = document.createElement('script');
-aspect_js.src = "AspectCalculator.js?ver=130201128";
+aspect_js.src = "AspectCalculator.js?ver=140201128";
 document.head.appendChild(aspect_js);
 //// チャート
 // SVGビルダ

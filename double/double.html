@@ -7,7 +7,7 @@
     <link rel="icon" href="../img/favicon.svg" type="image/icon" />
     <link rel="apple-touch-icon" href="../img/favicon.png" sizes="128x128" />
     <link rel="stylesheet" href="../common/common.css" />
-    <link rel="stylesheet" href="css/double.css?ver=13" />
+    <link rel="stylesheet" href="css/double.css?ver=14" />
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/themes/base/jquery-ui.min.css"
@@ -29,16 +29,16 @@
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.css"
     />
-    <script src="../common/SvgBuilder.js?ver=13"></script>
-    <script src="../common/AspectCalculator.js?ver=13"></script>
-    <script src="../common/HouseCalcurator.js?ver=13"></script>
-    <script src="../common/CalcAstroBase.js?ver=13"></script>
-    <script src="../common/aspectsetting.js?ver=13"></script>
+    <script src="../common/SvgBuilder.js?ver=14"></script>
+    <script src="../common/AspectCalculator.js?ver=14"></script>
+    <script src="../common/HouseCalcurator.js?ver=14"></script>
+    <script src="../common/CalcAstroBase.js?ver=14"></script>
+    <script src="../common/aspectsetting.js?ver=14"></script>
     <script src="../common/SabianUtil.js"></script>
-    <script src="js/util/SettingUtilDouble.js?ver=13"></script>
-    <script src="../common/SettingUtilCommon.js?ver=13"></script>
+    <script src="js/util/SettingUtilDouble.js?ver=14"></script>
+    <script src="../common/SettingUtilCommon.js?ver=14"></script>
     <!-- location picker -->
-    <script src="../common/locationPicker.js"></script>
+    <script src="../common/locationPicker.js?var=14"></script>
     <link rel="stylesheet" href="../common/locationPicker.css" />
     <script
       type="text/javascript"
@@ -82,7 +82,7 @@
               <section>
                 <h3>内側の円</h3>
                 <div class="birth-datetime">
-                  <h3>誕生日時</h3>
+                  <h3>日時</h3>
                   <input
                     id="birth-date"
                     class="birth-date"
@@ -96,7 +96,7 @@
                   <button onclick="setNow1()">現在日時</button>
                 </div>
                 <div class="birth-place">
-                  <h3>誕生地</h3>
+                  <h3>場所</h3>
                   <h4>緯度（北緯）</h4>
                   <input
                     type="number"
@@ -141,7 +141,7 @@
               <section class="outer-circle">
                 <h3>外側の円</h3>
                 <div class="birth-datetime">
-                  <h3>誕生日時</h3>
+                  <h3>日時</h3>
                   <input
                     id="birth-date2"
                     class="birth-date"
@@ -153,6 +153,44 @@
                   <select id="birth-min2" class="birth-min"></select
                   ><br />
                   <button onclick="setNow2()">現在日時</button>
+                </div>
+                <div class="birth-place">
+                  <h3>場所</h3>
+                  <h4>緯度（北緯）</h4>
+                  <input
+                    type="number"
+                    inputmode="numeric"
+                    id="latitude-deg2"
+                    class="deg"
+                    min="-180"
+                    max="180"
+                  />°<input
+                    type="number"
+                    inputmode="numeric"
+                    id="latitude-min2"
+                    class="min"
+                    min="0"
+                    max="59"
+                  />′
+                  <h4>経度（東経）</h4>
+                  <input
+                    type="number"
+                    inputmode="numeric"
+                    id="longitude-deg2"
+                    class="deg"
+                    min="-180"
+                    max="180"
+                  />°<input
+                    type="number"
+                    inputmode="numeric"
+                    id="longitude-min2"
+                    class="min"
+                    min="0"
+                    max="59"
+                  />′
+                  <select id="prefecture2"></select
+                  ><br />
+                  <button id="openLocationPicker2">地図検索</button>
                 </div>
                 <div class="time-diff">
                   <h4>時差</h4>
@@ -346,7 +384,7 @@
       <div id="description"></div>
       <div id="aspect-data"></div>
     </article>
-    <script src="../common/bodysetting.js?ver=13"></script>
-    <script src="./js/double.js?ver=13"></script>
+    <script src="../common/bodysetting.js?ver=14"></script>
+    <script src="./js/double.js?ver=14"></script>
   </body>
 </html>

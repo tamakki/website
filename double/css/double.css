@@ -84,10 +84,6 @@
   padding-right: 0.4em;
 }
 
-.outer-circle button {
-  font-size: 10pt;
-}
-
 .date-adjuster {
   white-space: nowrap;
 }
@@ -124,6 +120,9 @@
   width: 100%;
 }
 .body-table td {
+  white-space: nowrap;
+}
+.body-table td.sabian {
   padding-right: 1em;
   border-bottom: 1px solid #000;
   white-space: nowrap;
@@ -136,6 +135,13 @@
 .body-table td:last-child {
   padding: 0;
   white-space: normal;
+  width: 100%;
+}
+
+.body-table td:last-child.sabian {
+  padding: 0;
+  white-space: nowrap;
+  width: 100%;
 }
 
 .body-table__icon {

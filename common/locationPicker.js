@@ -1,8 +1,9 @@
 var map, searchManager;
+let locationNum = 1;
 window.GetMap = () => {
   map = new Microsoft.Maps.Map('#map');
 
-  Microsoft.Maps.loadModule(['Microsoft.Maps.Search','Microsoft.Maps.AutoSuggest'], function () {
+  Microsoft.Maps.loadModule(['Microsoft.Maps.Search', 'Microsoft.Maps.AutoSuggest'], function () {
     // AutoSuggestion
     const manager = new Microsoft.Maps.AutosuggestManager({
       map: map,
@@ -20,37 +21,37 @@ window.GetMap = () => {
     onChangeLocation(center);
   });
   const location = new Microsoft.Maps.Location(35.7, 139.7);
-  map.setView({center: location});
+  map.setView({ center: location });
 }
 
 const suggestSelected = (result) => {
   onChangeLocation(result.location);
-  map.setView({bounds: result.bestView});
+  map.setView({ bounds: result.bestView });
 }
 
 const searchSuccess = (r) => {
-  if(r && r.results && r.results.length > 0) {
+  if (r && r.results && r.results.length > 0) {
     map.entities.clear();
     const pins = [];
     const locs = [];
     r.results.forEach((result, i) => {
       const pin = new Microsoft.Maps.Pushpin(result.location, {
-          icon: '../svg/pin.svg',
-          ancor: new Microsoft.Maps.Point(16, 32)
+        icon: '../svg/pin.svg',
+        ancor: new Microsoft.Maps.Point(16, 32)
       });
       pins.push(pin);
       Microsoft.Maps.Events.addHandler(pin, 'click', () => {
-        map.setView({center: result.location});
+        map.setView({ center: result.location });
         onChangeLocation(result.location);
       });
       locs.push(result.location);
     });
     map.entities.push(pins);
-    if(r.results.length === 1) {
-      map.setView({bounds: r.results[0].bestView})
+    if (r.results.length === 1) {
+      map.setView({ bounds: r.results[0].bestView })
       onChangeLocation(r.results[0].location);
     } else {
-      map.setView({bounds: Microsoft.Maps.LocationRect.fromLocations(locs), padding: 30});
+      map.setView({ bounds: Microsoft.Maps.LocationRect.fromLocations(locs), padding: 30 });
     }
   } else {
     searchFail();
@@ -74,21 +75,49 @@ const onChangeLocation = (location) => {
   const lon = location.longitude;
   document.getElementById('locationPicker-lat').value = Math.floor(lat) + '°' + ('0' + Math.floor((lat - Math.floor(lat)) * 60)).slice(-2) + "'";
   document.getElementById('locationPicker-lng').value = Math.floor(lon) + '°' + ('0' + Math.floor((lon - Math.floor(lon)) * 60)).slice(-2) + "'";
-  map.setView({bounds: result.bestView});
+  map.setView({ bounds: result.bestView });
+}
+const onChangeLocation2 = (location) => {
+  const lat = location.latitude;
+  const lon = location.longitude;
+  document.getElementById('locationPicker-lat').value = Math.floor(lat) + '°' + ('0' + Math.floor((lat - Math.floor(lat)) * 60)).slice(-2) + "'";
+  document.getElementById('locationPicker-lng').value = Math.floor(lon) + '°' + ('0' + Math.floor((lon - Math.floor(lon)) * 60)).slice(-2) + "'";
+  map.setView({ bounds: result.bestView });
 }
 
 $(document).on('click', '#openLocationPicker', () => {
+  locationNum = 1;
   const lat = parseFloat(setting['latitude-deg']) + parseFloat(setting['latitude-min']) / 60;
   const lon = parseFloat(setting['longitude-deg']) + parseFloat(setting['longitude-min']) / 60;
   const location = {
     latitude: lat,
     longitude: lon,
   }
-  if(!map) {
+  if (!map) {
     alert('現在地図検索機能が使えません');
   }
-  map.setView({center: location});
+  map.setView({ center: location });
   onChangeLocation(location);
+  $('#locationSearchKeyword').val('');
+  $('#locationPicker').modal({
+    escapeClose: false,
+    clickClose: false,
+  });
+});
+
+$(document).on('click', '#openLocationPicker2', () => {
+  locationNum = 2;
+  const lat = parseFloat(setting['latitude-deg2']) + parseFloat(setting['latitude-min2']) / 60;
+  const lon = parseFloat(setting['longitude-deg2']) + parseFloat(setting['longitude-min2']) / 60;
+  const location = {
+    latitude: lat,
+    longitude: lon,
+  }
+  if (!map) {
+    alert('現在地図検索機能が使えません');
+  }
+  map.setView({ center: location });
+  onChangeLocation2(location);
   $('#locationSearchKeyword').val('');
   $('#locationPicker').modal({
     escapeClose: false,
@@ -98,10 +127,17 @@ $(document).on('click', '#openLocationPicker', () => {
 
 $(document).on('click', '#pickLocation', () => {
   const center = map.getCenter();
-  document.getElementById('longitude-deg').value = Math.floor(center.longitude);
-  document.getElementById('longitude-min').value = ('0' + Math.floor((center.longitude % 1) * 60)).slice(-2)
-  document.getElementById('latitude-deg').value = Math.floor(center.latitude);
-  document.getElementById('latitude-min').value = ('0' + Math.floor((center.latitude % 1) * 60)).slice(-2);
+  if (locationNum === 1) {
+    document.getElementById('longitude-deg').value = Math.floor(center.longitude);
+    document.getElementById('longitude-min').value = ('0' + Math.floor((center.longitude % 1) * 60)).slice(-2)
+    document.getElementById('latitude-deg').value = Math.floor(center.latitude);
+    document.getElementById('latitude-min').value = ('0' + Math.floor((center.latitude % 1) * 60)).slice(-2);
+  } else {
+    document.getElementById('longitude-deg2').value = Math.floor(center.longitude);
+    document.getElementById('longitude-min2').value = ('0' + Math.floor((center.longitude % 1) * 60)).slice(-2)
+    document.getElementById('latitude-deg2').value = Math.floor(center.latitude);
+    document.getElementById('latitude-min2').value = ('0' + Math.floor((center.latitude % 1) * 60)).slice(-2);
+  }
   changeSetting();
   $.modal.close();
   calc();
