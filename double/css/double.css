@@ -154,7 +154,7 @@
 }
 
 .body-table td:last-child.sabian {
-  padding: 0;
+  padding-left: 1em;
 }
 
 .body-table__icon {
