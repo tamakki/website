@@ -929,7 +929,7 @@ function getHouse2(setting) {
         for (let i = 1; i <= 12; i++) {
             casps.push({ angle: base + 30 * (i - 1) % 360 });
         }
-        caspdata2.casps = casps;
+        caspdata.casps = casps;
         return caspdata;
     } else if (setting['house-system'] === "campanus") {
         return calcurator.getCampanus();
