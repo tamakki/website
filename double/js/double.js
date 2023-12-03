@@ -913,7 +913,7 @@ function getHouse2(setting) {
     if (setting['house-system'] === "placidus") {
         return calcurator.getPlacidus();
     } else if (setting['house-system'] === "solar") {
-        let sun = bodies.sun;
+        let sun = bodies2.sun;
         let caspdata = {};
         let casps = [];
         for (let i = 1; i <= 12; i++) {
@@ -922,7 +922,7 @@ function getHouse2(setting) {
         caspdata.casps = casps;
         return caspdata;
     } else if (setting['house-system'] === "solar-sign") {
-        let sun = bodies.sun;
+        let sun = bodies2.sun;
         let base = sun.longitude - sun.longitude % 30;
         let caspdata = {};
         let casps = [];
