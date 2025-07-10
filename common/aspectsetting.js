@@ -147,7 +147,7 @@ const aspectSettingDefault = {
     },
     "Semi-Square": {
         display: true,
-        isMajor: true,
+        isMajor: false,
         angle: 45,
         color: 'hard',
         orb: {
@@ -157,7 +157,7 @@ const aspectSettingDefault = {
     },
     "Semi-Sextile": {
         display: true,
-        isMajor: false,
+        isMajor: true,
         angle: 30,
         color: 'soft',
         orb: {
@@ -207,7 +207,7 @@ const aspectSettingDefault = {
     },
     Quintile: {
         display: true,
-        isMajor: true,
+        isMajor: false,
         angle: 72,
         color: 'soft',
         orb: {
@@ -257,7 +257,7 @@ const aspectSettingDefault = {
     },
     Inconjunct: {
         display: true,
-        isMajor: false,
+        isMajor: true,
         angle: 150,
         color: 'hard',
         orb: {
