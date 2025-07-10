@@ -205,7 +205,7 @@ function calc() {
     if (validate(setting)) {
         $.LoadingOverlay('show');
         $.ajax({
-            url: 'https://acidic-chill-bat.glitch.me/api/horo',
+            url: 'https://sparkly-cendol-920cf1.netlify.app/api/horo',
             //url: 'http://localhost:3000/api/horo',
             type: 'post',
             data: {
@@ -217,7 +217,7 @@ function calc() {
             bodies = res;
             localStorage.setItem('bodies_progress', JSON.stringify(bodies));
             $.ajax({
-                url: 'https://acidic-chill-bat.glitch.me/api/horo',
+                url: 'https://sparkly-cendol-920cf1.netlify.app/api/horo',
                 //url: 'http://localhost:3000/api/horo',
                 type: 'post',
                 data: {
