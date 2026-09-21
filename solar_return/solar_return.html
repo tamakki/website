@@ -7,7 +7,7 @@
     <link rel="icon" href="../img/favicon.svg" type="image/icon" />
     <link rel="apple-touch-icon" href="../img/favicon.png" sizes="128x128" />
     <link rel="stylesheet" href="../common/common.css" />
-    <link rel="stylesheet" href="css/solar_return.css?ver=17" />
+    <link rel="stylesheet" href="css/solar_return.css?ver=18" />
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/themes/base/jquery-ui.min.css"
@@ -31,13 +31,13 @@
     />
     <script src="js/ephemeris-0.1.0.min.js"></script>
     <script src="../common/SvgBuilder.js?ver=1.0.1"></script>
-    <script src="../common/AspectCalculator.js?ver=17"></script>
+    <script src="../common/AspectCalculator.js?ver=18"></script>
     <script src="../common/HouseCalcurator.js"></script>
     <script src="../common/CalcAstroBase.js?ver=1.0.1"></script>
     <script src="../common/SabianUtil.js"></script>
     <script src="../common/aspectsetting.js"></script>
-    <script src="js/util/SettingUtil.js?ver=17"></script>
-    <script src="../common/SettingUtilCommon.js?ver=17"></script>
+    <script src="js/util/SettingUtil.js?ver=18"></script>
+    <script src="../common/SettingUtilCommon.js?ver=18"></script>
     <!-- location picker -->
     <script src="../common/locationPicker.js"></script>
     <link rel="stylesheet" href="../common/locationPicker.css" />
@@ -81,10 +81,11 @@
           <div id="setting">
             <div class="birth-datetime">
               <h3>誕生日時</h3>
-              <input id="birth-date" placeholder="誕生日" readonly />
-              <select id="birth-hour"></select
-              >:
-              <select id="birth-min"></select>
+              <input type="number" id="birth-year" placeholder="1987" inputmode="numeric" pattern="[0-9]{4}"/>年
+              <input type="number" id="birth-month" placeholder="01" inputmode="numeric" pattern="[0-9]{1,2}" min="1" max="12"/>月
+              <input type="number" id="birth-day" placeholder="01" inputmode="numeric" pattern="[0-9]{1,2}" min="1" max="31"/>日<br>
+              <input type="number" id="birth-hour" placeholder="00" min="0" max="24" inputmode="numeric">時
+              <input type="number" id="birth-min" placeholder="00" min="0" max="60" inputmode="numeric">分<br />
             </div>
             <div class="birth-place">
               <h3>指定地</h3>
@@ -313,6 +314,6 @@
       <div id="aspect-data"></div>
     </article>
     <script src="../common/bodysetting.js"></script>
-    <script src="./js/solar_return.js?ver=17"></script>
+    <script src="./js/solar_return.js?ver=18"></script>
   </body>
 </html>

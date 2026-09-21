@@ -5,52 +5,12 @@ var casps;
 var aspects_transit;
 var aspects_progress;
 var magnify = 1;
-const settingVersion = 3;
+const settingversion = 4;
 var setting_open = true;
 let setting = new Setting(JSON.stringify(SettingUtil.default_setting));
 
 // 初期設定
 $(function () {
-    $.datepicker.setDefaults($.datepicker.regional["ja"]);
-    $('#birth-date').datepicker({
-        changeYear: true, //年を表示
-        changeMonth: true, //月を選択
-        yearRange: '-100:+100',
-        changeDate: changeSetting
-    }).on('change', changeSetting);
-    $('#target-date').datepicker({
-        changeYear: true, //年を表示
-        changeMonth: true, //月を選択
-        yearRange: '-100:+100',
-        changeDate: changeSetting
-    }).on('change', changeSetting);
-
-    // 誕生時間の選択肢
-    for (let i = 0; i < 24; i++) {
-        let option = $('<option>');
-        option.val(i);
-        option.text(('0' + i).slice(-2));
-        $('#birth-hour').append(option);
-    }
-    for (let i = 0; i < 60; i++) {
-        let option = $('<option>');
-        option.val(i);
-        option.text(('0' + i).slice(-2));
-        $('#birth-min').append(option);
-    }
-    for (let i = 0; i < 24; i++) {
-        let option = $('<option>');
-        option.val(i);
-        option.text(('0' + i).slice(-2));
-        $('#target-hour').append(option);
-    }
-    for (let i = 0; i < 60; i++) {
-        let option = $('<option>');
-        option.val(i);
-        option.text(('0' + i).slice(-2));
-        $('#target-min').append(option);
-    }
-
     // 時差
     for (let i = 12; i > -12; i--) {
         let option = $('<option>');
@@ -83,10 +43,45 @@ $(function () {
 
     initSetting();
 
+    // 内側
+    $('#birth-year').on('focus', () => { $('#birth-year').val('');});
+    $('#birth-year').on('input',() => {if(event.target.value.length == 4) $('#birth-month').focus();});
+    $('#birth-year').change(changeSetting);
+
+    $('#birth-month').on('focus', () => {$('#birth-month').val('');});
+    $('#birth-month').on('input',() => {if(event.target.value.length == 2) $('#birth-day').focus();});
+    $('#birth-month').change(changeSetting);
+
+    $('#birth-day').on('focus', () => {$('#birth-day').val('');});
+    $('#birth-day').on('input',() => { if(event.target.value.length == 2) $('#birth-hour').focus();});
+    $('#birth-day').change(changeSetting);
+
+    $('#birth-hour').on('focus', () => {$('#birth-hour').val('');});
+    $('#birth-hour').on('input',() => {if(event.target.value.length == 2) $('#birth-min').focus();});
     $('#birth-hour').change(changeSetting);
+
+    $('#birth-min').on('focus', () => {$('#birth-min').val('');});
     $('#birth-min').change(changeSetting);
-    $('#birth-hour2').change(changeSetting);
-    $('#birth-min2').change(changeSetting);
+
+    // 外側
+    $('#target-year').on('focus', () => { $('#target-year').val('');});
+    $('#target-year').on('input',() => {if(event.target.value.length == 4) $('#target-month').focus();});
+    $('#target-year').change(changeSetting);
+
+    $('#target-month').on('focus', () => {$('#target-month').val('');});
+    $('#target-month').on('input',() => {if(event.target.value.length == 2) $('#target-day2').focus();});
+    $('#target-month').change(changeSetting);
+
+    $('#target-day').on('focus', () => {$('#target-day').val('');});
+    $('#target-day').on('input',() => { if(event.target.value.length == 2) $('#target-hour2').focus();});
+    $('#target-day').change(changeSetting);
+
+    $('#target-hour').on('focus', () => {$('#target-hour').val('');});
+    $('#target-hour').on('input',() => {if(event.target.value.length == 2) $('#target-min2').focus();});
+    $('#target-hour').change(changeSetting);
+
+    $('#target-min').on('focus', () => {$('#target-min').val('');});
+    $('#target-min').change(changeSetting);
     $('#longitude-deg').change(changeSetting);
     $('#longitude-min').change(changeSetting);
     $('#latitude-deg').change(changeSetting);
@@ -169,10 +164,14 @@ function initSetting() {
 
 /** 設定変更の保存 */
 function changeSetting() {
-    setting['birth-date'] = $('#birth-date').val();
+    setting['birth-year'] = $('#birth-year').val();
+    setting['birth-month'] = $('#birth-month').val();
+    setting['birth-day'] = $('#birth-day').val();
     setting['birth-hour'] = $('#birth-hour').val();
     setting['birth-min'] = $('#birth-min').val();
-    setting['target-date'] = $('#target-date').val();
+    setting['target-year'] = $('#target-year').val();
+    setting['target-month'] = $('#target-month').val();
+    setting['target-day'] = $('#target-day').val();
     setting['target-hour'] = $('#target-hour').val();
     setting['target-min'] = $('#target-min').val();
     setting['longitude-deg'] = $('#longitude-deg').val();
@@ -272,7 +271,7 @@ function calc() {
 
 function validate(setting) {
     if (setting.getBirthDate().toString() === "Invalid Date") {
-        alert('日付の入力形式に誤りがあります。\n 2020/01/01　のように入力してください。');
+        alert('日付の入力形式に誤りがあります。');
         return false;
     }
 
@@ -1366,8 +1365,9 @@ $('#minus').click(function () {
  */
 function setNow1() {
     var now = new Date();
-    var date = now.getFullYear() + "/" + ("0" + (now.getMonth() + 1)).slice(-2) + "/" + ("0" + now.getDate()).slice(-2);
-    $('#birth-date').datepicker('setDate', date);
+    $('#birth-year').val(now.getFullYear());
+    $('#birth-month').val(('0' + (now.getMonth() + 1)).slice(-2));
+    $('#birth-day').val(('0' + now.getDate()).slice(-2));
     $('#birth-hour').val(now.getHours());
     $('#birth-min').val(now.getMinutes());
     changeSetting();
@@ -1378,8 +1378,9 @@ function setNow1() {
  */
 function setNow2() {
     var now = new Date();
-    var date = now.getFullYear() + "/" + ("0" + (now.getMonth() + 1)).slice(-2) + "/" + ("0" + now.getDate()).slice(-2);
-    $('#target-date').datepicker('setDate', date);
+    $('#target-year').val(now.getFullYear());
+    $('#target-month').val(('0' + (('0' + (now.getMonth() + 1)).slice(-2))).slice(-2));
+    $('#target-day').val(('0' + now.getDate()).slice(-2));
     $('#target-hour').val(now.getHours());
     $('#target-min').val(now.getMinutes());
     changeSetting();

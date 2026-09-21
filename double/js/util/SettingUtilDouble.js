@@ -35,7 +35,7 @@ SettingUtil.removeSetting = function () {
  * @param {Date} date
  */
 SettingUtil.formatDate = function (date) {
-    return date.getFullYear() + '/' + ('0' + (date.getMonth() + 1)).slice(-2) + '/' + ('0' + (date.getDate())).slice(-2);
+    return date.getFullYear() + ('0' + (date.getMonth() + 1)).slice(-2) + ('0' + (date.getDate())).slice(-2);
 }
 
 /**
@@ -61,11 +61,13 @@ Setting.prototype.getBirthDate = function () {
         timeZone = '-';
         timeZone += ('0' + Math.abs(this['time-diff'])).slice(-2) + ':00';
     }
-    this['birth-date'] = this['birth-date'].trim();
+    if(!isValidDate(this['birth-year'],this['birth-month'],this['birth-day'])) {
+        return "Invalid Date"
+    }
     const dateString =
-        ('0000' + this['birth-date'].split('/')[0]).slice(-4) + '-'
-        + ('0' + this['birth-date'].split('/')[1]).slice(-2) + '-'
-        + ('0' + this['birth-date'].split('/')[2]).slice(-2)
+        ('0000' + this['birth-year']).slice(-4) + '-'
+        + ('0' + this['birth-month']).slice(-2) + '-'
+        + ('0' + this['birth-day']).slice(-2)
         + 'T'
         + ('0' + this['birth-hour']).slice(-2) + ':'
         + ('0' + this['birth-min']).slice(-2) + ':00.000' + timeZone;
@@ -83,11 +85,13 @@ Setting.prototype.getBirthDate2 = function () {
         timeZone = '-';
         timeZone += ('0' + Math.abs(this['time-diff2'])).slice(-2) + ':00';
     }
-    this['birth-date2'] = this['birth-date2'].trim();
+    if(!isValidDate(this['birth-year2'],this['birth-month2'],this['birth-day2'])) {
+        return "Invalid Date"
+    }
     const dateString =
-        ('0000' + this['birth-date2'].split('/')[0]).slice(-4) + '-'
-        + ('0' + this['birth-date2'].split('/')[1]).slice(-2) + '-'
-        + ('0' + this['birth-date2'].split('/')[2]).slice(-2)
+        ('0000' + this['birth-year2']).slice(-4) + '-'
+        + ('0' + this['birth-month2']).slice(-2) + '-'
+        + ('0' + this['birth-day2']).slice(-2)
         + 'T'
         + ('0' + this['birth-hour2']).slice(-2) + ':'
         + ('0' + this['birth-min2']).slice(-2) + ':00.000' + timeZone;
@@ -118,10 +122,14 @@ Setting.prototype.getLatitude2 = function () {
 SettingUtil.setting_key = "horoscope_setting_double";
 SettingUtil.default_setting = {
     version: 3,
-    'birth-date': SettingUtil.formatDate(new Date()),
+    'birth-year': (new Date()).getFullYear(),
+    'birth-month': ('0' + ((new Date()).getMonth() + 1)).slice(-2),
+    'birth-day': ('0' + (new Date()).getDate()).slice(-2),
     'birth-hour': (new Date()).getHours(),
     'birth-min': (new Date()).getMinutes(),
-    'birth-date2': SettingUtil.formatDate(new Date()),
+    'birth-year2': (new Date()).getFullYear(),
+    'birth-month2': ('0' + ((new Date()).getMonth() + 1)).slice(-2),
+    'birth-day2': ('0' + (new Date()).getDate()).slice(-2),
     'birth-hour2': (new Date()).getHours(),
     'birth-min2': (new Date()).getMinutes(),
     'longitude-deg': '135',
@@ -156,4 +164,14 @@ SettingUtil.default_setting = {
         'main'
     ],
     'aspectsetting': aspectSettingDefault
+}
+
+const isValidDate = function(year, month, day) {
+    // 月は0始まり（0=1月, 11=12月）なので -1 は不要なパターン（値の直渡し）
+    const d = new Date(year, month - 1, day);
+    return (
+        d.getFullYear() == year &&
+        d.getMonth() == month - 1 &&
+        d.getDate() == day
+    );
 }

@@ -3,7 +3,7 @@
 }
 /** 設定 */
 .params {
-  width: 20em;
+  width: 24em;
   padding: 1em;
 }
 
@@ -11,9 +11,26 @@
   display: flex;
 }
 
-.birth-date {
-  width: 7em;
+#birth-year, #birth-year2 {
+  width: 4em;
 }
+#birth-month, #birth-month2 {
+  width: 2.5em;
+}
+#birth-day, #birth-day2 {
+  width: 2.5em;
+}
+#birth-hour, #birth-hour2 {
+  width: 2.5em;
+}
+#birth-min, #birth-min2 {
+  width: 2.5em;
+}
+input[type="number"]::-webkit-outer-spin-button, 
+input[type="number"]::-webkit-inner-spin-button { 
+  -webkit-appearance: none; 
+  margin: 0; 
+} 
 
 .deg {
   text-align: right;
@@ -26,7 +43,7 @@
 
 .result {
   padding: 1em;
-  max-width: calc(100% - 20em);
+  max-width: calc(100% - 24em);
 }
 
 .result div {

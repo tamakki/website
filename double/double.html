@@ -7,7 +7,7 @@
     <link rel="icon" href="../img/favicon.svg" type="image/icon" />
     <link rel="apple-touch-icon" href="../img/favicon.png" sizes="128x128" />
     <link rel="stylesheet" href="../common/common.css" />
-    <link rel="stylesheet" href="css/double.css?ver=17" />
+    <link rel="stylesheet" href="css/double.css?ver=18" />
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/themes/base/jquery-ui.min.css"
@@ -29,14 +29,14 @@
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.css"
     />
-    <script src="../common/SvgBuilder.js?ver=17"></script>
-    <script src="../common/AspectCalculator.js?ver=17"></script>
-    <script src="../common/HouseCalcurator.js?ver=17"></script>
-    <script src="../common/CalcAstroBase.js?ver=17"></script>
-    <script src="../common/aspectsetting.js?ver=17"></script>
+    <script src="../common/SvgBuilder.js?ver=18"></script>
+    <script src="../common/AspectCalculator.js?ver=18"></script>
+    <script src="../common/HouseCalcurator.js?ver=18"></script>
+    <script src="../common/CalcAstroBase.js?ver=18"></script>
+    <script src="../common/aspectsetting.js?ver=18"></script>
     <script src="../common/SabianUtil.js"></script>
-    <script src="js/util/SettingUtilDouble.js?ver=17"></script>
-    <script src="../common/SettingUtilCommon.js?ver=17"></script>
+    <script src="js/util/SettingUtilDouble.js?ver=18"></script>
+    <script src="../common/SettingUtilCommon.js?ver=18"></script>
     <!-- location picker -->
     <script src="../common/locationPicker.js?var=14"></script>
     <link rel="stylesheet" href="../common/locationPicker.css" />
@@ -83,16 +83,11 @@
                 <h3>内側の円</h3>
                 <div class="birth-datetime">
                   <h3>日時</h3>
-                  <input
-                    id="birth-date"
-                    class="birth-date"
-                    placeholder="誕生日"
-                    readonly
-                  /><br />
-                  <select id="birth-hour" class="birth-hour"></select
-                  >:
-                  <select id="birth-min" class="birth-min"></select
-                  ><br />
+                  <input type="number" id="birth-year" placeholder="1987" inputmode="numeric" pattern="[0-9]{4}"/>年
+                  <input type="number" id="birth-month" placeholder="01" inputmode="numeric" pattern="[0-9]{1,2}" min="1" max="12"/>月
+                  <input type="number" id="birth-day" placeholder="01" inputmode="numeric" pattern="[0-9]{1,2}" min="1" max="31"/>日<br>
+                  <input type="number" id="birth-hour" placeholder="00" min="0" max="24" inputmode="numeric">時
+                  <input type="number" id="birth-min" placeholder="00" min="0" max="60" inputmode="numeric">分<br />
                   <button onclick="setNow1()">現在日時</button>
                 </div>
                 <div class="birth-place">
@@ -142,16 +137,11 @@
                 <h3>外側の円</h3>
                 <div class="birth-datetime">
                   <h3>日時</h3>
-                  <input
-                    id="birth-date2"
-                    class="birth-date"
-                    placeholder="誕生日"
-                    readonly
-                  /><br />
-                  <select id="birth-hour2" class="birth-hour"></select
-                  >:
-                  <select id="birth-min2" class="birth-min"></select
-                  ><br />
+                  <input type="number" id="birth-year2" placeholder="1987" inputmode="numeric" pattern="[0-9]{4}"/>年
+                  <input type="number" id="birth-month2" placeholder="01" inputmode="numeric" pattern="[0-9]{1,2}" min="1" max="12"/>月
+                  <input type="number" id="birth-day2" placeholder="01" inputmode="numeric" pattern="[0-9]{1,2}" min="1" max="31"/>日<br>
+                  <input type="number" id="birth-hour2" placeholder="00" min="0" max="24" inputmode="numeric">時
+                  <input type="number" id="birth-min2" placeholder="00" min="0" max="60" inputmode="numeric">分<br />
                   <button onclick="setNow2()">現在日時</button>
                 </div>
                 <div class="birth-place">
@@ -379,7 +369,7 @@
       <div id="description"></div>
       <div id="aspect-data"></div>
     </article>
-    <script src="../common/bodysetting.js?ver=17"></script>
-    <script src="./js/double.js?ver=17"></script>
+    <script src="../common/bodysetting.js?ver=18"></script>
+    <script src="./js/double.js?ver=18"></script>
   </body>
 </html>

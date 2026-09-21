@@ -8,9 +8,26 @@
   width: 18em !important;
 }
 
-#birth-date {
-  width: 7em;
+#birth-year {
+  width: 4em;
 }
+#birth-month {
+  width: 2.5em;
+}
+#birth-day {
+  width: 2.5em;
+}
+#birth-hour {
+  width: 2.5em;
+}
+#birth-min {
+  width: 2.5em;
+}
+input[type="number"]::-webkit-outer-spin-button, 
+input[type="number"]::-webkit-inner-spin-button { 
+  -webkit-appearance: none; 
+  margin: 0; 
+} 
 
 .deg {
   text-align: right;

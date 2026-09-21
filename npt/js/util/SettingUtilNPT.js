@@ -36,7 +36,7 @@ SettingUtil.removeSetting = function () {
  * @param {Date} date
  */
 SettingUtil.formatDate = function (date) {
-    return date.getFullYear() + '/' + ('0' + (date.getMonth() + 1)).slice(-2) + '/' + ('0' + (date.getDate())).slice(-2);
+    return date.getFullYear() + ('0' + (date.getMonth() + 1)).slice(-2) + ('0' + (date.getDate())).slice(-2);
 }
 
 /**
@@ -55,21 +55,23 @@ function Setting(setting) {
 /** 誕生日をDate形式で取得する */
 Setting.prototype.getBirthDate = function () {
     let timeZone = 'Z';
-    if(this['time-diff'] > 0) {
+    if (this['time-diff'] > 0) {
         timeZone = '+';
         timeZone += ('0' + this['time-diff']).slice(-2) + ':00';
-    } else if(this['time-diff'] < 0) {
+    } else if (this['time-diff'] < 0) {
         timeZone = '-';
         timeZone += ('0' + Math.abs(this['time-diff'])).slice(-2) + ':00';
     }
-    this['birth-date'] = this['birth-date'].trim();
+    if(!isValidDate(this['birth-year'],this['birth-month'],this['birth-day'])) {
+        return "Invalid Date"
+    }
     const dateString =
-    ('0000' + this['birth-date'].split('/')[0]).slice(-4) + '-'
-    + ('0' + this['birth-date'].split('/')[1]).slice(-2) + '-'
-    + ('0' + this['birth-date'].split('/')[2]).slice(-2)
-    + 'T' 
-    + ('0' + this['birth-hour']).slice(-2) + ':' 
-    + ('0' + this['birth-min']).slice(-2) + ':00.000' + timeZone;
+        ('0000' + this['birth-year']).slice(-4) + '-'
+        + ('0' + this['birth-month']).slice(-2) + '-'
+        + ('0' + this['birth-day']).slice(-2)
+        + 'T'
+        + ('0' + this['birth-hour']).slice(-2) + ':'
+        + ('0' + this['birth-min']).slice(-2) + ':00.000' + timeZone;
     const birthDate = new Date(dateString);
     return birthDate;
 }
@@ -77,22 +79,23 @@ Setting.prototype.getBirthDate = function () {
 /** 誕生日をDate形式で取得する */
 Setting.prototype.getTargetDate = function () {
     let timeZone = 'Z';
-    if(this['time-diff2'] > 0) {
+    if (this['time-diff'] > 0) {
         timeZone = '+';
-        timeZone += ('0' + this['time-diff2']).slice(-2) + ':00';
-    } else if(this['time-diff2'] < 0) {
+        timeZone += ('0' + this['time-diff']).slice(-2) + ':00';
+    } else if (this['time-diff'] < 0) {
         timeZone = '-';
-        timeZone += ('0' + Math.abs(this['time-diff2'])).slice(-2) + ':00';
+        timeZone += ('0' + Math.abs(this['time-diff'])).slice(-2) + ':00';
     }
-    this['target-date'] = this['target-date'].trim();
+    if(!isValidDate(this['target-year'],this['target-month'],this['target-day'])) {
+        return "Invalid Date"
+    }
     const dateString =
-    
-    ('0000' + this['target-date'].split('/')[0]).slice(-4) + '-'
-    + ('0' + this['target-date'].split('/')[1]).slice(-2) + '-'
-    + ('0' + this['target-date'].split('/')[2]).slice(-2)
-    + 'T' 
-    + ('0' + this['target-hour']).slice(-2) + ':' 
-    + ('0' + this['target-min']).slice(-2) + ':00.000' + timeZone;
+        ('0000' + this['target-year']).slice(-4) + '-'
+        + ('0' + this['target-month']).slice(-2) + '-'
+        + ('0' + this['target-day']).slice(-2)
+        + 'T'
+        + ('0' + this['target-hour']).slice(-2) + ':'
+        + ('0' + this['target-min']).slice(-2) + ':00.000' + timeZone;
     const birthDate = new Date(dateString);
     return birthDate;
 }
@@ -124,10 +127,14 @@ Setting.prototype.getLatitude = function() {
 SettingUtil.setting_key = "horoscope_setting_npt";
 SettingUtil.default_setting = {
     version: 3,
-    'birth-date': SettingUtil.formatDate(new Date()),
+    'birth-year': (new Date()).getFullYear(),
+    'birth-month': ('0' + ((new Date()).getMonth() + 1)).slice(-2),
+    'birth-day': ('0' + (new Date()).getDate()).slice(-2),
     'birth-hour': (new Date()).getHours(),
     'birth-min' : (new Date()).getMinutes(),
-    'target-date': SettingUtil.formatDate(new Date()),
+    'target-year': (new Date()).getFullYear(),
+    'target-month': ('0' + ((new Date()).getMonth() + 1)).slice(-2),
+    'target-day': ('0' + (new Date()).getDate()).slice(-2),
     'target-hour': (new Date()).getHours(),
     'target-min' : (new Date()).getMinutes(),
     'longitude-deg': '135',
@@ -161,3 +168,13 @@ SettingUtil.default_setting = {
 }
 
 const SEC_PER_YEAR = 31557600;
+
+const isValidDate = function(year, month, day) {
+    // 月は0始まり（0=1月, 11=12月）なので -1 は不要なパターン（値の直渡し）
+    const d = new Date(year, month - 1, day);
+    return (
+        d.getFullYear() == year &&
+        d.getMonth() == month - 1 &&
+        d.getDate() == day
+    );
+}

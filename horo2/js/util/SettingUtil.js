@@ -35,7 +35,7 @@ SettingUtil.removeSetting = function () {
  * @param {Date} date
  */
 SettingUtil.formatDate = function (date) {
-    return date.getFullYear() + '/' + ('0' + (date.getMonth() + 1)).slice(-2) + '/' + ('0' + (date.getDate())).slice(-2);
+    return date.getFullYear() + ('0' + (date.getMonth() + 1)).slice(-2) + ('0' + (date.getDate())).slice(-2);
 }
 
 /**
@@ -61,11 +61,13 @@ Setting.prototype.getBirthDate = function () {
         timeZone = '-';
         timeZone += ('0' + Math.abs(this['time-diff'])).slice(-2) + ':00';
     }
-    this['birth-date'] = this['birth-date'].trim();
+    if(!isValidDate(this['birth-year'],this['birth-month'],this['birth-day'])) {
+        return "Invalid Date"
+    }
     const dateString =
-        ('0000' + this['birth-date'].split('/')[0]).slice(-4) + '-'
-        + ('0' + this['birth-date'].split('/')[1]).slice(-2) + '-'
-        + ('0' + this['birth-date'].split('/')[2]).slice(-2)
+        ('0000' + this['birth-year']).slice(-4) + '-'
+        + ('0' + this['birth-month']).slice(-2) + '-'
+        + ('0' + this['birth-day']).slice(-2)
         + 'T'
         + ('0' + this['birth-hour']).slice(-2) + ':'
         + ('0' + this['birth-min']).slice(-2) + ':00.000' + timeZone;
@@ -86,9 +88,11 @@ Setting.prototype.getLatitude = function () {
 SettingUtil.setting_key = "horoscope_setting";
 SettingUtil.default_setting = {
     version: 3,
-    'birth-date': SettingUtil.formatDate(new Date()),
-    'birth-hour': (new Date()).getHours(),
-    'birth-min': (new Date()).getMinutes(),
+    'birth-year': (new Date()).getFullYear(),
+    'birth-month': ('0' + ((new Date()).getMonth() + 1)).slice(-2),
+    'birth-day': ('0' + (new Date()).getDate()).slice(-2),
+    'birth-hour': ('0' + (new Date()).getHours()).slice(-2),
+    'birth-min': ('0' + (new Date()).getMinutes()).slice(-2),
     'longitude-deg': '135',
     'longitude-min': '00',
     'latitude-deg': '35',
@@ -116,4 +120,14 @@ SettingUtil.default_setting = {
         'main'
     ],
     'aspectsetting': aspectSettingDefault,
+}
+
+const isValidDate = function(year, month, day) {
+    // 月は0始まり（0=1月, 11=12月）なので -1 は不要なパターン（値の直渡し）
+    const d = new Date(year, month - 1, day);
+    return (
+        d.getFullYear() == year &&
+        d.getMonth() == month - 1 &&
+        d.getDate() == day
+    );
 }
