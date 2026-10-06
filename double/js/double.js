@@ -1286,13 +1286,13 @@ function outAspectCell() {
  * 外側の円の年を1足して再計算
  */
 function addYear() {
-    var year = $('#birth-year2').val() + 1;
-    var month = $('#birth-month2').val() - 1;
+    var year = parseInt($('#birth-year2').val()) + 1;
+    var month = parseInt($('#birth-month2').val()) - 1;
     var date = $('#birth-day2').val();
     var newDate = new Date(year, month, date);
 
     $('#birth-year2').val(newDate.getFullYear());
-    $('#birth-month2').val(newDate.getMonth() + 1);
+    $('#birth-month2').val(parseInt(newDate.getMonth() + 1));
     $('#birth-day2').val(newDate.getDate());
     changeSetting();
     calc();
@@ -1302,13 +1302,13 @@ function addYear() {
  * 外側の円の年を1引いて再計算
  */
 function redYear() {
-    var year = $('#birth-year2').val() - 1;
-    var month = $('#birth-month2').val() - 1;
+    var year = parseInt($('#birth-year2').val()) - 1;
+    var month = parseInt($('#birth-month2').val()) - 1;
     var date = $('#birth-day2').val();
     var newDate = new Date(year, month, date);
 
     $('#birth-year2').val(newDate.getFullYear());
-    $('#birth-month2').val(newDate.getMonth() + 1);
+    $('#birth-month2').val(parseInt(newDate.getMonth()) + 1);
     $('#birth-day2').val(newDate.getDate());
     changeSetting();
     calc();
@@ -1324,7 +1324,7 @@ function addMonth() {
     var newDate = new Date(year, month, date);
 
     $('#birth-year2').val(newDate.getFullYear());
-    $('#birth-month2').val(newDate.getMonth() + 1);
+    $('#birth-month2').val(parseInt(newDate.getMonth()) + 1);
     $('#birth-day2').val(newDate.getDate());
     changeSetting();
     calc();
@@ -1335,12 +1335,12 @@ function addMonth() {
  */
 function redMonth() {
     var year = $('#birth-year2').val();
-    var month = $('#birth-month2').val() - 2;
+    var month = parseInt($('#birth-month2').val()) - 2;
     var date = $('#birth-day2').val();
     var newDate = new Date(year, month, date);
 
     $('#birth-year2').val(newDate.getFullYear());
-    $('#birth-month2').val(newDate.getMonth() + 1);
+    $('#birth-month2').val(parseInt(newDate.getMonth()) + 1);
     $('#birth-day2').val(newDate.getDate());
     changeSetting();
     calc();
@@ -1351,12 +1351,12 @@ function redMonth() {
  */
 function addDate() {
     var year = $('#birth-year2').val();
-    var month = $('#birth-month2').val() - 1;
-    var date = $('#birth-day2').val() + 1;
+    var month = parseInt($('#birth-month2').val()) - 1;
+    var date = parseInt($('#birth-day2').val()) + 1;
     var newDate = new Date(year, month, date);
 
     $('#birth-year2').val(newDate.getFullYear());
-    $('#birth-month2').val(newDate.getMonth() + 1);
+    $('#birth-month2').val(parseInt(newDate.getMonth()) + 1);
     $('#birth-day2').val(newDate.getDate());
     changeSetting();
     calc();
@@ -1367,12 +1367,12 @@ function addDate() {
  */
 function redDate() {
     var year = $('#birth-year2').val();
-    var month = $('#birth-month2').val() - 1;
-    var date = $('#birth-day2').val() - 1;
+    var month = parseInt($('#birth-month2').val()) - 1;
+    var date = parseInt($('#birth-day2').val()) - 1;
     var newDate = new Date(year, month, date);
 
     $('#birth-year2').val(newDate.getFullYear());
-    $('#birth-month2').val(newDate.getMonth() + 1);
+    $('#birth-month2').val(parseInt(newDate.getMonth()) + 1);
     $('#birth-day2').val(newDate.getDate());
     changeSetting();
     calc();
@@ -1383,12 +1383,12 @@ function redDate() {
  */
 function addWeek() {
     var year = $('#birth-year2').val();
-    var month = $('#birth-month2').val() - 1;
-    var date = $('#birth-day2').val() + 7;
+    var month = parseInt($('#birth-month2').val()) - 1;
+    var date = parseInt($('#birth-day2').val()) + 7;
     var newDate = new Date(year, month, date);
 
     $('#birth-year2').val(newDate.getFullYear());
-    $('#birth-month2').val(newDate.getMonth() + 1);
+    $('#birth-month2').val(parseInt(newDate.getMonth()) + 1);
     $('#birth-day2').val(newDate.getDate());
     changeSetting();
     calc();
@@ -1399,12 +1399,12 @@ function addWeek() {
  */
 function redWeek() {
     var year = $('#birth-year2').val();
-    var month = $('#birth-month2').val() - 1;
-    var date = $('#birth-day2').val() - 7;
+    var month = parseInt($('#birth-month2').val()) - 1;
+    var date = parseInt($('#birth-day2').val()) - 7;
     var newDate = new Date(year, month, date);
 
     $('#birth-year2').val(newDate.getFullYear());
-    $('#birth-month2').val(newDate.getMonth() + 1);
+    $('#birth-month2').val(parseInt(newDate.getMonth()) + 1);
     $('#birth-day2').val(newDate.getDate());
     changeSetting();
     calc();
@@ -1414,14 +1414,14 @@ function redWeek() {
  */
 function addHour() {
     var year = $('#birth-year2').val();
-    var month = $('#birth-month2').val() - 1;
+    var month = parseInt($('#birth-month2').val()) - 1;
     var date = $('#birth-day2').val();
     var hour = parseInt($('#birth-hour2').val()) + 1;
     var newDate = new Date(year, month, date, hour);
     var newDateString = SettingUtil.formatDate(newDate);
 
     $('#birth-year2').val(newDate.getFullYear());
-    $('#birth-month2').val(newDate.getMonth() + 1);
+    $('#birth-month2').val(parseInt(newDate.getMonth()) + 1);
     $('#birth-day2').val(newDate.getDate());
     $('#birth-hour2').val(newDate.getHours());
     changeSetting();
@@ -1432,7 +1432,7 @@ function addHour() {
  */
 function redHour() {
     var year = $('#birth-year2').val();
-    var month = $('#birth-month2').val() - 1;
+    var month = parseInt($('#birth-month2').val()) - 1;
     var date = $('#birth-day2').val();
     var hour = parseInt($('#birth-hour2').val()) - 1;
     var newDate = new Date(year, month, date, hour);
